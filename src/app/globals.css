@@ -1,153 +1,206 @@
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
+.animate-in {
+  opacity: 1 !important;
+  translate: 0 0 !important;
+  transform: translateY(0) !important;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 140s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 160s linear infinite;
+}
+
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+.marquee-fade {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+@keyframes hero-notif-badge {
+  0% {
+    transform: scale(0.65) translateY(4px);
+    opacity: 0.85;
+  }
+  55% {
+    transform: scale(1.12) translateY(-2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-hero-notif-badge {
+  animation: hero-notif-badge 0.55s cubic-bezier(0.34, 1.35, 0.64, 1) forwards;
+}
+
+@keyframes hero-glow-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.97); }
+}
+
+/* Sonare rings animation */
+@keyframes sonare-ripple {
+  0%   { stroke-opacity: .1; transform: scale(1); }
+  50%  { stroke-opacity: .35; transform: scale(1.02); }
+  100% { stroke-opacity: .1; transform: scale(1); }
+}
+@keyframes sonare-ripple-alt {
+  0%   { stroke-opacity: .3; transform: scale(1); }
+  50%  { stroke-opacity: .08; transform: scale(1.03); }
+  100% { stroke-opacity: .3; transform: scale(1); }
+}
+@keyframes sonare-glow {
+  0%, 100% { transform: scale(1); opacity: .25; }
+  50%      { transform: scale(1.05); opacity: .35; }
+}
+@keyframes sonare-blob {
+  0%, 100% { transform: scale(2.6) skew(0deg, 0deg); }
+  20%      { transform: scale(2.5, 2.6) skew(1deg, -1deg); }
+  40%      { transform: scale(2.64, 2.7) skew(-.5deg, 1deg); }
+  60%      { transform: scale(2.52, 2.6) skew(.3deg, -.6deg); }
+  80%      { transform: scale(2.76, 2.8) skew(-1deg, .3deg); }
+}
+@keyframes sonare-float {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(1px, -2px); }
+  40%  { transform: translate(-2px, 1px); }
+  60%  { transform: translate(2px, 2px); }
+  80%  { transform: translate(-1px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+/**
+ * Sonopilot — aligné sur /app (index.css)
+ * Beige #F4F3EF · Rouge #E76159 · Gris #696B73
+ */
 @layer base {
-  .theme {
-
-    --font-heading: var(--font-sans);
-
-    --font-sans: var(--font-sans)
-  }
   :root {
+    --background: 48 19% 95%;
+    --foreground: 228 10% 35%;
+    --card: 0 0% 100%;
+    --card-foreground: 228 10% 35%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 228 10% 35%;
+    --primary: 3 75% 63%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 228 5% 43%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 48 12% 91%;
+    --muted-foreground: 228 5% 43%;
+    --accent: 48 12% 91%;
+    --accent-foreground: 228 10% 35%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 48 12% 88%;
+    --input: 48 12% 88%;
+    --ring: 3 75% 63%;
+    --chart-1: 3 75% 63%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 228 5% 43%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
 
-    --background: oklch(1 0 0);
+    --sidebar: 0 0% 100%;
+    --sidebar-foreground: 228 10% 35%;
+    --sidebar-primary: 3 75% 63%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 48 12% 91%;
+    --sidebar-accent-foreground: 228 10% 35%;
+    --sidebar-border: 48 12% 88%;
+    --sidebar-ring: 3 75% 63%;
 
-    --foreground: oklch(0.145 0 0);
-
-    --card: oklch(1 0 0);
-
-    --card-foreground: oklch(0.145 0 0);
-
-    --popover: oklch(1 0 0);
-
-    --popover-foreground: oklch(0.145 0 0);
-
-    --primary: oklch(0.205 0 0);
-
-    --primary-foreground: oklch(0.985 0 0);
-
-    --secondary: oklch(0.97 0 0);
-
-    --secondary-foreground: oklch(0.205 0 0);
-
-    --muted: oklch(0.97 0 0);
-
-    --muted-foreground: oklch(0.556 0 0);
-
-    --accent: oklch(0.97 0 0);
-
-    --accent-foreground: oklch(0.205 0 0);
-
-    --destructive: oklch(0.577 0.245 27.325);
-
-    --border: oklch(0.922 0 0);
-
-    --input: oklch(0.922 0 0);
-
-    --ring: oklch(0.708 0 0);
-
-    --chart-1: oklch(0.87 0 0);
-
-    --chart-2: oklch(0.556 0 0);
-
-    --chart-3: oklch(0.439 0 0);
-
-    --chart-4: oklch(0.371 0 0);
-
-    --chart-5: oklch(0.269 0 0);
-
-    --radius: 0.625rem;
-
-    --sidebar: oklch(0.985 0 0);
-
-    --sidebar-foreground: oklch(0.145 0 0);
-
-    --sidebar-primary: oklch(0.205 0 0);
-
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-
-    --sidebar-accent: oklch(0.97 0 0);
-
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-
-    --sidebar-border: oklch(0.922 0 0);
-
-    --sidebar-ring: oklch(0.708 0 0)
+    --gray-50: 228 5% 96%;
+    --gray-100: 228 5% 92%;
+    --gray-200: 228 5% 82%;
+    --gray-300: 228 5% 70%;
+    --gray-400: 228 5% 56%;
+    --gray-500: 228 5% 43%;
+    --gray-600: 228 5% 35%;
+    --gray-700: 228 5% 27%;
+    --gray-800: 228 5% 18%;
+    --gray-900: 228 5% 12%;
   }
+
   .dark {
+    --background: 228 10% 8%;
+    --foreground: 45 15% 95%;
+    --card: 228 10% 12%;
+    --card-foreground: 45 15% 95%;
+    --popover: 228 10% 12%;
+    --popover-foreground: 45 15% 95%;
+    --primary: 3 75% 63%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 228 5% 65%;
+    --secondary-foreground: 228 10% 8%;
+    --muted: 228 5% 18%;
+    --muted-foreground: 228 5% 65%;
+    --accent: 228 5% 18%;
+    --accent-foreground: 45 15% 95%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 228 5% 20%;
+    --input: 228 5% 20%;
+    --ring: 3 75% 63%;
+    --chart-1: 3 75% 63%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 228 5% 65%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
 
-    --background: oklch(0.145 0 0);
-
-    --foreground: oklch(0.985 0 0);
-
-    --card: oklch(0.205 0 0);
-
-    --card-foreground: oklch(0.985 0 0);
-
-    --popover: oklch(0.205 0 0);
-
-    --popover-foreground: oklch(0.985 0 0);
-
-    --primary: oklch(0.922 0 0);
-
-    --primary-foreground: oklch(0.205 0 0);
-
-    --secondary: oklch(0.269 0 0);
-
-    --secondary-foreground: oklch(0.985 0 0);
-
-    --muted: oklch(0.269 0 0);
-
-    --muted-foreground: oklch(0.708 0 0);
-
-    --accent: oklch(0.269 0 0);
-
-    --accent-foreground: oklch(0.985 0 0);
-
-    --destructive: oklch(0.704 0.191 22.216);
-
-    --border: oklch(1 0 0 / 10%);
-
-    --input: oklch(1 0 0 / 15%);
-
-    --ring: oklch(0.556 0 0);
-
-    --chart-1: oklch(0.87 0 0);
-
-    --chart-2: oklch(0.556 0 0);
-
-    --chart-3: oklch(0.439 0 0);
-
-    --chart-4: oklch(0.371 0 0);
-
-    --chart-5: oklch(0.269 0 0);
-
-    --sidebar: oklch(0.205 0 0);
-
-    --sidebar-foreground: oklch(0.985 0 0);
-
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-
-    --sidebar-accent: oklch(0.269 0 0);
-
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-
-    --sidebar-border: oklch(1 0 0 / 10%);
-
-    --sidebar-ring: oklch(0.556 0 0)
+    --sidebar: 228 10% 12%;
+    --sidebar-foreground: 45 15% 95%;
+    --sidebar-primary: 3 75% 63%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 228 5% 18%;
+    --sidebar-accent-foreground: 45 15% 95%;
+    --sidebar-border: 228 5% 20%;
+    --sidebar-ring: 3 75% 63%;
   }
+
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
-  html {
-    @apply font-sans;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-semibold tracking-tight;
   }
 }
