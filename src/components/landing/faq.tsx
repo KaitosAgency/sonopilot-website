@@ -90,7 +90,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
-    <section id="faq" className="py-20 md:py-28 bg-card">
+    <section id="faq" className="bg-card py-20 md:py-28">
       <div className="mx-auto max-w-2xl px-4 sm:px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">

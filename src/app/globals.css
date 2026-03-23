@@ -61,6 +61,212 @@ html {
   animation: hero-notif-badge 0.55s cubic-bezier(0.34, 1.35, 0.64, 1) forwards;
 }
 
+/* Landing — démos « Comment ça marche » (curseur factice, pulse mobile) */
+/* Curseur : une passe vers le bouton puis phase « clic » séparée */
+@keyframes demo-cursor-connect-once {
+  0% {
+    left: 8%;
+    top: 10%;
+    opacity: 0;
+    transform: translateX(0) scale(1);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    left: 50%;
+    top: 86%;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+.demo-cursor-connect-wrap .animate-demo-cursor-connect-once {
+  animation: demo-cursor-connect-once 2.08s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+@keyframes demo-cursor-tap {
+  0%,
+  100% {
+    transform: translateX(-50%) scale(1);
+  }
+  45% {
+    transform: translateX(-50%) scale(0.82);
+  }
+}
+
+.animate-demo-cursor-tap {
+  animation: demo-cursor-tap 0.26s ease-out forwards;
+}
+
+@keyframes demo-button-press {
+  0% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(0.93);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-demo-button-press {
+  animation: demo-button-press 0.26s ease-out forwards;
+}
+
+/* Ancienne boucle infinie (conservée si réutilisée ailleurs) */
+@keyframes demo-cursor-connect {
+  0% {
+    left: 6%;
+    top: 12%;
+    opacity: 0;
+    transform: scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  46% {
+    left: 42%;
+    top: 86%;
+    transform: scale(1);
+  }
+  52% {
+    left: 42%;
+    top: 86%;
+    transform: scale(1);
+  }
+  58% {
+    transform: scale(0.9);
+  }
+  62% {
+    transform: scale(1);
+  }
+  100% {
+    left: 42%;
+    top: 86%;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes demo-cta-pulse {
+  0%,
+  45% {
+    box-shadow: 0 0 0 0 transparent;
+    transform: scale(1);
+  }
+  52% {
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.22);
+    transform: scale(0.97);
+  }
+  60% {
+    box-shadow: 0 0 0 0 transparent;
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes demo-tap-hint {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.88;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes demo-cursor-queue {
+  0% {
+    left: 6%;
+    top: 58%;
+    opacity: 0;
+    transform: scale(1);
+  }
+  12% {
+    opacity: 1;
+  }
+  38% {
+    left: 92%;
+    top: 52%;
+    transform: scale(1);
+  }
+  44% {
+    left: 92%;
+    top: 52%;
+    transform: scale(0.92);
+  }
+  48% {
+    transform: scale(1);
+  }
+  100% {
+    left: 92%;
+    top: 52%;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes demo-badge-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.demo-cursor-connect-wrap .animate-demo-cursor-connect,
+.demo-queue-wrap .animate-demo-cursor-queue {
+  animation-duration: 4.2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.demo-cursor-connect-wrap .animate-demo-cursor-connect {
+  animation-name: demo-cursor-connect;
+}
+
+.demo-queue-wrap .animate-demo-cursor-queue {
+  animation-name: demo-cursor-queue;
+  animation-duration: 4.8s;
+}
+
+.animate-demo-cta-pulse {
+  animation: demo-cta-pulse 4.2s ease-in-out infinite;
+}
+
+.animate-demo-tap-hint {
+  animation: demo-tap-hint 2.2s ease-in-out infinite;
+}
+
+.animate-demo-badge-pop {
+  animation: demo-badge-pop 0.35s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-cursor-connect-wrap .animate-demo-cursor-connect,
+  .demo-cursor-connect-wrap .animate-demo-cursor-connect-once,
+  .demo-queue-wrap .animate-demo-cursor-queue,
+  .animate-demo-cursor-tap,
+  .animate-demo-button-press,
+  .animate-demo-cta-pulse,
+  .animate-demo-tap-hint,
+  .animate-demo-badge-pop,
+  .problem-live-particle,
+  .animate-problem-zero-1,
+  .animate-problem-zero-2 {
+    animation: none !important;
+  }
+}
+
 @keyframes hero-glow-drift {
   0%, 100% { transform: translate(0, 0) scale(1); }
   33% { transform: translate(30px, -20px) scale(1.05); }
@@ -96,6 +302,75 @@ html {
   60%  { transform: translate(2px, 2px); }
   80%  { transform: translate(-1px, -1px); }
   100% { transform: translate(0, 0); }
+}
+
+/* Section Problème — particules type live (1er point « Sans ») */
+@keyframes problem-live-float {
+  0% {
+    transform: translate3d(0, 6px, 0) rotate(var(--rot-start, -10deg));
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--peak-op, 0.85);
+  }
+  82% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate3d(var(--drift-x, 0px), -96px, 0)
+      rotate(var(--rot-end, 8deg));
+    opacity: 0;
+  }
+}
+
+.problem-live-particle {
+  animation-name: problem-live-float;
+  animation-timing-function: cubic-bezier(0.33, 0.62, 0.42, 0.94);
+  animation-iteration-count: infinite;
+}
+
+@keyframes problem-zero-1 {
+  0%,
+  20% {
+    color: inherit;
+    transform: scale(1);
+  }
+  26%,
+  34% {
+    color: hsl(var(--primary));
+    transform: scale(1.13);
+  }
+  38%,
+  100% {
+    color: inherit;
+    transform: scale(1);
+  }
+}
+
+@keyframes problem-zero-2 {
+  0%,
+  42% {
+    color: inherit;
+    transform: scale(1);
+  }
+  48%,
+  56% {
+    color: hsl(var(--primary));
+    transform: scale(1.13);
+  }
+  60%,
+  100% {
+    color: inherit;
+    transform: scale(1);
+  }
+}
+
+.animate-problem-zero-1 {
+  animation: problem-zero-1 4.2s ease-in-out infinite;
+}
+
+.animate-problem-zero-2 {
+  animation: problem-zero-2 4.2s ease-in-out infinite;
 }
 
 /**

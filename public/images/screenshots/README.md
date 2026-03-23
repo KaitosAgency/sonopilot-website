@@ -1,5 +1,9 @@
 # Screenshots pour la landing page
 
+## Cache après mise à jour
+
+Le pilier **Artistes** utilise **`public/images/screenshots/sonopilot_sc_artists_details.jpg`**. Après remplacement du fichier, incrémente `?v=` dans `ARTISTS_SCREENSHOT` (`pillars.tsx`) si le navigateur garde l’ancienne version — `next.config` autorise les query sur `/images/**`.
+
 ## Format
 
 - **WebP** (priorité) — meilleur ratio qualité/poids, supporté par tous les navigateurs modernes.

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit } from "next/font/google";
+import { JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 
 import { siteConfig } from "@/lib/site";
@@ -8,6 +8,13 @@ const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-sans",
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
@@ -59,7 +66,7 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.language} suppressHydrationWarning>
       <body
-        className={`${outfit.variable} min-h-screen font-sans`}
+        className={`${outfit.variable} ${jetbrainsMono.variable} min-h-screen font-sans`}
         style={
           {
             "--font-heading": "var(--font-sans)",

@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    /** Autorise `next/image` sur `public/images/**` (avec ou sans `?v=` pour cache-bust). */
+    localPatterns: [{ pathname: "/images/**" }],
     /** Qualités autorisées pour `next/image` — inclure toute valeur utilisée dans le code */
     qualities: [75, 80, 85, 90, 92, 95, 100],
     /** Largeurs plus hautes pour écrans retina sur captures pleine largeur */

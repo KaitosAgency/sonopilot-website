@@ -1,9 +1,11 @@
 import { ArrowRight } from "lucide-react"
 import { siteConfig } from "@/lib/site"
+import { SectionTopCurve } from "./section-curve"
 
 export function AlphaCta() {
   return (
-    <section className="py-20 md:py-28 bg-primary text-primary-foreground">
+    <section className="relative bg-primary py-20 text-primary-foreground md:py-28">
+      <SectionTopCurve fill="primary" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6 text-center">
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
           Rejoins l&apos;alpha — 100 % gratuit

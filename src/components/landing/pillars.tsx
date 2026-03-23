@@ -1,6 +1,11 @@
 import Image from "next/image"
 import { Users, Disc3, LayoutDashboard } from "lucide-react"
 import { AnimateOnScroll } from "./animate-on-scroll"
+import { SectionTopCurve } from "./section-curve"
+
+/** Fichier : `website/public/images/screenshots/sonopilot_sc_artists_details.jpg` */
+const ARTISTS_SCREENSHOT =
+  "/images/screenshots/sonopilot_sc_artists_details.jpg?v=3"
 
 const pillars = [
   {
@@ -19,7 +24,7 @@ const pillars = [
     manifesto: "Ton créneau, une seule scène — sans quitter l'app.",
     description:
       "Écoute, like, commente les morceaux des artistes qui te ressemblent. Lecteur intégré, profils clairs : moins d'onglets, plus d'échanges utiles.",
-    image: "/images/screenshots/sonopilot_sc_artists_details.jpg",
+    image: ARTISTS_SCREENSHOT,
     imageAlt:
       "Détail d'un artiste — profil, lecteur SoundCloud embarqué, actions (like, comment, follow)",
   },
@@ -35,27 +40,10 @@ const pillars = [
   },
 ]
 
-/** Bosse vers le haut (blanc qui remonte dans le beige) — cf. croquis rouge */
-function PillarsTopCurve() {
-  return (
-    <svg
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-full z-[1] h-12 w-full md:h-16"
-      viewBox="0 0 1440 72"
-      preserveAspectRatio="none"
-    >
-      <path
-        fill="hsl(var(--card))"
-        d="M0 72 L0 46 Q720 8 1440 46 L1440 72 Z"
-      />
-    </svg>
-  )
-}
-
 export function Pillars() {
   return (
     <section id="produit" className="relative bg-card py-20 md:py-28">
-      <PillarsTopCurve />
+      <SectionTopCurve fill="card" className="h-12 md:h-16" />
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <AnimateOnScroll>
           <div className="mx-auto mb-16 max-w-3xl text-center">
