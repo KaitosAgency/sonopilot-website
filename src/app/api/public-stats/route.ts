@@ -22,8 +22,18 @@ function supabaseEnv() {
 }
 
 function parseLandingPayload(raw: unknown): PublicLandingStats | null {
-  if (!raw || typeof raw !== "object") return null
-  const o = raw as Record<string, unknown>
+  if (raw == null) return null
+  /** PostgREST renvoie souvent `[{ … }]` pour une RPC qui retourne une ligne */
+  let o: Record<string, unknown>
+  if (Array.isArray(raw)) {
+    const first = raw[0]
+    if (first == null || typeof first !== "object") return null
+    o = first as Record<string, unknown>
+  } else if (typeof raw === "object") {
+    o = raw as Record<string, unknown>
+  } else {
+    return null
+  }
   const q = (k: string) => {
     const v = o[k]
     if (typeof v === "number" && Number.isFinite(v)) return v

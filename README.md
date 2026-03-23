@@ -6,11 +6,24 @@ Next.js (App Router), React, Tailwind CSS, shadcn/ui. **Front uniquement**, pas 
 
 ```bash
 npm install
-cp .env.example .env.local   # optionnel : définir NEXT_PUBLIC_SITE_URL en prod
+cp .env.example .env.local   # optionnel : voir variables ci-dessous
 npm run dev
 ```
 
 - [http://localhost:3000](http://localhost:3000)
+
+### Déploiement (ex. Vercel)
+
+Pour que le **bandeau de chiffres** (section Stats) affiche des valeurs réelles et plus `…`, configure les **mêmes variables** que pour l’app Sonopilot :
+
+| Variable | Rôle |
+| -------- | ---- |
+| `NEXT_PUBLIC_SUPABASE_URL` | URL du projet Supabase |
+| `SUPABASE_ANON_KEY` | Clé **anon** (publique, protégée par RLS) — utilisée côté serveur par `/api/public-stats` |
+
+Sans ces variables, l’API renvoie `stats: null` et l’UI garde les points de suspension. Vérifie aussi que la RPC `get_public_landing_stats` existe et renvoie les colonnes attendues (`qualified_listeners`, etc.).
+
+Les variables `NEXT_PUBLIC_SITE_URL` et `NEXT_PUBLIC_APP_URL` restent recommandées en production pour les liens et le SEO.
 
 ## Scripts
 
