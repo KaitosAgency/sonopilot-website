@@ -30,6 +30,8 @@ export const viewport: Viewport = {
   ],
 };
 
+const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
@@ -78,6 +80,9 @@ export const metadata: Metadata = {
     icon: "/images/Logo/logo-sonopilot-only-icon-01.svg",
     apple: "/images/Logo/logo-sonopilot-only-icon-01.svg",
   },
+  ...(googleSiteVerification
+    ? { verification: { google: googleSiteVerification } }
+    : {}),
 };
 
 const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
