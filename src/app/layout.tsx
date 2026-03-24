@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { headers } from "next/headers";
 import { JetBrains_Mono, Outfit } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
-import { defaultLocale } from "@/lib/i18n/config";
+import { ComingSoonProvider } from "@/components/landing/coming-soon";
+import { I18nProvider } from "@/components/providers/i18n-provider";
+import { getRequestLocale } from "@/lib/i18n/request-locale";
+import { getTranslations } from "@/lib/i18n/translations";
 import { siteConfig } from "@/lib/site";
 
 const outfit = Outfit({
@@ -44,11 +47,21 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: siteConfig.name,
     description: siteConfig.description,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: siteConfig.ogImageWidth,
+        height: siteConfig.ogImageHeight,
+        alt: siteConfig.ogImageAlt,
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
+    images: [siteConfig.ogImage],
   },
   robots: {
     index: true,
@@ -57,8 +70,8 @@ export const metadata: Metadata = {
   alternates: {
     languages: {
       fr: `${siteConfig.url}/fr`,
-      en: `${siteConfig.url}/en`,
-      "x-default": `${siteConfig.url}/${defaultLocale}`,
+      en: `${siteConfig.url}/`,
+      "x-default": `${siteConfig.url}/`,
     },
   },
   icons: {
@@ -67,16 +80,18 @@ export const metadata: Metadata = {
   },
 };
 
+const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim();
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const h = await headers();
-  const htmlLang = h.get("x-sonopilot-locale") ?? defaultLocale;
+  const locale = await getRequestLocale();
+  const messages = getTranslations(locale);
 
   return (
-    <html lang={htmlLang} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${outfit.variable} ${jetbrainsMono.variable} min-h-screen font-sans`}
         style={
@@ -85,7 +100,20 @@ export default async function RootLayout({
           } as React.CSSProperties
         }
       >
-        {children}
+        {gaMeasurementId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaMeasurementId}');`}
+            </Script>
+          </>
+        ) : null}
+        <I18nProvider locale={locale} messages={messages}>
+          <ComingSoonProvider>{children}</ComingSoonProvider>
+        </I18nProvider>
       </body>
     </html>
   );

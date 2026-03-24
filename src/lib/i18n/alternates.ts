@@ -1,15 +1,31 @@
 import { defaultLocale, type Locale } from "@/lib/i18n/config"
 import { siteConfig } from "@/lib/site"
 
-/** Chemins légaux identiques pour toutes les langues (slug FR conservé sous /en/…). */
+/** hreflang pour les pages légales (slug identique ; EN sans préfixe, FR sous /fr). */
 export function legalAlternates(pathSegment: string, lang: Locale) {
   const base = siteConfig.url
+  const frUrl = `${base}/fr/${pathSegment}`
+  const enUrl = `${base}/${pathSegment}`
   return {
-    canonical: `${base}/${lang}/${pathSegment}`,
+    canonical: lang === defaultLocale ? enUrl : frUrl,
     languages: {
-      fr: `${base}/fr/${pathSegment}`,
-      en: `${base}/en/${pathSegment}`,
-      "x-default": `${base}/${defaultLocale}/${pathSegment}`,
+      fr: frUrl,
+      en: enUrl,
+      "x-default": enUrl,
+    },
+  }
+}
+
+export function homeAlternates(lang: Locale) {
+  const base = siteConfig.url
+  const frUrl = `${base}/fr`
+  const enUrl = `${base}/`
+  return {
+    canonical: lang === defaultLocale ? enUrl : frUrl,
+    languages: {
+      fr: frUrl,
+      en: enUrl,
+      "x-default": enUrl,
     },
   }
 }

@@ -1,34 +1,44 @@
-import type { MetadataRoute } from "next";
+import type { MetadataRoute } from "next"
 
-import { locales } from "@/lib/i18n/config";
-import { siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = siteConfig.url;
+  const base = siteConfig.url
   const legalPaths = [
     "mentions-legales",
     "politique-de-confidentialite",
     "cgu",
-  ] as const;
+  ] as const
 
-  const entries: MetadataRoute.Sitemap = [];
-
-  for (const lang of locales) {
-    entries.push({
-      url: `${base}/${lang}`,
+  const entries: MetadataRoute.Sitemap = [
+    {
+      url: `${base}/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
-    });
-    for (const path of legalPaths) {
-      entries.push({
-        url: `${base}/${lang}/${path}`,
-        lastModified: new Date(),
-        changeFrequency: "yearly",
-        priority: 0.3,
-      });
-    }
+    },
+    {
+      url: `${base}/fr`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+  ]
+
+  for (const path of legalPaths) {
+    entries.push({
+      url: `${base}/${path}`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    })
+    entries.push({
+      url: `${base}/fr/${path}`,
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    })
   }
 
-  return entries;
+  return entries
 }

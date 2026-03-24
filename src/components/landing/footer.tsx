@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useI18n } from "@/components/providers/i18n-provider"
+import { sitePath } from "@/lib/i18n/paths"
 import { publisherConfig, siteConfig } from "@/lib/site"
 
 import { ComingSoonTrigger } from "./coming-soon"
@@ -50,18 +51,21 @@ export function Footer() {
             {publisherConfig.email}
           </a>
           <Link
-            href={`/${locale}/mentions-legales`}
+            href={sitePath(locale, "mentions-legales")}
             className="text-gray-400 transition-colors hover:text-white"
           >
             {f.legalNotice}
           </Link>
           <Link
-            href={`/${locale}/politique-de-confidentialite`}
+            href={sitePath(locale, "politique-de-confidentialite")}
             className="text-gray-400 transition-colors hover:text-white"
           >
             {f.privacy}
           </Link>
-          <Link href={`/${locale}/cgu`} className="text-gray-400 transition-colors hover:text-white">
+          <Link
+            href={sitePath(locale, "cgu")}
+            className="text-gray-400 transition-colors hover:text-white"
+          >
             {f.terms}
           </Link>
         </nav>

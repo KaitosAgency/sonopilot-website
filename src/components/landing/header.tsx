@@ -6,21 +6,22 @@ import Link from "next/link"
 import { Menu, X, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useI18n } from "@/components/providers/i18n-provider"
+import { homePath } from "@/lib/i18n/paths"
 
 import { ComingSoonTrigger } from "./coming-soon"
 import { LanguageSwitcher } from "./language-switcher"
 
 export function Header() {
   const { locale, messages } = useI18n()
-  const navLinks = useMemo(
-    () => [
-      { label: messages.nav.product, href: `/${locale}#produit` },
-      { label: messages.nav.howItWorks, href: `/${locale}#comment-ca-marche` },
-      { label: messages.nav.transparency, href: `/${locale}#transparence` },
-      { label: messages.nav.faq, href: `/${locale}#faq` },
-    ],
-    [locale, messages]
-  )
+  const navLinks = useMemo(() => {
+    const home = homePath(locale)
+    return [
+      { label: messages.nav.product, href: `${home}#produit` },
+      { label: messages.nav.howItWorks, href: `${home}#comment-ca-marche` },
+      { label: messages.nav.transparency, href: `${home}#transparence` },
+      { label: messages.nav.faq, href: `${home}#faq` },
+    ]
+  }, [locale, messages])
 
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -41,7 +42,7 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href={`/${locale}`} className="flex items-center">
+        <Link href={homePath(locale)} className="flex items-center">
           <Image
             src="/images/Logo/logo-sonopilot-full-color-01.svg"
             alt="Sonopilot"

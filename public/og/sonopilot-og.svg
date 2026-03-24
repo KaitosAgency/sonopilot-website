@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="ogTitle ogDesc" xml:lang="fr">
+  <title id="ogTitle">Sonopilot - partage social</title>
+  <desc id="ogDesc">Sonopilot Open Graph image.</desc>
+  <defs>
+    <linearGradient id="sp-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FAF9F6"/>
+      <stop offset="45%" stop-color="#F4F3EF"/>
+      <stop offset="100%" stop-color="#E8E6E0"/>
+    </linearGradient>
+    <radialGradient id="sp-glow" cx="72%" cy="38%" r="55%">
+      <stop offset="0%" stop-color="#E76159" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#E76159" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#E76159" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sp-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFBD00"/>
+      <stop offset="100%" stop-color="#E6A800"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sp-bg)"/>
+  <rect width="1200" height="630" fill="url(#sp-glow)"/>
+  <rect width="1200" height="630" fill="#696B73" opacity="0.025"/>
+  <path d="M0 420 L1200 280 L1200 630 L0 630 Z" fill="#E76159" opacity="0.04"/>
+  <g transform="translate(958 298)" fill="none" stroke="#E76159" stroke-width="1.25" stroke-linecap="round">
+    <circle r="48" opacity="0.11"/>
+    <circle r="78" opacity="0.10"/>
+    <circle r="112" opacity="0.085"/>
+    <circle r="152" opacity="0.065"/>
+    <circle r="198" opacity="0.045"/>
+  </g>
+  <circle cx="958" cy="298" r="14" fill="#E76159" opacity="0.35"/>
+  <circle cx="958" cy="298" r="6" fill="#E76159" opacity="0.9"/>
+  <circle cx="108" cy="108" r="5" fill="url(#sp-gold)" opacity="0.95"/>
+  <path d="M108 118 L108 132" stroke="#FFBD00" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  <g transform="translate(72 168) scale(0.22)" fill="#E76159">
+    <path d="M366.9,217.9c-3.9-19.9-17.3-35.7-23.7-34.5c-3.4,0.6-5.6,5.6-6.3,13.1c-0.2,1.6-2.4,2-3,0.4c-12.5-30.2-32.8-51.2-42.6-49c-6.1,1.4-9.4,11.5-9.7,26.5c-0.1,5.6-7.8,7-9.8,1.8l-16.8-42.4l-36.2-91.3c-1-2.4-2.6-4.6-4.8-6.1c-3.1-2.1-6-2.8-9.6-1.5c-3.5,1.3-6.2,4.1-7.6,7.6c0,0-36.2,91.3-36.2,91.3l-16.8,42.4c-2.1,5.2-9.7,3.8-9.8-1.8c-0.3-15-3.6-25.1-9.7-26.5c-9.7-2.3-30.1,18.8-42.6,49c-0.6,1.5-2.9,1.2-3-0.4c-0.7-7.5-2.9-12.5-6.3-13.1c-6.5-1.1-19.8,14.6-23.7,34.5c-3.9,19.9,3.2,36.4,9.6,37.6c2.7,0.5,5.7-1.9,8.6-6.2c1.2-1.9,4.1-1,4.2,1.2c0.3,24.1,8,41.4,16.2,43.3c7.2,1.7,15.8-12.9,24.5-30.4c2-4,6.8-5.3,10.6-3.3c4.7,2.4,5.9,7.7,7.9,12.1c9.5,21.1,32.5,8.8,39.7-8.6c0-0.1,18.6-48.8,26.3-69.7c1.1-2.9,2.2-5.9,4.2-8.3c3.1-4,7.7-5.5,12.1-2.7c3.8,2.5,5.6,7,7,11c7.7,20.8,26.3,69.6,26.3,69.7c7.2,17.5,30.2,29.7,39.7,8.6c2-4.4,3.2-9.7,7.9-12.1c3.9-2,8.6-0.7,10.6,3.3c8.7,17.5,17.3,32,24.5,30.4c8.2-1.9,15.9-19.3,16.2-43.3c0-2.2,2.9-3.1,4.2-1.2c2.9,4.3,5.9,6.7,8.6,6.2C363.8,254.3,370.8,237.8,366.9,217.9z"/>
+    <path d="M224.6,292l11.2,3c3,0.8,3,5.1,0,5.9l-11.2,3c-5.3,1.4-9.5,5.6-11,11l-3,11.2c-0.8,3-5.1,3-5.9,0l-3-11.2c-1.4-5.3-5.6-9.5-11-11l-11.2-3c-3-0.8-3-5.1,0-5.9l11.2-3c5.3-1.4,9.5-5.6,11-11l3-11.2c0.8-3,5.1-3,5.9,0l3,11.2C215.1,286.4,219.3,290.5,224.6,292z"/>
+  </g>
+  <text x="168" y="248" font-family="Outfit, system-ui, -apple-system, Segoe UI, sans-serif" font-size="56" font-weight="700" fill="#696B73" letter-spacing="-0.03em">Sonopilot</text>
+  <rect x="72" y="268" width="176" height="5" rx="2.5" fill="#E76159" opacity="0.85"/>
+  <rect x="72" y="296" width="118" height="36" rx="18" fill="url(#sp-gold)" opacity="0.95"/>
+  <text x="131" y="321" text-anchor="middle" font-family="Outfit, system-ui, -apple-system, Segoe UI, sans-serif" font-size="15" font-weight="700" fill="#1C1D22" letter-spacing="0.06em">ALPHA</text>
+  <text x="72" y="392" font-family="Outfit, system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" font-weight="600" fill="#696B73" letter-spacing="-0.02em">De l&apos;anonymat &#224; l&apos;engagement</text>
+  <text x="72" y="438" font-family="Outfit, system-ui, -apple-system, Segoe UI, sans-serif" font-size="24" font-weight="500" fill="#696B73" opacity="0.88">Un hub pour piloter ta carri&#232;re musicale</text>
+  <text x="72" y="568" font-family="ui-monospace, JetBrains Mono, Consolas, monospace" font-size="15" font-weight="500" fill="#696B73" opacity="0.45">sonopilot.com</text>
+</svg>

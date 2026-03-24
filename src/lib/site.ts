@@ -16,6 +16,12 @@ export const siteConfig = {
     "https://runroster.kaitos.agency",
   language: "en" as const,
   locale: "en_US" as const,
+  /** Partage social (1200×630). Source vectorielle : `/og/sonopilot-og.svg` — régénérer le PNG avec `npm run og:png`. */
+  ogImage: "/og/sonopilot-og.png",
+  ogImageAlt:
+    "Sonopilot — de l'anonymat à l'engagement, un hub pour piloter ta carrière musicale.",
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
   keywords: [
     "Sonopilot",
     "Music Marketing",

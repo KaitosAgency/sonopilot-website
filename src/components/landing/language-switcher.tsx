@@ -3,10 +3,23 @@
 import { usePathname, useRouter } from "next/navigation"
 
 import type { Locale } from "@/lib/i18n/config"
-import { isLocale, locales } from "@/lib/i18n/config"
+import { locales } from "@/lib/i18n/config"
+import { homePath, sitePath } from "@/lib/i18n/paths"
 import { cn } from "@/lib/utils"
 
 import { useI18n } from "../providers/i18n-provider"
+
+/** Segment de route sans locale (ex. `cgu`) ; vide = accueil. */
+function routeKeyFromPathname(pathname: string): string {
+  if (pathname === "/fr" || pathname === "/fr/") return ""
+  if (pathname.startsWith("/fr/")) return pathname.slice(4)
+  if (pathname === "/en" || pathname === "/en/" || pathname.startsWith("/en/")) {
+    if (pathname === "/en" || pathname === "/en/") return ""
+    return pathname.slice(4)
+  }
+  if (pathname === "/" || pathname === "") return ""
+  return pathname.replace(/^\//, "").replace(/\/$/, "")
+}
 
 export function LanguageSwitcher({ className }: { className?: string }) {
   const pathname = usePathname() ?? "/"
@@ -15,17 +28,9 @@ export function LanguageSwitcher({ className }: { className?: string }) {
 
   const switchTo = (target: Locale) => {
     if (target === locale) return
-    const segments = pathname.split("/").filter(Boolean)
-    if (segments.length === 0) {
-      router.push(`/${target}`)
-      return
-    }
-    if (isLocale(segments[0] ?? "")) {
-      segments[0] = target
-    } else {
-      segments.unshift(target)
-    }
-    router.push(`/${segments.join("/")}`)
+    const key = routeKeyFromPathname(pathname)
+    const next = key ? sitePath(target, key) : homePath(target)
+    router.push(next)
   }
 
   return (

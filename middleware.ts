@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
-import { defaultLocale, isLocale, locales } from "@/lib/i18n/config"
+import { defaultLocale, type Locale } from "@/lib/i18n/config"
 
-const LOCALE_PREFIX = new RegExp(`^/(${locales.join("|")})(/|$)`)
+const STATIC_EXT = /\.(ico|png|jpg|jpeg|webp|gif|svg|txt|xml|json)$/i
+
+function withLocaleHeader(response: NextResponse, locale: Locale) {
+  response.headers.set("x-sonopilot-locale", locale)
+  return response
+}
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -12,27 +17,43 @@ export function middleware(request: NextRequest) {
     pathname.startsWith("/api") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/_vercel") ||
-    pathname.includes(".")
+    STATIC_EXT.test(pathname)
   ) {
     return NextResponse.next()
   }
 
-  const firstSegment = pathname.split("/")[1]
-  if (!LOCALE_PREFIX.test(pathname)) {
+  // Anciennes URLs /en/* → version sans préfixe (anglais par défaut)
+  if (pathname === "/en" || pathname.startsWith("/en/")) {
+    const dest =
+      pathname === "/en"
+        ? "/"
+        : pathname.replace(/^\/en(?=\/|$)/, "") || "/"
     const url = request.nextUrl.clone()
-    const suffix = pathname === "/" ? "" : pathname
-    url.pathname = `/${defaultLocale}${suffix}`
+    url.pathname = dest.startsWith("/") ? dest : `/${dest}`
     return NextResponse.redirect(url, 308)
   }
 
-  const locale = isLocale(firstSegment) ? firstSegment : defaultLocale
+  let locale: Locale = defaultLocale
+  let internalPath = pathname
 
-  const requestHeaders = new Headers(request.headers)
-  requestHeaders.set("x-sonopilot-locale", locale)
+  if (pathname === "/fr" || pathname.startsWith("/fr/")) {
+    locale = "fr"
+    internalPath =
+      pathname === "/fr" || pathname === "/fr/"
+        ? "/"
+        : pathname.slice("/fr".length) || "/"
+    if (!internalPath.startsWith("/")) {
+      internalPath = `/${internalPath}`
+    }
+  }
 
-  return NextResponse.next({
-    request: { headers: requestHeaders },
-  })
+  if (internalPath !== pathname) {
+    const url = request.nextUrl.clone()
+    url.pathname = internalPath
+    return withLocaleHeader(NextResponse.rewrite(url), locale)
+  }
+
+  return withLocaleHeader(NextResponse.next(), locale)
 }
 
 export const config = {
