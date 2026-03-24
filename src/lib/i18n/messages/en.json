@@ -1,0 +1,78 @@
+{
+  "seo": {
+    "homeTitle": "Sonopilot",
+    "homeDescription": "Sonopilot helps emerging artists break through the noise — real feedback, meaningful engagement, one hub to steer your music career."
+  },
+  "nav": {
+    "product": "Product",
+    "howItWorks": "How it works",
+    "transparency": "Transparency",
+    "faq": "FAQ"
+  },
+  "header": {
+    "joinAlpha": "Join the alpha",
+    "joinAlphaMobile": "Join the free alpha",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu"
+  },
+  "footer": {
+    "alphaAccess": "Alpha access",
+    "login": "Log in",
+    "legalNav": "Legal information",
+    "legalNotice": "Legal notice",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "comingSoon": {
+    "closeDialog": "Close dialog",
+    "close": "Close",
+    "title": "Coming soon",
+    "body": "Sign-up and app access will open soon. Thanks for your patience — we're finishing Sonopilot for you.",
+    "ok": "Got it"
+  },
+  "lang": {
+    "label": "Language",
+    "fr": "FR",
+    "en": "EN"
+  },
+  "howItWorks": {
+    "kicker": "Journey",
+    "title": "How it works",
+    "intro": "Connect your platforms, set your preferences, explore your scene — in three steps. Everything lives in one dashboard.",
+    "closingTitle": "Less noise, more meaningful connections.",
+    "closingP1": "Reach the artists and listeners who matter — grow a community around your music, at your pace.",
+    "closingP2": "Sonopilot frees up time for what counts: creating, connecting, collaborating.",
+    "steps": [
+      {
+        "number": "1",
+        "title": "Connect your networks",
+        "description": "Secure one-click linking, disconnect anytime. SoundCloud is live today — more platforms are on the way."
+      },
+      {
+        "number": "2",
+        "title": "Define your world",
+        "description": "Pick your genres, discovery preferences, and what you care about — all from a single tab."
+      },
+      {
+        "number": "3",
+        "title": "Explore and engage",
+        "description": "Browse profiles and tracks that fit your sound. Listen, follow, like, comment — every action stays yours."
+      }
+    ]
+  },
+  "legal": {
+    "backHome": "← Home",
+    "mentions": {
+      "title": "Legal notice",
+      "metaDescription": "Publisher and hosting information for the Sonopilot website."
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "metaDescription": "How Sonopilot processes personal data on this website."
+    },
+    "terms": {
+      "title": "Terms of use",
+      "metaDescription": "Terms of use for the Sonopilot website."
+    }
+  }
+}

@@ -22,7 +22,8 @@ export interface FakeNotification {
   trackTitle?: string
   artworkUrl?: string
   comment?: string
-  timeAgo: string
+  /** Minutes écoulées — formatée côté UI selon la locale */
+  timeAgoMinutes: number
 }
 
 export const profiles: FakeProfile[] = [
@@ -105,13 +106,13 @@ export const notifications: FakeNotification[] = [
     avatarUrl: A(1),
     trackTitle: "młody giet — ciało stałe",
     artworkUrl: W(1),
-    timeAgo: "2 min",
+    timeAgoMinutes: 2,
   },
   {
     type: "follow",
     username: "dj raylight",
     avatarUrl: A(2),
-    timeAgo: "5 min",
+    timeAgoMinutes: 5,
   },
   {
     type: "comment",
@@ -120,7 +121,7 @@ export const notifications: FakeNotification[] = [
     trackTitle: "Label Dinner",
     artworkUrl: W(3),
     comment: "🔥🔥",
-    timeAgo: "8 min",
+    timeAgoMinutes: 8,
   },
   {
     type: "repost",
@@ -128,7 +129,7 @@ export const notifications: FakeNotification[] = [
     avatarUrl: A(4),
     trackTitle: "BMY Drugg — UGLY",
     artworkUrl: W(4),
-    timeAgo: "12 min",
+    timeAgoMinutes: 12,
   },
   {
     type: "like",
@@ -136,13 +137,13 @@ export const notifications: FakeNotification[] = [
     avatarUrl: A(5),
     trackTitle: "Nothing To Lose",
     artworkUrl: W(5),
-    timeAgo: "15 min",
+    timeAgoMinutes: 15,
   },
   {
     type: "follow",
     username: "NSM Beats",
     avatarUrl: A(6),
-    timeAgo: "18 min",
+    timeAgoMinutes: 18,
   },
   {
     type: "comment",
@@ -151,7 +152,7 @@ export const notifications: FakeNotification[] = [
     trackTitle: "JP DRILL DIS",
     artworkUrl: W(7),
     comment: "pépite",
-    timeAgo: "22 min",
+    timeAgoMinutes: 22,
   },
   {
     type: "like",
@@ -159,7 +160,7 @@ export const notifications: FakeNotification[] = [
     avatarUrl: A(8),
     trackTitle: "I PIU' GAY DI PV",
     artworkUrl: W(8),
-    timeAgo: "25 min",
+    timeAgoMinutes: 25,
   },
   {
     type: "repost",
@@ -167,13 +168,13 @@ export const notifications: FakeNotification[] = [
     avatarUrl: A(9),
     trackTitle: "Night Shift — demo",
     artworkUrl: W(2),
-    timeAgo: "28 min",
+    timeAgoMinutes: 28,
   },
   {
     type: "follow",
     username: "Grek The Creator",
     avatarUrl: A(10),
-    timeAgo: "31 min",
+    timeAgoMinutes: 31,
   },
   {
     type: "comment",
@@ -182,6 +183,6 @@ export const notifications: FakeNotification[] = [
     trackTitle: "Type beat — 808",
     artworkUrl: W(6),
     comment: "clean mix",
-    timeAgo: "34 min",
+    timeAgoMinutes: 34,
   },
 ]

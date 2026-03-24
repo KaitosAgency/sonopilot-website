@@ -15,9 +15,13 @@ type Card = { title: string; body: string }
 export function ProblemComparisonAnimatedGrid({
   withoutItems,
   withCards,
+  columnSans,
+  columnAvec,
 }: {
   withoutItems: readonly string[]
   withCards: readonly Card[]
+  columnSans: string
+  columnAvec: string
 }) {
   const reduced = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)
@@ -49,7 +53,11 @@ export function ProblemComparisonAnimatedGrid({
       className="grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-start"
     >
       <ComparisonColumnCard>
-        <ComparisonColumnTitle variant="sans" />
+        <ComparisonColumnTitle
+          variant="sans"
+          labelSans={columnSans}
+          labelAvec={columnAvec}
+        />
         <ul className="space-y-3.5">
           {withoutItems.map((item, i) => (
             <li
@@ -78,7 +86,11 @@ export function ProblemComparisonAnimatedGrid({
       </ComparisonColumnCard>
 
       <ComparisonColumnCard>
-        <ComparisonColumnTitle variant="avec" />
+        <ComparisonColumnTitle
+          variant="avec"
+          labelSans={columnSans}
+          labelAvec={columnAvec}
+        />
         <div className="relative flex flex-col pt-1">
           {withCards.map((card, i) => (
             <BenefitStackItem

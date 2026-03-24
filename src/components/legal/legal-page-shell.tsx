@@ -2,19 +2,21 @@ import Link from "next/link"
 
 type LegalPageShellProps = {
   title: string
+  homeHref: string
+  backLabel: string
   children: React.ReactNode
 }
 
-export function LegalPageShell({ title, children }: LegalPageShellProps) {
+export function LegalPageShell({ title, homeHref, backLabel, children }: LegalPageShellProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border">
         <div className="mx-auto flex h-14 max-w-3xl items-center px-4 sm:px-6">
           <Link
-            href="/"
+            href={homeHref}
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            ← Accueil
+            {backLabel}
           </Link>
         </div>
       </header>

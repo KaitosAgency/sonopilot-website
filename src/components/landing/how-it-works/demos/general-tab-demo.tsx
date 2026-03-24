@@ -1,8 +1,9 @@
 "use client"
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { Disc3, Music2, Users } from "lucide-react"
 
+import { useI18n } from "@/components/providers/i18n-provider"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -34,17 +35,6 @@ function cursorCenterOnEl(
   return { left: `${cx}px`, top: `${cy}px`, opacity: 1 as const }
 }
 
-const switchRows = [
-  { id: "fanbase", label: "Mes genres", Icon: Users },
-  { id: "similar", label: "Artistes proches", Icon: Music2 },
-  { id: "trends", label: "Nouveautés", Icon: Disc3 },
-] as const
-
-const INITIAL_STYLES = ["Techno", "House"] as const
-const INITIAL_COMMENTS = ["\u{1F525}", "Nice!", "Thx!"] as const
-const STYLE_ADD = "Organic"
-const COMMENT_ADD_1 = "\u{1F525}\u{1F525}"
-
 function scheduleChain(
   steps: Array<{ delay: number; fn: () => void }>
 ): number[] {
@@ -58,6 +48,24 @@ function scheduleChain(
 }
 
 export function GeneralTabDemo() {
+  const { messages, locale } = useI18n()
+  const g = messages.demos.generalTab
+
+  const switchRows = useMemo(
+    () =>
+      [
+        { id: "fanbase" as const, label: g.rowGenres, Icon: Users },
+        { id: "similar" as const, label: g.rowSimilar, Icon: Music2 },
+        { id: "trends" as const, label: g.rowNew, Icon: Disc3 },
+      ] as const,
+    [g.rowGenres, g.rowSimilar, g.rowNew]
+  )
+
+  const initialStyles = g.initialStyles
+  const initialComments = g.initialComments
+  const styleAdd = g.styleAdd
+  const commentAdd = g.commentAdd
+
   const { ref, inView } = useInViewOnce()
   const reduced = useReducedMotion()
   const play = inView && !reduced
@@ -81,8 +89,8 @@ export function GeneralTabDemo() {
     false,
     false,
   ])
-  const [styles, setStyles] = useState<string[]>([...INITIAL_STYLES])
-  const [comments, setComments] = useState<string[]>([...INITIAL_COMMENTS])
+  const [styles, setStyles] = useState<string[]>(() => [...initialStyles])
+  const [comments, setComments] = useState<string[]>(() => [...initialComments])
   const [styleInput, setStyleInput] = useState("")
   const [commentInput, setCommentInput] = useState("")
   const timelineIds = useRef<number[]>([])
@@ -122,26 +130,36 @@ export function GeneralTabDemo() {
 
   useEffect(() => {
     if (!inView) {
-      setStyles([...INITIAL_STYLES])
-      setComments([...INITIAL_COMMENTS])
+      setStyles([...initialStyles])
+      setComments([...initialComments])
       setStyleInput("")
       setCommentInput("")
       return
     }
     if (reduced) {
-      setStyles([...INITIAL_STYLES, STYLE_ADD])
-      setComments(["Nice!", "Thx!", COMMENT_ADD_1])
+      const rest = initialComments.slice(1)
+      setStyles([...initialStyles, styleAdd])
+      setComments([...rest, commentAdd])
       setStyleInput("")
       setCommentInput("")
       return
     }
     if (!play) {
-      setStyles([...INITIAL_STYLES])
-      setComments([...INITIAL_COMMENTS])
+      setStyles([...initialStyles])
+      setComments([...initialComments])
       setStyleInput("")
       setCommentInput("")
     }
-  }, [inView, reduced, play])
+  }, [
+    inView,
+    reduced,
+    play,
+    locale,
+    initialStyles,
+    initialComments,
+    styleAdd,
+    commentAdd,
+  ])
 
   useEffect(() => {
     timelineIds.current.forEach(clearTimeout)
@@ -171,8 +189,8 @@ export function GeneralTabDemo() {
     }
 
     const runCycle = () => {
-      setStyles([...INITIAL_STYLES])
-      setComments([...INITIAL_COMMENTS])
+      setStyles([...initialStyles])
+      setComments([...initialComments])
       setStyleInput("")
       setCommentInput("")
       setCursorExtra(null)
@@ -186,20 +204,20 @@ export function GeneralTabDemo() {
           delay: 420,
           fn: () => {
             setCursorExtra("style-input")
-            typewriter(STYLE_ADD, setStyleInput, 88, () => {
+            typewriter(styleAdd, setStyleInput, 88, () => {
               setCursorExtra("style-add")
               push(
                 window.setTimeout(() => {
-                  setStyles((s) => [...s, STYLE_ADD])
+                  setStyles((s) => [...s, styleAdd])
                   setStyleInput("")
                   setCursorExtra("comment-input")
                   push(
                     window.setTimeout(() => {
-                      typewriter(COMMENT_ADD_1, setCommentInput, 78, () => {
+                      typewriter(commentAdd, setCommentInput, 78, () => {
                         setCursorExtra("comment-add")
                         push(
                           window.setTimeout(() => {
-                            setComments((c) => [...c, COMMENT_ADD_1])
+                            setComments((c) => [...c, commentAdd])
                             setCommentInput("")
                             setCursorExtra(null)
                             push(window.setTimeout(runCycle, 3400))
@@ -225,7 +243,7 @@ export function GeneralTabDemo() {
       timelineIds.current.forEach(clearTimeout)
       timelineIds.current = []
     }
-  }, [play, inView, reduced])
+  }, [play, inView, reduced, locale, initialStyles, initialComments, styleAdd, commentAdd])
 
   const highlightRow =
     play && (tick === 0 || tick === 2 || tick === 4)
@@ -300,7 +318,7 @@ export function GeneralTabDemo() {
           }}
         />
       ) : null}
-      <ul className="space-y-2.5" aria-label="Préférences">
+      <ul className="space-y-2.5" aria-label={g.preferencesAria}>
         {switchRows.map((row, i) => (
           <li
             key={row.id}
@@ -335,7 +353,7 @@ export function GeneralTabDemo() {
       <div className="mt-5 space-y-3 border-t border-border/40 pt-5">
         <div>
           <p className="mb-1.5 text-xs font-medium text-muted-foreground">
-            Styles musicaux{" "}
+            {g.stylesLabel}{" "}
             <span className="tabular-nums text-muted-foreground/80">
               ({styles.length}/3)
             </span>
@@ -346,7 +364,7 @@ export function GeneralTabDemo() {
               readOnly
               tabIndex={-1}
               aria-hidden
-              placeholder="Ex. Techno, House, Trap…"
+              placeholder={g.stylesPlaceholder}
               value={styleInput}
               className="pointer-events-none placeholder:text-muted-foreground/55 sm:flex-1"
             />
@@ -359,7 +377,7 @@ export function GeneralTabDemo() {
                 className="rounded-md px-4 sm:self-auto"
                 disabled={!styleInput.trim()}
               >
-                Ajouter
+                {g.addButton}
               </Button>
             </span>
           </div>
@@ -367,7 +385,11 @@ export function GeneralTabDemo() {
         {styles.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {styles.map((s, index) => (
-              <Badge key={`${s}-${index}`} variant="default" className="pointer-events-none">
+              <Badge
+                key={`${s}-${index}`}
+                variant="default"
+                className="pointer-events-none"
+              >
                 {s}
               </Badge>
             ))}
@@ -377,7 +399,7 @@ export function GeneralTabDemo() {
 
       <div className="mt-5 space-y-3 border-t border-border/40 pt-5">
         <p className="text-xs font-medium text-muted-foreground">
-          Réponses favorites
+          {g.favoriteReplies}
         </p>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-2">
           <Input
@@ -385,7 +407,7 @@ export function GeneralTabDemo() {
             readOnly
             tabIndex={-1}
             aria-hidden
-            placeholder="5 chars max"
+            placeholder={g.commentPlaceholder}
             value={commentInput}
             maxLength={5}
             className="pointer-events-none placeholder:text-muted-foreground/55 sm:flex-1"
@@ -399,15 +421,13 @@ export function GeneralTabDemo() {
               className="rounded-md px-4 sm:self-auto"
               disabled={!commentInput.trim()}
             >
-              Ajouter
+              {g.addButton}
             </Button>
           </span>
         </div>
         <div>
           {comments.length === 0 ? (
-            <p className="text-sm text-muted-foreground">
-              Aucune réponse définie.
-            </p>
+            <p className="text-sm text-muted-foreground">{g.noReplies}</p>
           ) : (
             <div className="flex max-h-40 flex-wrap gap-2 overflow-y-auto">
               {comments.map((c, idx) => (

@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { Users, Disc3, TrendingUp, CircleUser } from "lucide-react"
+import { useI18n } from "@/components/providers/i18n-provider"
 import type { PublicLandingStats } from "@/lib/public-stats"
 
 const POLL_MS = 30_000
@@ -15,30 +16,6 @@ type StatDef = {
   /** Affichage du chiffre (ex. séparateurs milliers) */
   format?: (n: number) => string
 }
-
-const statDefs: StatDef[] = [
-  {
-    icon: Users,
-    label: "Auditeurs qualifiés",
-    pick: (s) => s.qualifiedListeners,
-  },
-  {
-    icon: Disc3,
-    label: "Artistes similaires",
-    pick: (s) => s.similarArtists,
-  },
-  {
-    icon: TrendingUp,
-    label: "Tracks tendances",
-    pick: (s) => s.trendingTracks,
-  },
-  {
-    icon: CircleUser,
-    label: "Utilisateurs inscrits",
-    pick: (s) => s.registeredUsers,
-    format: (n) => n.toLocaleString("fr-FR"),
-  },
-]
 
 function StatCard({
   icon: Icon,
@@ -85,6 +62,35 @@ function StatCard({
 }
 
 export function Stats() {
+  const { messages, locale } = useI18n()
+  const localeTag = locale === "fr" ? "fr-FR" : "en-US"
+  const statDefs: StatDef[] = useMemo(() => {
+    const s = messages.stats
+    return [
+      {
+        icon: Users,
+        label: s.qualifiedListeners,
+        pick: (x) => x.qualifiedListeners,
+      },
+      {
+        icon: Disc3,
+        label: s.similarArtists,
+        pick: (x) => x.similarArtists,
+      },
+      {
+        icon: TrendingUp,
+        label: s.trendingTracks,
+        pick: (x) => x.trendingTracks,
+      },
+      {
+        icon: CircleUser,
+        label: s.registeredUsers,
+        pick: (x) => x.registeredUsers,
+        format: (n) => n.toLocaleString(localeTag),
+      },
+    ]
+  }, [messages.stats, localeTag])
+
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
   const [live, setLive] = useState<PublicLandingStats | null>(null)
@@ -147,7 +153,7 @@ export function Stats() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         <div className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
           {statDefs.map((def, i) => (
-            <div key={def.label}>
+            <div key={`stat-${i}`}>
               <StatCard
                 {...def}
                 value={live ? def.pick(live) : null}

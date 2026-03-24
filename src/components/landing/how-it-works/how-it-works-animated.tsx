@@ -9,10 +9,12 @@ import {
   useInViewOnce,
   useReducedMotion,
 } from "./demos/use-demo-animation"
+import { useI18n } from "@/components/providers/i18n-provider"
+
 import { ConnectSoundCloudDemo } from "./demos/connect-soundcloud-demo"
 import { GeneralTabDemo } from "./demos/general-tab-demo"
 import { QueueDemo } from "./demos/queue-demo"
-import { howItWorksSteps, type HowItWorksDemoId } from "./steps-data"
+import { howItWorksStepDemos, type HowItWorksDemoId } from "./steps-data"
 
 const STEP_STAGGER_MS = 95
 const FOOTER_STAGGER_MS = 100
@@ -35,15 +37,20 @@ function HowItWorksStepsGrid() {
   const reduced = useReducedMotion()
   const { ref, inView } = useInViewOnce(0.12)
   const active = reduced || inView
+  const { messages } = useI18n()
+  const steps = messages.howItWorks.steps
 
   return (
     <div
       ref={ref}
       className="grid gap-8 md:grid-cols-3 md:gap-6 lg:gap-8"
     >
-      {howItWorksSteps.map((step, i) => (
+      {howItWorksStepDemos.map((stepMeta, i) => {
+        const copy = steps[i]
+        if (!copy) return null
+        return (
         <article
-          key={step.number}
+          key={copy.number}
           className={cn(
             "flex h-full flex-col items-center rounded-xl border border-border/60 bg-card/40 p-6 text-center shadow-sm shadow-black/[0.03] backdrop-blur-sm dark:bg-card/30 dark:shadow-black/20 md:p-7",
             !reduced && !active && "opacity-0",
@@ -56,20 +63,21 @@ function HowItWorksStepsGrid() {
           }
         >
           <div className="mb-6 flex min-h-[14rem] w-full min-w-0 flex-1 flex-col items-center justify-center overflow-visible">
-            <StepDemo id={step.demo} />
+            <StepDemo id={stepMeta.demo} />
           </div>
 
           <span className="mb-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold tabular-nums text-primary-foreground">
-            {step.number}
+            {copy.number}
           </span>
           <h3 className="text-lg font-semibold tracking-tight text-foreground">
-            {step.title}
+            {copy.title}
           </h3>
           <p className="mt-2 text-sm font-light leading-relaxed text-muted-foreground">
-            {step.description}
+            {copy.description}
           </p>
         </article>
-      ))}
+        )
+      })}
     </div>
   )
 }
@@ -78,6 +86,8 @@ function HowItWorksClosingBlock() {
   const reduced = useReducedMotion()
   const { ref, inView } = useInViewOnce(0.14)
   const active = reduced || inView
+  const { messages } = useI18n()
+  const hiw = messages.howItWorks
 
   const blocks: ReactNode[] = [
     <span
@@ -91,21 +101,19 @@ function HowItWorksClosingBlock() {
       key="h3"
       className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
     >
-      Moins de bruit, plus de connexions utiles.
+      {hiw.closingTitle}
     </h3>,
     <p
       key="p1"
       className="mx-auto mt-4 max-w-xl font-light leading-relaxed text-muted-foreground"
     >
-      Touche les artistes et auditeurs qui comptent — fais
-      grandir une communauté autour de ta musique, à ton rythme.
+      {hiw.closingP1}
     </p>,
     <p
       key="p2"
       className="mx-auto mt-3 max-w-xl text-sm font-light leading-relaxed text-muted-foreground/85"
     >
-      Sonopilot te dégage du temps pour l&apos;essentiel :
-      créer, échanger, collaborer.
+      {hiw.closingP2}
     </p>,
   ]
 
@@ -137,16 +145,18 @@ function HowItWorksClosingBlock() {
 }
 
 export function HowItWorksAnimatedBody() {
+  const { messages } = useI18n()
+  const hiw = messages.howItWorks
+
   return (
     <>
       <PillarsAnimatedHeader className="mb-14 max-w-2xl md:mb-16">
-        <SectionKicker>Parcours</SectionKicker>
+        <SectionKicker>{hiw.kicker}</SectionKicker>
         <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Comment ça marche
+          {hiw.title}
         </h2>
         <p className="mt-4 font-light text-muted-foreground">
-          Connecte tes plateformes, configure tes préférences, explore ta
-          scène — en trois étapes. Tout se passe dans un seul tableau de bord.
+          {hiw.intro}
         </p>
       </PillarsAnimatedHeader>
 

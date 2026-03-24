@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { Headphones, UserPlus, Users } from "lucide-react"
+import { useI18n } from "@/components/providers/i18n-provider"
 import { cn } from "@/lib/utils"
 import { SectionKicker } from "./section-kicker"
 import {
@@ -12,9 +13,6 @@ import {
 const SONOPILOT_LOGO = "/images/Logo/logo-sonopilot-full-color-01.svg"
 
 const founderProfile = {
-  name: "Valentin",
-  handle: "@valentin",
-  tagline: "Fondateur · Artiste indé",
   followers: 2400,
   following: 312,
   tracks: 14,
@@ -27,15 +25,17 @@ const LIST_BASE_MS = 420
 const SIG_DELAY_MS = 620
 const BADGE_DELAY_MS = 160
 
-function formatCompactFr(n: number): string {
+function formatCompact(n: number, localeTag: string): string {
   if (n >= 1000) {
     const k = n / 1000
-    const s = k >= 10
-      ? Math.round(k).toString()
-      : k.toFixed(1).replace(".0", "").replace(".", ",")
+    if (k >= 10) return `${Math.round(k)}k`
+    const one = k.toFixed(1)
+    const s = localeTag.startsWith("fr")
+      ? one.replace(/\.0$/, "").replace(".", ",")
+      : one.replace(/\.0$/, "")
     return `${s}k`
   }
-  return n.toLocaleString("fr-FR")
+  return n.toLocaleString(localeTag)
 }
 
 function FounderProfileBadge({
@@ -47,6 +47,10 @@ function FounderProfileBadge({
   active: boolean
   reduced: boolean
 }) {
+  const { messages, locale } = useI18n()
+  const pr = messages.founder.profile
+  const localeTag = locale === "fr" ? "fr-FR" : "en-US"
+
   return (
     <aside
       className={cn(
@@ -64,7 +68,7 @@ function FounderProfileBadge({
       <div className="relative mx-auto mb-4 w-fit">
         <Image
           src="/images/lp-assets/valentin.jpg"
-          alt="Valentin, fondateur de Sonopilot"
+          alt={pr.photoAlt}
           width={280}
           height={280}
           className="h-28 w-28 rounded-full object-cover ring-[3px] ring-primary/20 ring-offset-2 ring-offset-card sm:h-32 sm:w-32"
@@ -74,37 +78,38 @@ function FounderProfileBadge({
       </div>
 
       <p className="text-base font-semibold tracking-tight text-foreground">
-        {founderProfile.name}
+        {pr.name}
       </p>
-      <p className="mt-0.5 text-xs font-medium text-primary">
-        {founderProfile.handle}
-      </p>
+      <p className="mt-0.5 text-xs font-medium text-primary">{pr.handle}</p>
       <p className="mt-2 text-xs font-light leading-snug text-muted-foreground">
-        {founderProfile.tagline}
+        {pr.tagline}
       </p>
 
       <div className="mt-5 grid grid-cols-3 gap-2 border-t border-border/60 pt-4">
         <div
           className="flex flex-col items-center gap-1"
-          aria-label={`${formatCompactFr(founderProfile.followers)} abonnés`}
+          aria-label={`${formatCompact(founderProfile.followers, localeTag)} ${pr.statFollowersAria}`}
         >
           <Users className="h-3.5 w-3.5 text-primary/70" aria-hidden />
           <span className="text-sm font-semibold tabular-nums text-foreground">
-            {formatCompactFr(founderProfile.followers)}
+            {formatCompact(founderProfile.followers, localeTag)}
           </span>
         </div>
         <div
           className="flex flex-col items-center gap-1 border-x border-border/50"
-          aria-label={`${founderProfile.following.toLocaleString("fr-FR")} abonnements`}
+          aria-label={`${founderProfile.following.toLocaleString(localeTag)} ${pr.statFollowingAria}`}
         >
-          <UserPlus className="h-3.5 w-3.5 text-muted-foreground/70" aria-hidden />
+          <UserPlus
+            className="h-3.5 w-3.5 text-muted-foreground/70"
+            aria-hidden
+          />
           <span className="text-sm font-semibold tabular-nums text-foreground">
-            {founderProfile.following.toLocaleString("fr-FR")}
+            {founderProfile.following.toLocaleString(localeTag)}
           </span>
         </div>
         <div
           className="flex flex-col items-center gap-1"
-          aria-label={`${founderProfile.tracks} morceaux`}
+          aria-label={`${founderProfile.tracks} ${pr.statTracksAria}`}
         >
           <Headphones className="h-3.5 w-3.5 text-primary/70" aria-hidden />
           <span className="text-sm font-semibold tabular-nums text-foreground">
@@ -143,6 +148,9 @@ function revealTextClass(active: boolean, reduced: boolean) {
 }
 
 export function FounderAnimatedCard() {
+  const { messages } = useI18n()
+  const f = messages.founder
+
   const reduced = useReducedMotion()
   const { ref, inView } = useInViewOnce(0.14)
   const active = reduced || inView
@@ -151,7 +159,10 @@ export function FounderAnimatedCard() {
   const p2Delay = p1Delay + P_STAGGER_MS
 
   return (
-    <div ref={ref} className="rounded-2xl border border-border/60 bg-card p-8 sm:p-10 md:p-12">
+    <div
+      ref={ref}
+      className="rounded-2xl border border-border/60 bg-card p-8 sm:p-10 md:p-12"
+    >
       <div className="flex flex-col items-stretch gap-10 lg:flex-row lg:items-center lg:gap-12 xl:gap-16">
         <div className="min-w-0 flex-1 text-left">
           <div
@@ -160,7 +171,7 @@ export function FounderAnimatedCard() {
               active && !reduced ? { animationDelay: "0ms" } : undefined
             }
           >
-            <SectionKicker>Origine</SectionKicker>
+            <SectionKicker>{f.kicker}</SectionKicker>
           </div>
 
           <div
@@ -172,7 +183,7 @@ export function FounderAnimatedCard() {
             }
           >
             <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-              Hey, c&apos;est Valentin 👋
+              {f.title}
             </h2>
           </div>
 
@@ -188,13 +199,9 @@ export function FounderAnimatedCard() {
             }
           >
             <p>
-              Je développe Sonopilot{" "}
-              <strong className="font-medium text-foreground">
-                seul, en solo dev
-              </strong>
-              . Artiste indépendant, j&apos;ai vécu la même frustration que toi
-              : publier un morceau et n&apos;avoir aucun retour — pas parce que
-              la musique est mauvaise, mais parce que personne ne la voit.
+              {f.p1Before}
+              <strong className="font-medium text-foreground">{f.p1Bold}</strong>
+              {f.p1After}
             </p>
           </div>
 
@@ -210,38 +217,14 @@ export function FounderAnimatedCard() {
             }
           >
             <p>
-              En 2024, j&apos;ai commencé à{" "}
-              <strong className="font-medium text-foreground">
-                coder les premières fonctionnalités de découverte
-              </strong>
-              . Depuis, j&apos;affine le produit feature après feature avec une
-              vision claire :
+              {f.p2Before}
+              <strong className="font-medium text-foreground">{f.p2Bold}</strong>
+              {f.p2After}
             </p>
           </div>
 
           <ul className="mt-4 space-y-2.5 pl-1">
-            {(
-              [
-                <>
-                  <strong className="font-medium text-foreground">Un seul hub</strong>{" "}
-                  pour tous tes réseaux musicaux — plus besoin de jongler entre
-                  dix onglets.
-                </>,
-                <>
-                  <strong className="font-medium text-foreground">
-                    Ton marketing
-                  </strong>
-                  , tes règles — chaque interaction part de toi, zéro faux engagement.
-                </>,
-                <>
-                  <strong className="font-medium text-foreground">
-                    Construit
-                  </strong>{" "}
-                  avec les artistes — le produit est en alpha, tes retours
-                  façonnent la prochaine feature.
-                </>,
-              ] as const
-            ).map((content, i) => (
+            {f.bullets.map((bullet, i) => (
               <li
                 key={i}
                 className={cn(
@@ -257,7 +240,12 @@ export function FounderAnimatedCard() {
                 }
               >
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                <span>{content}</span>
+                <span>
+                  <strong className="font-medium text-foreground">
+                    {bullet.bold}
+                  </strong>
+                  {bullet.text}
+                </span>
               </li>
             ))}
           </ul>
@@ -273,7 +261,7 @@ export function FounderAnimatedCard() {
                 : undefined
             }
           >
-            — Valentin · Solo dev & fondateur
+            {f.signature}
           </p>
         </div>
 

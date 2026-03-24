@@ -1,0 +1,104 @@
+{
+  "platformProfile": {
+    "tokenTitleValid": "Valid token",
+    "tokenTitleLoading": "Connecting",
+    "tokenTitleUnlinked": "Account not linked",
+    "tokenLabelValid": "Valid",
+    "tokenLabelLoading": "Connecting…",
+    "tokenLabelUnlinked": "Not connected",
+    "brandName": "SoundCloud",
+    "displayName": "Nøva Crate",
+    "username": "nova_crate",
+    "location": "Studio K7 — Nantes, France",
+    "plan": "Pro Plus",
+    "bio": "Beatmaker — 808\nLo-fi breaks and textures. Hand-cut samples, new beats every Friday. Collabs welcome.",
+    "statFollowers": "Followers",
+    "statFollowing": "Following",
+    "statTracks": "Tracks",
+    "statPlaylists": "Playlists",
+    "piloting": "Pilot",
+    "syncing": "Syncing your data…",
+    "syncHint": "Profile, stats and OAuth token",
+    "connectButton": "Connect with SoundCloud"
+  },
+  "generalTab": {
+    "preferencesAria": "Preferences",
+    "rowGenres": "My genres",
+    "rowSimilar": "Similar artists",
+    "rowNew": "New releases",
+    "stylesLabel": "Music styles",
+    "stylesPlaceholder": "e.g. Techno, House, Trap…",
+    "addButton": "Add",
+    "favoriteReplies": "Favorite replies",
+    "commentPlaceholder": "5 chars max",
+    "noReplies": "No quick replies yet.",
+    "initialStyles": ["Techno", "House"],
+    "styleAdd": "Organic",
+    "initialComments": ["🔥", "Nice!", "Thx!"],
+    "commentAdd": "🔥🔥"
+  },
+  "queue": {
+    "myList": "My queue:",
+    "columnTitle": "Title",
+    "pendingTotal": "({{count}} total)",
+    "actions": {
+      "follow": "Follow",
+      "unfollow": "Unfollow",
+      "like": "Like",
+      "repost": "Repost",
+      "comment": "Comment"
+    },
+    "toasts": {
+      "like": "Like queued.",
+      "comment": "Comment queued.",
+      "follow": "Follow queued."
+    },
+    "rows": [
+      {
+        "title": "Aurora nights — Club mix",
+        "artworkSeed": "nuit-boreale",
+        "demoRow": true
+      },
+      {
+        "title": "Expanse — Live session",
+        "artworkSeed": "etendue-live",
+        "demoRow": false,
+        "heart": true,
+        "msg": true,
+        "user": false
+      },
+      {
+        "title": "HORIZON — Extended",
+        "artworkSeed": "horizon-ext",
+        "demoRow": false,
+        "heart": false,
+        "msg": false,
+        "user": true
+      },
+      {
+        "title": "Confessions — Radio edit",
+        "artworkSeed": "aveux-radio",
+        "demoRow": false,
+        "heart": true,
+        "msg": false,
+        "user": true
+      },
+      {
+        "title": "Gleams — Dub mix",
+        "artworkSeed": "lueurs-dub",
+        "demoRow": false,
+        "heart": false,
+        "msg": true,
+        "user": false
+      },
+      {
+        "title": "Nocturnal synthesis",
+        "artworkSeed": "synthese-nuit",
+        "demoRow": false,
+        "heart": true,
+        "msg": false,
+        "user": true
+      }
+    ]
+  }
+}

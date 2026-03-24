@@ -1,3 +1,6 @@
+"use client"
+
+import { useI18n } from "@/components/providers/i18n-provider"
 import { SectionKicker } from "./section-kicker"
 import {
   PlatformsAnimatedGrid,
@@ -15,23 +18,27 @@ const platforms: PlatformCardData[] = [
 ]
 
 export function Platforms() {
+  const { messages } = useI18n()
+  const pl = messages.platforms
+
   return (
     <section id="plateformes" className="py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <PlatformsAnimatedHeader>
-          <SectionKicker>Plateformes</SectionKicker>
+          <SectionKicker>{pl.kicker}</SectionKicker>
           <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            Tous tes réseaux.
+            {pl.titleLine1}
             <br className="hidden sm:block" />
-            Un seul tableau de bord.
+            {pl.titleLine2}
           </h2>
-          <p className="mt-4 font-light text-muted-foreground">
-            SoundCloud est la première intégration — les autres arrivent.
-            Inscris-toi pour influencer la prochaine.
-          </p>
+          <p className="mt-4 font-light text-muted-foreground">{pl.sub}</p>
         </PlatformsAnimatedHeader>
 
-        <PlatformsAnimatedGrid platforms={platforms} />
+        <PlatformsAnimatedGrid
+          platforms={platforms}
+          badgeActive={pl.badgeActive}
+          badgeSoon={pl.badgeSoon}
+        />
       </div>
     </section>
   )

@@ -2,6 +2,7 @@
 
 import { Check } from "lucide-react"
 import Image from "next/image"
+import { useI18n } from "@/components/providers/i18n-provider"
 import { cn } from "@/lib/utils"
 import { SectionKicker } from "./section-kicker"
 import { LiveReactionsBackdrop } from "./live-reactions-backdrop"
@@ -10,19 +11,16 @@ import {
   useReducedMotion,
 } from "./how-it-works/demos/use-demo-animation"
 
-const points = [
-  "Chaque interaction — follow, like, commentaire — est décidée et déclenchée par toi.",
-  "Limites intégrées pour un usage responsable et conforme aux conditions d'utilisation.",
-  "Commentaires courts, sans liens — pas de spam.",
-  "Aucune action cachée : tu vois tout, tu contrôles tout.",
-] as const
-
 const HD_STAGGER_MS = 108
 const LIST_STAGGER_MS = 72
 const LIST_BASE_DELAY_MS = 280
 const IMAGE_DELAY_MS = 130
 
 export function TransparencyAnimatedInner() {
+  const { messages } = useI18n()
+  const tr = messages.transparency
+  const points = tr.points
+
   const reduced = useReducedMotion()
   const { ref, inView } = useInViewOnce(0.14)
   const active = reduced || inView
@@ -54,7 +52,7 @@ export function TransparencyAnimatedInner() {
               active && !reduced ? { animationDelay: "0ms" } : undefined
             }
           >
-            <SectionKicker>Transparence</SectionKicker>
+            <SectionKicker>{tr.kicker}</SectionKicker>
           </div>
           <div
             className={cn(
@@ -70,14 +68,14 @@ export function TransparencyAnimatedInner() {
           >
             <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
               <span className="animate-problem-zero-1 inline-block origin-center will-change-transform">
-                Zéro
-              </span>{" "}
-              botting.
+                {tr.zero1}
+              </span>
+              {tr.line1End}
               <br />
               <span className="animate-problem-zero-2 inline-block origin-center will-change-transform">
-                Zéro
-              </span>{" "}
-              faux trafic.
+                {tr.zero2}
+              </span>
+              {tr.line2End}
             </h2>
           </div>
           <div
@@ -93,9 +91,7 @@ export function TransparencyAnimatedInner() {
             }
           >
             <p className="mt-4 text-muted-foreground font-light leading-relaxed">
-              Sonopilot ne remplace pas une bonne prod ni la discipline de
-              sortie. On aide à être un peu plus visible et à gagner du temps
-              pour ce qui compte — ta communauté et les autres artistes.
+              {tr.intro}
             </p>
           </div>
         </div>
@@ -103,7 +99,7 @@ export function TransparencyAnimatedInner() {
         <ul className="relative z-[1] mt-8 space-y-3">
           {points.map((point, i) => (
             <li
-              key={point}
+              key={`${i}-${point.slice(0, 24)}`}
               className={cn(
                 "flex items-start gap-3",
                 !reduced && !active && "opacity-0",
@@ -143,7 +139,7 @@ export function TransparencyAnimatedInner() {
         >
           <Image
             src="/images/screenshots/sonopilot_sc_tracks.jpg?v=2"
-            alt="Onglet Tracks — catalogue SoundCloud avec statistiques et tendances"
+            alt={tr.imageAlt}
             width={1440}
             height={900}
             quality={92}

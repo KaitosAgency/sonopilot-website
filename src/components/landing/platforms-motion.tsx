@@ -66,8 +66,12 @@ export function PlatformsAnimatedHeader({ children }: { children: ReactNode }) {
 
 export function PlatformsAnimatedGrid({
   platforms,
+  badgeActive,
+  badgeSoon,
 }: {
   platforms: readonly PlatformCardData[]
+  badgeActive: string
+  badgeSoon: string
 }) {
   const reduced = useReducedMotion()
   const { ref, inView } = useInViewOnce(0.12)
@@ -145,11 +149,11 @@ export function PlatformsAnimatedGrid({
                       : undefined
                   }
                 >
-                  Actif
+                  {badgeActive}
                 </span>
               ) : (
                 <span className="absolute -right-2 -top-2 rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
-                  Bientôt
+                  {badgeSoon}
                 </span>
               )}
             </div>

@@ -1,3 +1,6 @@
+"use client"
+
+import { useI18n } from "@/components/providers/i18n-provider"
 import { cn } from "@/lib/utils"
 
 /** Même forme « badge » que la section Problème (pas un rond plein) — couleur primary */
@@ -27,13 +30,10 @@ function TrustBadgeCheck({ className }: { className?: string }) {
 /**
  * Bandeau confiance — entre le marquee (preuve produit) et les chiffres (Stats).
  */
-const items = [
-  "Découverte d'audience par genre",
-  "Un hub pour tous tes réseaux",
-  "Connexion OAuth sécurisée",
-] as const
-
 export function TrustBar() {
+  const { messages } = useI18n()
+  const items = messages.trust.items
+
   return (
     <section className="border-y border-border/60 bg-card/80 py-5 sm:py-6">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">

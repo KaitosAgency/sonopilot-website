@@ -1,0 +1,78 @@
+{
+  "seo": {
+    "homeTitle": "Sonopilot",
+    "homeDescription": "Sonopilot aide les artistes émergents à sortir de l'anonymat — premiers retours, engagement qualifié, un seul hub pour piloter ta carrière musicale."
+  },
+  "nav": {
+    "product": "Produit",
+    "howItWorks": "Comment ça marche",
+    "transparency": "Transparence",
+    "faq": "FAQ"
+  },
+  "header": {
+    "joinAlpha": "Rejoindre l'alpha",
+    "joinAlphaMobile": "Rejoindre l'alpha gratuit",
+    "menuOpen": "Ouvrir le menu",
+    "menuClose": "Fermer le menu"
+  },
+  "footer": {
+    "alphaAccess": "Accès alpha",
+    "login": "Connexion",
+    "legalNav": "Informations légales",
+    "legalNotice": "Mentions légales",
+    "privacy": "Confidentialité",
+    "terms": "CGU"
+  },
+  "comingSoon": {
+    "closeDialog": "Fermer la fenêtre",
+    "close": "Fermer",
+    "title": "Bientôt disponible",
+    "body": "L'inscription et l'accès à l'application ouvriront bientôt. Merci de ta patience — on finalise Sonopilot pour toi.",
+    "ok": "D'accord"
+  },
+  "lang": {
+    "label": "Langue",
+    "fr": "FR",
+    "en": "EN"
+  },
+  "howItWorks": {
+    "kicker": "Parcours",
+    "title": "Comment ça marche",
+    "intro": "Connecte tes plateformes, configure tes préférences, explore ta scène — en trois étapes. Tout se passe dans un seul tableau de bord.",
+    "closingTitle": "Moins de bruit, plus de connexions utiles.",
+    "closingP1": "Touche les artistes et auditeurs qui comptent — fais grandir une communauté autour de ta musique, à ton rythme.",
+    "closingP2": "Sonopilot te dégage du temps pour l'essentiel : créer, échanger, collaborer.",
+    "steps": [
+      {
+        "number": "1",
+        "title": "Connecte tes réseaux",
+        "description": "Liaison sécurisée en un clic, déconnexion à tout moment. SoundCloud disponible dès maintenant — d'autres plateformes arrivent."
+      },
+      {
+        "number": "2",
+        "title": "Définis ton univers",
+        "description": "Choisis tes genres, tes préférences de découverte et ce qui t'intéresse — tout se règle depuis un seul onglet."
+      },
+      {
+        "number": "3",
+        "title": "Explore et interagis",
+        "description": "Parcours les profils et morceaux qui matchent ton son. Écoute, follow, like, commente — chaque interaction reste la tienne."
+      }
+    ]
+  },
+  "legal": {
+    "backHome": "← Accueil",
+    "mentions": {
+      "title": "Mentions légales",
+      "metaDescription": "Informations sur l'éditeur du site Sonopilot et l'hébergement."
+    },
+    "privacy": {
+      "title": "Politique de confidentialité",
+      "metaDescription": "Traitement des données personnelles sur le site Sonopilot."
+    },
+    "terms": {
+      "title": "Conditions générales d'utilisation",
+      "metaDescription": "Conditions d'utilisation du site Sonopilot."
+    }
+  }
+}

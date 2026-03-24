@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 
+import { defaultLocale } from "@/lib/i18n/config";
 import { siteConfig } from "@/lib/site";
 
 const outfit = Outfit({
@@ -52,19 +54,29 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    languages: {
+      fr: `${siteConfig.url}/fr`,
+      en: `${siteConfig.url}/en`,
+      "x-default": `${siteConfig.url}/${defaultLocale}`,
+    },
+  },
   icons: {
     icon: "/images/Logo/logo-sonopilot-only-icon-01.svg",
     apple: "/images/Logo/logo-sonopilot-only-icon-01.svg",
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const h = await headers();
+  const htmlLang = h.get("x-sonopilot-locale") ?? defaultLocale;
+
   return (
-    <html lang={siteConfig.language} suppressHydrationWarning>
+    <html lang={htmlLang} suppressHydrationWarning>
       <body
         className={`${outfit.variable} ${jetbrainsMono.variable} min-h-screen font-sans`}
         style={

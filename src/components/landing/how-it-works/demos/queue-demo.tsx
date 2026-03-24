@@ -20,6 +20,8 @@ import {
   X,
 } from "lucide-react"
 
+import { useI18n } from "@/components/providers/i18n-provider"
+import { interpolate } from "@/lib/i18n/interpolate"
 import { cn } from "@/lib/utils"
 
 import { FakeCursor } from "./fake-cursor"
@@ -38,74 +40,12 @@ const INITIAL_QUEUE = {
   comment: 2,
 } as const
 
-const QUEUE_META = [
-  { id: "follow" as const, Icon: UserPlus, label: "Suivre", key: "follow" },
-  { id: "unfollow" as const, Icon: UserCheck, label: "Ne plus suivre", key: "unfollow" },
-  { id: "like" as const, Icon: Heart, label: "J'aime", key: "like" },
-  { id: "repost" as const, Icon: Repeat2, label: "Repost", key: "repost" },
-  {
-    id: "comment" as const,
-    Icon: MessageCircle,
-    label: "Commentaire",
-    key: "comment",
-  },
-] as const
-
 type QueueState = Record<
   "follow" | "unfollow" | "like" | "repost" | "comment",
   number
 >
 
 type DemoToast = { id: string; message: string }
-
-/** Ligne 1 = démo curseur ; lignes suivantes = état statique */
-const TABLE_ROWS = [
-  {
-    title: "Nuit boréale — Version club",
-    artworkSeed: "nuit-boreale",
-    demoRow: true,
-  },
-  {
-    title: "Étendue — Session live",
-    artworkSeed: "etendue-live",
-    demoRow: false,
-    heart: true,
-    msg: true,
-    user: false,
-  },
-  {
-    title: "HORIZON — Extended",
-    artworkSeed: "horizon-ext",
-    demoRow: false,
-    heart: false,
-    msg: false,
-    user: true,
-  },
-  {
-    title: "Aveux — Radio edit",
-    artworkSeed: "aveux-radio",
-    demoRow: false,
-    heart: true,
-    msg: false,
-    user: true,
-  },
-  {
-    title: "Lueurs — Dub mix",
-    artworkSeed: "lueurs-dub",
-    demoRow: false,
-    heart: false,
-    msg: true,
-    user: false,
-  },
-  {
-    title: "Synthèse nocturne",
-    artworkSeed: "synthese-nuit",
-    demoRow: false,
-    heart: true,
-    msg: false,
-    user: true,
-  },
-] as const
 
 /** Pointe du SVG curseur (~coin haut-gauche du tracé) */
 const CURSOR_TIP_OFFSET = { x: 3, y: 3 }
@@ -156,6 +96,36 @@ function cursorAtButton(
 }
 
 export function QueueDemo() {
+  const { messages, locale } = useI18n()
+  const d = messages.demos.queue
+
+  const QUEUE_META = [
+    { id: "follow" as const, Icon: UserPlus, key: "follow" as const, label: d.actions.follow },
+    {
+      id: "unfollow" as const,
+      Icon: UserCheck,
+      key: "unfollow" as const,
+      label: d.actions.unfollow,
+    },
+    { id: "like" as const, Icon: Heart, key: "like" as const, label: d.actions.like },
+    { id: "repost" as const, Icon: Repeat2, key: "repost" as const, label: d.actions.repost },
+    {
+      id: "comment" as const,
+      Icon: MessageCircle,
+      key: "comment" as const,
+      label: d.actions.comment,
+    },
+  ] as const
+
+  const TABLE_ROWS = d.rows.map((r) => ({
+    title: r.title,
+    artworkSeed: r.artworkSeed,
+    demoRow: r.demoRow,
+    heart: r.heart ?? false,
+    msg: r.msg ?? false,
+    user: r.user ?? false,
+  }))
+
   const { ref: inViewRef, inView } = useInViewOnce()
   const reduced = useReducedMotion()
   const play = inView && !reduced
@@ -186,6 +156,8 @@ export function QueueDemo() {
   }>({ left: "0px", top: "0px", opacity: 0 })
 
   const timers = useRef<number[]>([])
+  const queueCopyRef = useRef(d)
+  queueCopyRef.current = d
 
   useLayoutEffect(() => {
     if (!play || !pulseKey) return
@@ -204,6 +176,8 @@ export function QueueDemo() {
   useEffect(() => {
     timers.current.forEach(clearTimeout)
     timers.current = []
+
+    const q = queueCopyRef.current
 
     const push = (fn: () => void, ms: number) => {
       timers.current.push(window.setTimeout(fn, ms))
@@ -227,9 +201,9 @@ export function QueueDemo() {
       })
       setRow0({ like: true, msg: true, user: true })
       setDemoToasts([
-        { id: "r1", message: "J'aime enregistré." },
-        { id: "r2", message: "Commentaire enregistré." },
-        { id: "r3", message: "Suivi enregistré." },
+        { id: "r1", message: q.toasts.like },
+        { id: "r2", message: q.toasts.comment },
+        { id: "r3", message: q.toasts.follow },
       ])
       setPulseKey(null)
       setCursor((c) => ({ ...c, opacity: 0 }))
@@ -256,7 +230,7 @@ export function QueueDemo() {
       push(() => {
         setRow0((r) => ({ ...r, like: true }))
         setQueue((q) => ({ ...q, like: q.like + 1 }))
-        addToast("J'aime enregistré.")
+        addToast(q.toasts.like)
         setPulseKey(null)
       }, 850)
 
@@ -264,7 +238,7 @@ export function QueueDemo() {
       push(() => {
         setRow0((r) => ({ ...r, msg: true }))
         setQueue((q) => ({ ...q, comment: q.comment + 1 }))
-        addToast("Commentaire enregistré.")
+        addToast(q.toasts.comment)
         setPulseKey(null)
       }, 1800)
 
@@ -272,7 +246,7 @@ export function QueueDemo() {
       push(() => {
         setRow0((r) => ({ ...r, user: true }))
         setQueue((q) => ({ ...q, follow: q.follow + 1 }))
-        addToast("Suivi enregistré.")
+        addToast(q.toasts.follow)
         setPulseKey(null)
         setCursor((c) => ({ ...c, opacity: 0 }))
       }, 2750)
@@ -289,7 +263,7 @@ export function QueueDemo() {
       timers.current.forEach(clearTimeout)
       timers.current = []
     }
-  }, [play, inView, reduced])
+  }, [play, inView, reduced, locale])
 
   const pendingTotal = totalQueue(queue)
 
@@ -302,7 +276,7 @@ export function QueueDemo() {
     >
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <span className="text-sm font-medium text-muted-foreground">
-          Ma liste :
+          {d.myList}
         </span>
         <div className="flex flex-wrap items-center gap-2">
           {QUEUE_META.map(({ id, Icon, label, key }) => (
@@ -331,7 +305,7 @@ export function QueueDemo() {
             tabIndex={-1}
             className="flex min-w-0 flex-1 items-center gap-1 text-left text-sm font-medium text-foreground"
           >
-            Titre
+            {d.columnTitle}
             <ChevronsUpDown className="h-3.5 w-3.5 shrink-0 text-muted-foreground/50" />
           </button>
           <div
@@ -447,7 +421,6 @@ export function QueueDemo() {
         />
       ) : null}
 
-      {/* Même logique que `ToastContainer` dans app : absolute + bottom décalé = pile « deck » */}
       <div
         className="pointer-events-none absolute -bottom-1 -right-3 z-20 w-[min(100vw-1.5rem,20rem)] sm:-bottom-1 sm:-right-10 sm:w-80"
         aria-live="polite"
@@ -487,7 +460,7 @@ export function QueueDemo() {
                   <p className="min-w-0 flex-1 text-sm font-medium leading-snug">
                     {t.message}{" "}
                     <span className="tabular-nums text-emerald-800/90 dark:text-emerald-200/90">
-                      ({pendingTotal} au total)
+                      {interpolate(d.pendingTotal, { count: pendingTotal })}
                     </span>
                   </p>
                   <span

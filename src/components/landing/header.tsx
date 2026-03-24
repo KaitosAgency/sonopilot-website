@@ -1,20 +1,27 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Menu, X, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { ComingSoonTrigger } from "./coming-soon"
+import { useI18n } from "@/components/providers/i18n-provider"
 
-const navLinks = [
-  { label: "Produit", href: "#produit" },
-  { label: "Comment ça marche", href: "#comment-ca-marche" },
-  { label: "Transparence", href: "#transparence" },
-  { label: "FAQ", href: "#faq" },
-]
+import { ComingSoonTrigger } from "./coming-soon"
+import { LanguageSwitcher } from "./language-switcher"
 
 export function Header() {
+  const { locale, messages } = useI18n()
+  const navLinks = useMemo(
+    () => [
+      { label: messages.nav.product, href: `/${locale}#produit` },
+      { label: messages.nav.howItWorks, href: `/${locale}#comment-ca-marche` },
+      { label: messages.nav.transparency, href: `/${locale}#transparence` },
+      { label: messages.nav.faq, href: `/${locale}#faq` },
+    ],
+    [locale, messages]
+  )
+
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -34,7 +41,7 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="flex items-center">
+        <Link href={`/${locale}`} className="flex items-center">
           <Image
             src="/images/Logo/logo-sonopilot-full-color-01.svg"
             alt="Sonopilot"
@@ -60,14 +67,15 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <LanguageSwitcher className="hidden sm:inline-flex" />
           <ComingSoonTrigger className="hidden sm:inline-flex h-9 px-4 items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
-            Rejoindre l&apos;alpha
+            {messages.header.joinAlpha}
             <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
           </ComingSoonTrigger>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
-            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={menuOpen ? messages.header.menuClose : messages.header.menuOpen}
           >
             {menuOpen ? (
               <X className="h-5 w-5" />
@@ -85,6 +93,9 @@ export function Header() {
         )}
       >
         <nav className="flex flex-col px-4 py-4 gap-1">
+          <div className="mb-2 flex justify-center sm:hidden">
+            <LanguageSwitcher />
+          </div>
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -99,7 +110,7 @@ export function Header() {
             onClick={() => setMenuOpen(false)}
             className="inline-flex h-10 items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors mt-3 w-full"
           >
-            Rejoindre l&apos;alpha gratuit
+            {messages.header.joinAlphaMobile}
           </ComingSoonTrigger>
         </nav>
       </div>

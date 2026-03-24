@@ -10,6 +10,7 @@ import {
   User,
   Zap,
 } from "lucide-react"
+import { useI18n } from "@/components/providers/i18n-provider"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
@@ -35,20 +36,8 @@ export type SoundCloudDemoPhase =
   | "loading"
   | "connected"
 
-/** Données factices — beatmaker inventé (aligné sur `platform-profile-card.tsx`). */
-const DEMO = {
-  displayName: "Nøva Crate",
-  username: "nova_crate",
-  location: "Studio K7 — Nantes, France",
-  plan: "Pro Plus",
-  bio: "Beatmaker — 808\nBreaks et textures lo-fi. Samples taillés à la main, instrus chaque vendredi. Collabs ouvertes.",
-  stats: [
-    { label: "Abonnés", value: 2076 },
-    { label: "Abonnements", value: 467 },
-    { label: "Morceaux", value: 15 },
-    { label: "Playlists", value: 3 },
-  ],
-}
+const DEMO_STAT_VALUES = [2076, 467, 15, 3] as const
+const SKELETON_STAT_SLOTS = 4
 
 /** Corps de carte : titres, stats et lignes en skeleton (déconnecté + chargement + cartes décoratives). */
 export function PlatformCardProfileSkeleton() {
@@ -65,8 +54,8 @@ export function PlatformCardProfileSkeleton() {
         <div className={cn("h-5 w-20 rounded-full", bar)} />
       </div>
       <div className="grid min-h-[56px] grid-cols-4 gap-1.5 border-y border-border py-3">
-        {DEMO.stats.map((stat) => (
-          <div key={stat.label} className="text-center">
+        {Array.from({ length: SKELETON_STAT_SLOTS }, (_, i) => (
+          <div key={i} className="text-center">
             <div className={cn("mx-auto mb-0.5 h-4 w-8", bar)} />
             <div className={cn("mx-auto h-2.5 w-10", bar)} />
           </div>
@@ -89,6 +78,17 @@ export function PlatformProfileCardDemo({
   className?: string
   connectButtonClassName?: string
 }) {
+  const { messages, locale } = useI18n()
+  const demo = messages.demos.platformProfile
+  const planPrefix = messages.common.planPrefix
+  const localeTag = locale === "fr" ? "fr-FR" : "en-US"
+  const stats = [
+    { label: demo.statFollowers, value: DEMO_STAT_VALUES[0] },
+    { label: demo.statFollowing, value: DEMO_STAT_VALUES[1] },
+    { label: demo.statTracks, value: DEMO_STAT_VALUES[2] },
+    { label: demo.statPlaylists, value: DEMO_STAT_VALUES[3] },
+  ]
+
   const [pilotingOn, setPilotingOn] = useState(true)
 
   const connected = phase === "connected"
@@ -114,33 +114,38 @@ export function PlatformProfileCardDemo({
             <div className="flex h-5 w-5 items-center justify-center text-white/90">
               <SoundCloudIcon size={16} />
             </div>
-            <span className="text-xs font-medium text-white/90">SoundCloud</span>
+            <span className="text-xs font-medium text-white/90">
+              {demo.brandName}
+            </span>
           </div>
           {connected ? (
             <div
               className={cn(TOKEN_BADGE_BOX, "bg-white shadow-sm")}
-              title="Jeton valide"
+              title={demo.tokenTitleValid}
             >
               <span className="size-1 shrink-0 rounded-full bg-green-500" />
               <span className="text-[9px] font-medium tracking-wide text-green-600">
-                Valide
+                {demo.tokenLabelValid}
               </span>
             </div>
           ) : loading ? (
             <div
               className={cn(TOKEN_BADGE_BOX, "bg-white/95 shadow-sm")}
-              title="Connexion en cours"
+              title={demo.tokenTitleLoading}
             >
               <Loader2 className="size-2.5 shrink-0 animate-spin text-primary" />
               <span className="text-[9px] font-medium tracking-wide text-foreground">
-                Connexion…
+                {demo.tokenLabelLoading}
               </span>
             </div>
           ) : (
-            <div className={cn(TOKEN_BADGE_BOX, "bg-white/15")} title="Compte non lié">
+            <div
+              className={cn(TOKEN_BADGE_BOX, "bg-white/15")}
+              title={demo.tokenTitleUnlinked}
+            >
               <span className="size-1 shrink-0 rounded-full bg-white/45" />
               <span className="text-[9px] font-medium tracking-wide text-white/85">
-                Non connecté
+                {demo.tokenLabelUnlinked}
               </span>
             </div>
           )}
@@ -208,30 +213,28 @@ export function PlatformProfileCardDemo({
           {connected ? (
             <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
               <h3 className="mb-0.5 shrink-0 text-base font-bold leading-tight text-foreground">
-                {DEMO.displayName}
+                {demo.displayName}
               </h3>
               <p className="mb-1.5 shrink-0 text-xs text-muted-foreground">
-                @{DEMO.username}
+                @{demo.username}
               </p>
 
               <div className="mb-2 flex min-h-0 shrink-0 items-center justify-center gap-1 text-xs text-muted-foreground">
                 <MapPin className="h-3 w-3 shrink-0" />
-                <span className="line-clamp-1">{DEMO.location}</span>
+                <span className="line-clamp-1">{demo.location}</span>
               </div>
 
               <div className="mb-2 flex min-h-[22px] shrink-0 items-center justify-center">
                 <span className="inline-block rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-medium text-primary">
-                  Plan : {DEMO.plan}
+                  {planPrefix} {demo.plan}
                 </span>
               </div>
 
               <div className="mb-2 grid min-h-0 shrink-0 grid-cols-4 gap-1 border-y border-border py-2.5">
-                {DEMO.stats.map((stat) => (
+                {stats.map((stat) => (
                   <div key={stat.label} className="text-center">
                     <div className="text-sm font-bold leading-none text-foreground">
-                      {typeof stat.value === "number"
-                        ? stat.value.toLocaleString("fr-FR")
-                        : stat.value}
+                      {stat.value.toLocaleString(localeTag)}
                     </div>
                     <div className="mt-0.5 text-[9px] leading-tight text-muted-foreground">
                       {stat.label}
@@ -241,7 +244,7 @@ export function PlatformProfileCardDemo({
               </div>
 
               <p className="line-clamp-4 min-h-0 flex-1 whitespace-pre-line text-xs leading-snug text-foreground">
-                {DEMO.bio}
+                {demo.bio}
               </p>
             </div>
           ) : (
@@ -260,7 +263,7 @@ export function PlatformProfileCardDemo({
             <div className="flex min-w-0 flex-1 items-center gap-1.5 text-left">
               <Zap className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden />
               <span className="text-xs font-medium text-foreground">
-                Pilotage
+                {demo.piloting}
               </span>
             </div>
             <Switch
@@ -274,11 +277,11 @@ export function PlatformProfileCardDemo({
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <Loader2 className="size-3.5 shrink-0 animate-spin text-primary" />
               <span className="line-clamp-1 animate-pulse font-medium text-foreground/80">
-                Synchronisation des données…
+                {demo.syncing}
               </span>
             </div>
             <p className="line-clamp-1 text-center text-[9px] leading-tight text-muted-foreground">
-              Profil, stats et jeton OAuth
+              {demo.syncHint}
             </p>
           </div>
         ) : (
@@ -295,7 +298,7 @@ export function PlatformProfileCardDemo({
               tabIndex={-1}
               aria-hidden
             >
-              Connecter avec SoundCloud
+              {demo.connectButton}
             </Button>
           </div>
         )}

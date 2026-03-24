@@ -10,11 +10,13 @@ import {
   type ReactNode,
 } from "react"
 import { X } from "lucide-react"
+import { useI18n } from "@/components/providers/i18n-provider"
 import { cn } from "@/lib/utils"
 
 const ComingSoonContext = createContext<() => void>(() => {})
 
 export function ComingSoonProvider({ children }: { children: ReactNode }) {
+  const { messages } = useI18n()
   const [open, setOpen] = useState(false)
   const openModal = useCallback(() => setOpen(true), [])
 
@@ -39,7 +41,7 @@ export function ComingSoonProvider({ children }: { children: ReactNode }) {
           <button
             type="button"
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
-            aria-label="Fermer la fenêtre"
+            aria-label={messages.comingSoon.closeDialog}
             onClick={() => setOpen(false)}
           />
           <ComingSoonPanel onClose={() => setOpen(false)} />
@@ -51,6 +53,8 @@ export function ComingSoonProvider({ children }: { children: ReactNode }) {
 
 function ComingSoonPanel({ onClose }: { onClose: () => void }) {
   const titleId = useId()
+  const { messages } = useI18n()
+  const c = messages.comingSoon
 
   return (
     <div
@@ -63,7 +67,7 @@ function ComingSoonPanel({ onClose }: { onClose: () => void }) {
         type="button"
         onClick={onClose}
         className="absolute right-3 top-3 rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-        aria-label="Fermer"
+        aria-label={c.close}
       >
         <X className="h-4 w-4" strokeWidth={2} />
       </button>
@@ -71,18 +75,15 @@ function ComingSoonPanel({ onClose }: { onClose: () => void }) {
         id={titleId}
         className="pr-10 text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
       >
-        Bientôt disponible
+        {c.title}
       </h2>
-      <p className="mt-3 text-sm font-light leading-relaxed text-muted-foreground">
-        L&apos;inscription et l&apos;accès à l&apos;application ouvriront
-        bientôt. Merci de ta patience — on finalise Sonopilot pour toi.
-      </p>
+      <p className="mt-3 text-sm font-light leading-relaxed text-muted-foreground">{c.body}</p>
       <button
         type="button"
         onClick={onClose}
         className="mt-6 inline-flex h-10 w-full items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto sm:px-8"
       >
-        D&apos;accord
+        {c.ok}
       </button>
     </div>
   )

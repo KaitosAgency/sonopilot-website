@@ -10,7 +10,9 @@ import {
   UserPlus,
   Repeat2,
 } from "lucide-react"
+import { useI18n } from "@/components/providers/i18n-provider"
 import { notifications, type FakeNotification } from "@/lib/fake-data"
+import { interpolate } from "@/lib/i18n/interpolate"
 import { ComingSoonTrigger } from "./coming-soon"
 import { cn } from "@/lib/utils"
 import { sectionEyebrowClasses } from "./section-kicker"
@@ -33,31 +35,41 @@ const HERO_NOTIF_SLOTS: { notifIndex: number; side: "left" | "right"; top: strin
 /** Ordre d'apparition entrelacé gauche/droite (pas 0,1,2,3…) */
 const NOTIF_SHOW_ORDER = [4, 0, 9, 2, 7, 1, 10, 3, 6, 5, 8] as const
 
-const typeConfig = {
-  like: {
-    icon: Heart,
-    color: "text-rose-500",
-    bg: "bg-rose-500/10",
-    label: (n: FakeNotification) => `a liké ${n.trackTitle}`,
-  },
-  follow: {
-    icon: UserPlus,
-    color: "text-primary",
-    bg: "bg-primary/10",
-    label: () => "te suit maintenant",
-  },
-  comment: {
-    icon: MessageCircle,
-    color: "text-amber-500",
-    bg: "bg-amber-500/10",
-    label: (n: FakeNotification) => `a commenté « ${n.comment} »`,
-  },
-  repost: {
-    icon: Repeat2,
-    color: "text-emerald-500",
-    bg: "bg-emerald-500/10",
-    label: (n: FakeNotification) => `a reposté ${n.trackTitle}`,
-  },
+function heroTypeConfig(hero: {
+  notifLike: string
+  notifFollow: string
+  notifComment: string
+  notifRepost: string
+}) {
+  return {
+    like: {
+      icon: Heart,
+      color: "text-rose-500",
+      bg: "bg-rose-500/10",
+      label: (n: FakeNotification) =>
+        interpolate(hero.notifLike, { track: n.trackTitle ?? "" }),
+    },
+    follow: {
+      icon: UserPlus,
+      color: "text-primary",
+      bg: "bg-primary/10",
+      label: () => hero.notifFollow,
+    },
+    comment: {
+      icon: MessageCircle,
+      color: "text-amber-500",
+      bg: "bg-amber-500/10",
+      label: (n: FakeNotification) =>
+        interpolate(hero.notifComment, { comment: n.comment ?? "" }),
+    },
+    repost: {
+      icon: Repeat2,
+      color: "text-emerald-500",
+      bg: "bg-emerald-500/10",
+      label: (n: FakeNotification) =>
+        interpolate(hero.notifRepost, { track: n.trackTitle ?? "" }),
+    },
+  } as const
 }
 
 function SonareOrb({ className, alt }: { className?: string; alt?: boolean }) {
@@ -119,10 +131,14 @@ function NotifToast({
   notif,
   visible,
   side,
+  typeConfig,
+  timeAgoTemplate,
 }: {
   notif: FakeNotification
   visible: boolean
   side: "left" | "right"
+  typeConfig: ReturnType<typeof heroTypeConfig>
+  timeAgoTemplate: string
 }) {
   const cfg = typeConfig[notif.type]
   const Icon = cfg.icon
@@ -153,7 +169,7 @@ function NotifToast({
           <span className="text-muted-foreground">{cfg.label(notif)}</span>
         </p>
         <p className="text-[10px] text-muted-foreground/60 mt-0.5">
-          il y a {notif.timeAgo}
+          {interpolate(timeAgoTemplate, { mins: notif.timeAgoMinutes })}
         </p>
       </div>
       <div className={cn("shrink-0 rounded-full p-1.5", cfg.bg)}>
@@ -195,6 +211,10 @@ function HeroNotifBell() {
 }
 
 export function Hero() {
+  const { messages } = useI18n()
+  const hero = messages.hero
+  const common = messages.common
+  const typeConfig = heroTypeConfig(hero)
   const [activeIndices, setActiveIndices] = useState<number[]>([])
 
   useEffect(() => {
@@ -225,37 +245,43 @@ export function Hero() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative">
         <div className="relative z-10 flex flex-col items-center text-center">
           <span className={cn(sectionEyebrowClasses, "mb-8")}>
-            Alpha gratuite · Accès anticipé
+            {hero.eyebrow}
           </span>
 
           <h1 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl max-w-4xl !leading-[1.08]">
-            Ta musique mérit<span className="relative inline-block">e<span className="pointer-events-none absolute left-5 md:left-20 -translate-x-1/2 -top-12 sm:-top-12 md:-top-12"><span className="pointer-events-auto inline-block rotate-[8deg]"><HeroNotifBell /></span></span></span>
+            {hero.titleLine1}
+            <span className="relative inline-block">
+              {hero.titleLine1End}
+              <span className="pointer-events-none absolute left-5 md:left-20 -translate-x-1/2 -top-12 sm:-top-12 md:-top-12">
+                <span className="pointer-events-auto inline-block rotate-[8deg]">
+                  <HeroNotifBell />
+                </span>
+              </span>
+            </span>
             <br />
-            <span className="text-primary">d&apos;être entendue.</span>
+            <span className="text-primary">{hero.titleLine2}</span>
           </h1>
 
           <p className="mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground font-light leading-relaxed">
-            Sonopilot connecte les artistes émergents avec les bonnes personnes
-            — premiers retours, engagement qualifié, un seul hub pour tout
-            suivre et développer ta communauté musicale.
+            {hero.subtitle}
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
             <ComingSoonTrigger className="inline-flex h-12 px-8 items-center justify-center rounded-lg bg-primary text-base font-medium text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5">
-              Rejoindre l&apos;alpha gratuit
+              {hero.ctaAlpha}
               <ArrowRight className="ml-2 h-4 w-4" />
             </ComingSoonTrigger>
             <a
               href="#comment-ca-marche"
               className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
             >
-              Voir comment ça marche
+              {hero.ctaHow}
               <ArrowRight className="ml-1 h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform" />
             </a>
           </div>
 
           <p className="mt-6 text-xs text-muted-foreground/60 tracking-wide">
-            Sans carte bancaire · 100 % gratuit
+            {hero.footnote}
           </p>
         </div>
 
@@ -292,6 +318,8 @@ export function Hero() {
                       notif={notif}
                       visible={activeIndices.includes(slot.notifIndex)}
                       side={slot.side}
+                      typeConfig={typeConfig}
+                      timeAgoTemplate={common.timeAgo}
                     />
                   </div>
                 )
@@ -302,7 +330,7 @@ export function Hero() {
               <div className="relative overflow-hidden rounded-xl">
                 <Image
                   src="/images/screenshots/sonopilot_sc_artists.jpg?v=2"
-                  alt="Sonopilot — vue artistes avec découverte de profils"
+                  alt={hero.screenshotAlt}
                   width={2880}
                   height={1800}
                   quality={92}

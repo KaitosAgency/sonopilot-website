@@ -2,7 +2,9 @@
 
 import Image from "next/image"
 import { Heart, MessageCircle, UserPlus, Repeat2 } from "lucide-react"
+import { useI18n } from "@/components/providers/i18n-provider"
 import { profiles, notifications, type FakeNotification } from "@/lib/fake-data"
+import { interpolate } from "@/lib/i18n/interpolate"
 import { cn } from "@/lib/utils"
 
 const typeIcon = {
@@ -12,11 +14,18 @@ const typeIcon = {
   repost: Repeat2,
 }
 
-const typeLabel: Record<string, (n: FakeNotification) => string> = {
-  like: (n) => `a liké ${n.trackTitle}`,
-  follow: () => "te suit maintenant",
-  comment: (n) => `« ${n.comment} »`,
-  repost: (n) => `a reposté ${n.trackTitle}`,
+function marqueeTypeLabels(m: {
+  notifLike: string
+  notifFollow: string
+  notifComment: string
+  notifRepost: string
+}): Record<string, (n: FakeNotification) => string> {
+  return {
+    like: (n) => interpolate(m.notifLike, { track: n.trackTitle ?? "" }),
+    follow: () => m.notifFollow,
+    comment: (n) => interpolate(m.notifComment, { comment: n.comment ?? "" }),
+    repost: (n) => interpolate(m.notifRepost, { track: n.trackTitle ?? "" }),
+  }
 }
 
 const typeDot: Record<string, string> = {
@@ -32,7 +41,20 @@ function ProfileCard({
   genre,
   country,
   followers,
-}: (typeof profiles)[number]) {
+  profileLineTemplate,
+  followersSuffix,
+  localeTag,
+}: (typeof profiles)[number] & {
+  profileLineTemplate: string
+  followersSuffix: string
+  localeTag: string
+}) {
+  const followersStr = followers.toLocaleString(localeTag)
+  const metaLine = interpolate(profileLineTemplate, {
+    genre,
+    followers: followersStr,
+    followersSuffix,
+  })
   return (
     <div className="shrink-0 w-[280px] max-w-[min(280px,85vw)] mx-2.5 rounded-xl border border-border/30 bg-card px-2.5 py-2 shadow-sm hover:shadow-md transition-shadow flex items-center gap-2.5 h-fit min-h-0">
       <div className="relative shrink-0 self-center">
@@ -56,14 +78,22 @@ function ProfileCard({
           </span>
         </div>
         <p className="text-[10px] text-muted-foreground/70 leading-tight truncate">
-          {genre} · {followers.toLocaleString("fr-FR")} abonnés
+          {metaLine}
         </p>
       </div>
     </div>
   )
 }
 
-function NotifCard({ notif }: { notif: FakeNotification }) {
+function NotifCard({
+  notif,
+  typeLabel,
+  timeAgoTemplate,
+}: {
+  notif: FakeNotification
+  typeLabel: Record<string, (n: FakeNotification) => string>
+  timeAgoTemplate: string
+}) {
   const Icon = typeIcon[notif.type]
   const dotClass = typeDot[notif.type] ?? "bg-muted-foreground"
 
@@ -107,11 +137,11 @@ function NotifCard({ notif }: { notif: FakeNotification }) {
         <p className="text-xs text-foreground truncate leading-snug">
           <span className="font-semibold">{notif.username}</span>{" "}
           <span className="text-muted-foreground">
-            {typeLabel[notif.type](notif)}
+            {typeLabel[notif.type]?.(notif) ?? ""}
           </span>
         </p>
         <p className="text-[10px] text-muted-foreground/50 mt-0.5 leading-none">
-          il y a {notif.timeAgo}
+          {interpolate(timeAgoTemplate, { mins: notif.timeAgoMinutes })}
         </p>
       </div>
     </div>
@@ -119,6 +149,11 @@ function NotifCard({ notif }: { notif: FakeNotification }) {
 }
 
 export function Marquee() {
+  const { messages, locale } = useI18n()
+  const m = messages.marquee
+  const typeLabel = marqueeTypeLabels(m)
+  const localeTag = locale === "fr" ? "fr-FR" : "en-US"
+
   const row1 = [
     ...profiles.slice(0, 3).map((p) => ({ type: "profile" as const, data: p })),
     ...notifications
@@ -149,18 +184,29 @@ export function Marquee() {
   const doubled2 = [...row2, ...row2]
 
   return (
-    <section className="py-12" aria-label="Activité récente de la communauté">
+    <section className="py-12" aria-label={m.ariaLabel}>
       <p className="text-center text-xs font-medium uppercase tracking-widest text-muted-foreground/50 mb-6">
-        Activité récente de la communauté
+        {m.label}
       </p>
 
       <div className="space-y-4 marquee-fade overflow-x-clip py-1">
         <div className="animate-marquee flex w-max items-center">
           {doubled1.map((item, i) =>
             item.type === "profile" ? (
-              <ProfileCard key={`r1-${i}`} {...item.data} />
+              <ProfileCard
+                key={`r1-${i}`}
+                {...item.data}
+                profileLineTemplate={m.profileLine}
+                followersSuffix={m.followersSuffix}
+                localeTag={localeTag}
+              />
             ) : (
-              <NotifCard key={`r1-${i}`} notif={item.data} />
+              <NotifCard
+                key={`r1-${i}`}
+                notif={item.data}
+                typeLabel={typeLabel}
+                timeAgoTemplate={messages.common.timeAgo}
+              />
             )
           )}
         </div>
@@ -168,9 +214,20 @@ export function Marquee() {
         <div className="animate-marquee-reverse flex w-max items-center">
           {doubled2.map((item, i) =>
             item.type === "profile" ? (
-              <ProfileCard key={`r2-${i}`} {...item.data} />
+              <ProfileCard
+                key={`r2-${i}`}
+                {...item.data}
+                profileLineTemplate={m.profileLine}
+                followersSuffix={m.followersSuffix}
+                localeTag={localeTag}
+              />
             ) : (
-              <NotifCard key={`r2-${i}`} notif={item.data} />
+              <NotifCard
+                key={`r2-${i}`}
+                notif={item.data}
+                typeLabel={typeLabel}
+                timeAgoTemplate={messages.common.timeAgo}
+              />
             )
           )}
         </div>

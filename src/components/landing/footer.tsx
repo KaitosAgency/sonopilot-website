@@ -2,10 +2,15 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { useI18n } from "@/components/providers/i18n-provider"
 import { publisherConfig, siteConfig } from "@/lib/site"
+
 import { ComingSoonTrigger } from "./coming-soon"
 
 export function Footer() {
+  const { locale, messages } = useI18n()
+  const f = messages.footer
+
   return (
     <footer className="bg-[hsl(228_10%_10%)] text-gray-400 py-12">
       <div className="mx-auto max-w-6xl space-y-6 px-4 sm:px-6">
@@ -26,16 +31,16 @@ export function Footer() {
 
           <div className="flex items-center gap-6 text-sm">
             <ComingSoonTrigger className="text-gray-400 hover:text-white transition-colors cursor-pointer bg-transparent border-0 p-0 font-[inherit] text-sm">
-              Accès alpha
+              {f.alphaAccess}
             </ComingSoonTrigger>
             <ComingSoonTrigger className="text-gray-400 hover:text-white transition-colors cursor-pointer bg-transparent border-0 p-0 font-[inherit] text-sm">
-              Connexion
+              {f.login}
             </ComingSoonTrigger>
           </div>
         </div>
 
         <nav
-          aria-label="Informations légales"
+          aria-label={f.legalNav}
           className="flex flex-wrap justify-center gap-x-6 gap-y-2 border-t border-white/10 pt-6 text-sm sm:justify-start"
         >
           <a
@@ -44,14 +49,20 @@ export function Footer() {
           >
             {publisherConfig.email}
           </a>
-          <Link href="/mentions-legales" className="text-gray-400 transition-colors hover:text-white">
-            Mentions légales
+          <Link
+            href={`/${locale}/mentions-legales`}
+            className="text-gray-400 transition-colors hover:text-white"
+          >
+            {f.legalNotice}
           </Link>
-          <Link href="/politique-de-confidentialite" className="text-gray-400 transition-colors hover:text-white">
-            Confidentialité
+          <Link
+            href={`/${locale}/politique-de-confidentialite`}
+            className="text-gray-400 transition-colors hover:text-white"
+          >
+            {f.privacy}
           </Link>
-          <Link href="/cgu" className="text-gray-400 transition-colors hover:text-white">
-            CGU
+          <Link href={`/${locale}/cgu`} className="text-gray-400 transition-colors hover:text-white">
+            {f.terms}
           </Link>
         </nav>
       </div>

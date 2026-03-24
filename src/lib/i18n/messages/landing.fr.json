@@ -1,0 +1,189 @@
+{
+  "common": {
+    "timeAgo": "il y a {{mins}} min",
+    "planPrefix": "Plan :"
+  },
+  "hero": {
+    "eyebrow": "Alpha gratuite · Accès anticipé",
+    "titleLine1": "Ta musique mérit",
+    "titleLine1End": "e",
+    "titleLine2": "d'être entendue.",
+    "subtitle": "Sonopilot connecte les artistes émergents avec les bonnes personnes — premiers retours, engagement qualifié, un seul hub pour tout suivre et développer ta communauté musicale.",
+    "ctaAlpha": "Rejoindre l'alpha gratuit",
+    "ctaHow": "Voir comment ça marche",
+    "footnote": "Sans carte bancaire · 100 % gratuit",
+    "screenshotAlt": "Sonopilot — vue artistes avec découverte de profils",
+    "notifLike": "a liké {{track}}",
+    "notifFollow": "te suit maintenant",
+    "notifComment": "a commenté « {{comment}} »",
+    "notifRepost": "a reposté {{track}}"
+  },
+  "marquee": {
+    "ariaLabel": "Activité récente de la communauté",
+    "label": "Activité récente de la communauté",
+    "followersSuffix": "abonnés",
+    "profileLine": "{{genre}} · {{followers}} {{followersSuffix}}",
+    "notifLike": "a liké {{track}}",
+    "notifFollow": "te suit maintenant",
+    "notifComment": "« {{comment}} »",
+    "notifRepost": "a reposté {{track}}"
+  },
+  "trust": {
+    "items": [
+      "Découverte d'audience par genre",
+      "Un hub pour tous tes réseaux",
+      "Connexion OAuth sécurisée"
+    ]
+  },
+  "stats": {
+    "qualifiedListeners": "Auditeurs qualifiés",
+    "similarArtists": "Artistes similaires",
+    "trendingTracks": "Tracks tendances",
+    "registeredUsers": "Utilisateurs inscrits"
+  },
+  "problem": {
+    "kicker": "Problème",
+    "headlineLine1": "Tu publies, mais personne",
+    "headlineLine2": "ne répond vraiment ?",
+    "sub": "Fini la dispersion. Centralise ta visibilité et connecte-toi avec les bonnes personnes — chaque interaction part de toi.",
+    "columnSans": "Sans",
+    "columnAvec": "Avec",
+    "screenshotAlt": "Tableau de bord Sonopilot — notifications et activité",
+    "without": [
+      "Tu postes dans le vide — zéro retour, zéro signal",
+      "Tu jongles entre SoundCloud, Spotify… sans vision d'ensemble",
+      "Tu likes au hasard, en espérant être découvert",
+      "Tu ne sais pas qui écoute vraiment ta musique",
+      "Commentaires sans âme, abonnés qui disparaissent — pas de vraie communauté",
+      "Les « boosters » vendent des chiffres, pas des conversations",
+      "Pays, genre, stats : tout est flou",
+      "Tu refuses le faux engagement — mais sans méthode, tu tournes en rond",
+      "Tu finis par douter : ça vaut le coup ?"
+    ],
+    "withCards": [
+      { "title": "Auditeurs qualifiés", "body": "Des profils présentés selon tes styles — pas au hasard." },
+      { "title": "Un hub central", "body": "SoundCloud aujourd'hui, d'autres plateformes en préparation." },
+      { "title": "Interactions ciblées", "body": "Follow, like, commentaire auprès des bonnes personnes." },
+      { "title": "Tableaux clairs", "body": "Pays, genre, stats pour chaque profil, en un coup d'œil." },
+      { "title": "Du temps pour ta musique", "body": "Moins de dispersion, plus d'échanges utiles avec ta communauté." }
+    ]
+  },
+  "pillars": {
+    "kicker": "Produit",
+    "title": "Ce que Sonopilot change pour toi",
+    "lead": "Moins de tirage au hasard. Plus de décisions qui ont du sens — et toujours toi aux commandes.",
+    "sub": "Tu navigues, tu écoutes, tu décides. On t'aide à voir clair ; le geste reste le tien.",
+    "items": [
+      {
+        "iconKey": "fanbase",
+        "label": "Fanbase",
+        "manifesto": "Explore les auditeurs qui matchent ton son.",
+        "description": "Sonopilot te présente les auditeurs actifs dans tes genres. Consulte leurs profils, découvre leur activité — et décide si tu veux les suivre.",
+        "imageAlt": "Onglet Audience — profils d'auditeurs qualifiés avec pays et genre"
+      },
+      {
+        "iconKey": "artists",
+        "label": "Artistes",
+        "manifesto": "Ton créneau, une seule scène — sans quitter l'app.",
+        "description": "Écoute, like, commente les morceaux des artistes qui te ressemblent. Lecteur intégré, profils clairs : moins d'onglets, plus d'échanges utiles.",
+        "imageAlt": "Détail d'un artiste — profil et lecteur SoundCloud embarqué"
+      },
+      {
+        "iconKey": "hub",
+        "label": "Hub",
+        "manifesto": "Un seul endroit pour gérer ce qui compte.",
+        "description": "Dashboard, titres SoundCloud, stats — centralisés. La suite du réseau (Spotify, YouTube…) arrive ; tu gardes le même réflexe.",
+        "imageAlt": "Page Mes Titres — catalogue SoundCloud avec plays, likes, commentaires"
+      }
+    ]
+  },
+  "transparency": {
+    "kicker": "Transparence",
+    "zero1": "Zéro",
+    "line1End": " botting.",
+    "zero2": "Zéro",
+    "line2End": " faux trafic.",
+    "intro": "Sonopilot ne remplace pas une bonne prod ni la discipline de sortie. On aide à être un peu plus visible et à gagner du temps pour ce qui compte — ta communauté et les autres artistes.",
+    "points": [
+      "Chaque interaction — follow, like, commentaire — est décidée et déclenchée par toi.",
+      "Limites intégrées pour un usage responsable et conforme aux conditions d'utilisation.",
+      "Commentaires courts, sans liens — pas de spam.",
+      "Aucune action cachée : tu vois tout, tu contrôles tout."
+    ],
+    "imageAlt": "Onglet Tracks — catalogue SoundCloud avec statistiques et tendances"
+  },
+  "platforms": {
+    "kicker": "Plateformes",
+    "titleLine1": "Tous tes réseaux.",
+    "titleLine2": "Un seul tableau de bord.",
+    "sub": "SoundCloud est la première intégration — les autres arrivent. Inscris-toi pour influencer la prochaine.",
+    "badgeActive": "Actif",
+    "badgeSoon": "Bientôt"
+  },
+  "founder": {
+    "kicker": "Origine",
+    "title": "Hey, c'est Valentin 👋",
+    "p1Before": "Je développe Sonopilot ",
+    "p1Bold": "seul, en solo dev",
+    "p1After": ". Artiste indépendant, j'ai vécu la même frustration que toi : publier un morceau et n'avoir aucun retour — pas parce que la musique est mauvaise, mais parce que personne ne la voit.",
+    "p2Before": "En 2024, j'ai commencé à ",
+    "p2Bold": "coder les premières fonctionnalités de découverte",
+    "p2After": ". Depuis, j'affine le produit feature après feature avec une vision claire :",
+    "bullets": [
+      { "bold": "Un seul hub", "text": " pour tous tes réseaux musicaux — plus besoin de jongler entre dix onglets." },
+      { "bold": "Ton marketing", "text": ", tes règles — chaque interaction part de toi, zéro faux engagement." },
+      { "bold": "Construit", "text": " avec les artistes — le produit est en alpha, tes retours façonnent la prochaine feature." }
+    ],
+    "signature": "— Valentin · Solo dev & fondateur",
+    "profile": {
+      "name": "Valentin",
+      "handle": "@valentin",
+      "tagline": "Fondateur · Artiste indé",
+      "photoAlt": "Valentin, fondateur de Sonopilot",
+      "statFollowersAria": "abonnés",
+      "statFollowingAria": "abonnements",
+      "statTracksAria": "morceaux"
+    }
+  },
+  "alphaCta": {
+    "kicker": "Alpha",
+    "title": "Rejoins l'alpha — 100 % gratuit",
+    "body": "On construit Sonopilot avec les artistes, pas dans un bureau fermé. Ton avis compte, tes retours façonnent le produit.",
+    "cta": "Créer mon compte gratuitement",
+    "note": "Pas de carte bancaire · Tu peux partir quand tu veux"
+  },
+  "faq": {
+    "kicker": "FAQ",
+    "title": "Questions fréquentes",
+    "items": [
+      {
+        "question": "Est-ce que vous achetez des streams ou des followers ?",
+        "answer": "Non, jamais. Sonopilot est un outil de découverte. Chaque interaction que tu fais est manuelle et individuelle."
+      },
+      {
+        "question": "Qui décide des interactions ?",
+        "answer": "Toi. Tu navigues dans les profils, tu écoutes et tu décides de chaque interaction. Rien ne part sans ton action."
+      },
+      {
+        "question": "Ça remplace un community manager ou une bonne prod ?",
+        "answer": "Non. Sonopilot est un complément pour gagner du temps et être un peu plus visible. La qualité de ta musique et ta régularité restent le fondement de ta carrière."
+      },
+      {
+        "question": "SoundCloud seulement pour l'instant ?",
+        "answer": "Oui, c'est la première intégration de l'alpha. Spotify, YouTube, Bandcamp, Beatport et TikTok sont en développement — les alpha testeurs influenceront la prochaine plateforme."
+      },
+      {
+        "question": "Mes données et mon compte SoundCloud sont-ils en sécurité ?",
+        "answer": "Connexion via OAuth sécurisé — tes identifiants ne sont jamais stockés chez nous. Tu peux te déconnecter et supprimer ton compte à tout moment."
+      },
+      {
+        "question": "Quand les autres plateformes arriveront-elles ?",
+        "answer": "On construit avec les alpha testeurs. Rejoins-nous pour influencer la roadmap et être notifié dès l'arrivée de ta plateforme."
+      },
+      {
+        "question": "C'est vraiment gratuit ?",
+        "answer": "Oui, pendant toute la durée de l'alpha. Pas de carte bancaire demandée, pas d'engagement."
+      }
+    ]
+  }
+}

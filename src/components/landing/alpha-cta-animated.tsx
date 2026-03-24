@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowRight } from "lucide-react"
+import { useI18n } from "@/components/providers/i18n-provider"
 import { cn } from "@/lib/utils"
 import { ComingSoonTrigger } from "./coming-soon"
 import { SectionKicker } from "./section-kicker"
@@ -15,6 +16,9 @@ const CTA_DELAY_MS = 380
 const NOTE_DELAY_MS = 540
 
 export function AlphaCtaAnimatedInner() {
+  const { messages } = useI18n()
+  const a = messages.alphaCta
+
   const reduced = useReducedMotion()
   const { ref, inView } = useInViewOnce(0.14)
   const active = reduced || inView
@@ -33,7 +37,7 @@ export function AlphaCtaAnimatedInner() {
           active && !reduced ? { animationDelay: "0ms" } : undefined
         }
       >
-        <SectionKicker onPrimary>Alpha</SectionKicker>
+        <SectionKicker onPrimary>{a.kicker}</SectionKicker>
       </div>
 
       <div
@@ -48,7 +52,7 @@ export function AlphaCtaAnimatedInner() {
         }
       >
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Rejoins l&apos;alpha — 100 % gratuit
+          {a.title}
         </h2>
       </div>
 
@@ -64,10 +68,7 @@ export function AlphaCtaAnimatedInner() {
             : undefined
         }
       >
-        <p>
-          On construit Sonopilot avec les artistes, pas dans un bureau fermé.
-          Ton avis compte, tes retours façonnent le produit.
-        </p>
+        <p>{a.body}</p>
       </div>
 
       <div
@@ -83,7 +84,7 @@ export function AlphaCtaAnimatedInner() {
         }
       >
         <ComingSoonTrigger className="inline-flex h-12 items-center justify-center rounded-lg bg-white px-8 text-base font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-xl">
-          Créer mon compte gratuitement
+          {a.cta}
           <ArrowRight className="ml-2 h-4 w-4" />
         </ComingSoonTrigger>
       </div>
@@ -100,7 +101,7 @@ export function AlphaCtaAnimatedInner() {
             : undefined
         }
       >
-        Pas de carte bancaire · Tu peux partir quand tu veux
+        {a.note}
       </p>
     </div>
   )

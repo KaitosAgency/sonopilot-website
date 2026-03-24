@@ -48,8 +48,12 @@ export function ProblemMutedShell({
 
 export function ComparisonColumnTitle({
   variant,
+  labelSans,
+  labelAvec,
 }: {
   variant: "sans" | "avec"
+  labelSans: string
+  labelAvec: string
 }) {
   const isSans = variant === "sans"
   return (
@@ -60,7 +64,7 @@ export function ComparisonColumnTitle({
       )}
     >
       <span className="text-lg font-semibold tracking-tight sm:text-xl">
-        {isSans ? "Sans" : "Avec"}
+        {isSans ? labelSans : labelAvec}
       </span>
       <span className="inline-flex bg-transparent leading-none">
         <img

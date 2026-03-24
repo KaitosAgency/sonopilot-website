@@ -14,8 +14,8 @@ export const siteConfig = {
   appUrl:
     process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ||
     "https://runroster.kaitos.agency",
-  language: "fr" as const,
-  locale: "fr_FR" as const,
+  language: "en" as const,
+  locale: "en_US" as const,
   keywords: [
     "Sonopilot",
     "Music Marketing",

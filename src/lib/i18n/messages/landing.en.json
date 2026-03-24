@@ -1,0 +1,189 @@
+{
+  "common": {
+    "timeAgo": "{{mins}} min ago",
+    "planPrefix": "Plan:"
+  },
+  "hero": {
+    "eyebrow": "Free alpha · Early access",
+    "titleLine1": "Your music deserv",
+    "titleLine1End": "es",
+    "titleLine2": "to be heard.",
+    "subtitle": "Sonopilot connects emerging artists with the right people — real feedback, meaningful engagement, one hub to track everything and grow your music community.",
+    "ctaAlpha": "Join the free alpha",
+    "ctaHow": "See how it works",
+    "footnote": "No card required · 100% free",
+    "screenshotAlt": "Sonopilot — artist view with profile discovery",
+    "notifLike": "liked {{track}}",
+    "notifFollow": "started following you",
+    "notifComment": "commented « {{comment}} »",
+    "notifRepost": "reposted {{track}}"
+  },
+  "marquee": {
+    "ariaLabel": "Recent community activity",
+    "label": "Recent community activity",
+    "followersSuffix": "followers",
+    "profileLine": "{{genre}} · {{followers}} {{followersSuffix}}",
+    "notifLike": "liked {{track}}",
+    "notifFollow": "started following you",
+    "notifComment": "« {{comment}} »",
+    "notifRepost": "reposted {{track}}"
+  },
+  "trust": {
+    "items": [
+      "Audience discovery by genre",
+      "One hub for all your networks",
+      "Secure OAuth connection"
+    ]
+  },
+  "stats": {
+    "qualifiedListeners": "Qualified listeners",
+    "similarArtists": "Similar artists",
+    "trendingTracks": "Trending tracks",
+    "registeredUsers": "Registered users"
+  },
+  "problem": {
+    "kicker": "The problem",
+    "headlineLine1": "You release music, but",
+    "headlineLine2": "nobody really answers?",
+    "sub": "Stop scattering your efforts. Centralise your visibility and connect with the right people — every interaction starts with you.",
+    "columnSans": "Without",
+    "columnAvec": "With",
+    "screenshotAlt": "Sonopilot dashboard — notifications and activity",
+    "without": [
+      "You post into the void — zero feedback, zero signal",
+      "You juggle SoundCloud, Spotify… with no big picture",
+      "You like at random, hoping to get discovered",
+      "You don't know who's really listening",
+      "Hollow comments, followers who vanish — no real community",
+      "“Boosters” sell numbers, not conversations",
+      "Country, genre, stats: everything's fuzzy",
+      "You reject fake engagement — but without a method, you spin your wheels",
+      "You end up wondering: is it worth it?"
+    ],
+    "withCards": [
+      { "title": "Qualified listeners", "body": "Profiles surfaced to match your styles — not at random." },
+      { "title": "One central hub", "body": "SoundCloud today, more platforms on the way." },
+      { "title": "Targeted interactions", "body": "Follow, like, comment with the right people." },
+      { "title": "Clear dashboards", "body": "Country, genre, stats for each profile at a glance." },
+      { "title": "Time for your music", "body": "Less noise, more useful exchanges with your community." }
+    ]
+  },
+  "pillars": {
+    "kicker": "Product",
+    "title": "What Sonopilot changes for you",
+    "lead": "Less random shots. More decisions that make sense — and you're always in control.",
+    "sub": "You browse, you listen, you decide. We help you see clearly; the action stays yours.",
+    "items": [
+      {
+        "iconKey": "fanbase",
+        "label": "Fanbase",
+        "manifesto": "Explore listeners who match your sound.",
+        "description": "Sonopilot surfaces active listeners in your genres. Check their profiles and activity — then choose whether to follow.",
+        "imageAlt": "Audience tab — qualified listener profiles with country and genre"
+      },
+      {
+        "iconKey": "artists",
+        "label": "Artists",
+        "manifesto": "Your niche, one stage — without leaving the app.",
+        "description": "Listen, like, and comment on tracks from artists like you. Built-in player, clear profiles: fewer tabs, more useful exchanges.",
+        "imageAlt": "Artist detail — profile and embedded SoundCloud player"
+      },
+      {
+        "iconKey": "hub",
+        "label": "Hub",
+        "manifesto": "One place to manage what matters.",
+        "description": "Dashboard, SoundCloud tracks, stats — centralised. More of the network (Spotify, YouTube…) is coming; you keep the same habit.",
+        "imageAlt": "My Tracks page — SoundCloud catalogue with plays, likes, comments"
+      }
+    ]
+  },
+  "transparency": {
+    "kicker": "Transparency",
+    "zero1": "Zero",
+    "line1End": " botting.",
+    "zero2": "Zero",
+    "line2End": " fake traffic.",
+    "intro": "Sonopilot doesn't replace great production or release discipline. We help you be a bit more visible and save time for what matters — your community and fellow artists.",
+    "points": [
+      "Every interaction — follow, like, comment — is decided and triggered by you.",
+      "Built-in limits for responsible use that respects platform terms.",
+      "Short comments, no links — no spam.",
+      "No hidden actions: you see everything, you control everything."
+    ],
+    "imageAlt": "Tracks tab — SoundCloud catalogue with stats and trends"
+  },
+  "platforms": {
+    "kicker": "Platforms",
+    "titleLine1": "All your networks.",
+    "titleLine2": "One dashboard.",
+    "sub": "SoundCloud is the first integration — more are on the way. Sign up to help choose what's next.",
+    "badgeActive": "Live",
+    "badgeSoon": "Soon"
+  },
+  "founder": {
+    "kicker": "Origin",
+    "title": "Hey, I'm Valentin 👋",
+    "p1Before": "I'm building Sonopilot ",
+    "p1Bold": "solo, as a solo dev",
+    "p1After": ". As an independent artist, I've felt the same frustration: dropping a track and hearing nothing back — not because the music is bad, but because no one sees it.",
+    "p2Before": "In 2024, I started ",
+    "p2Bold": "coding the first discovery features",
+    "p2After": ". Since then I've refined the product feature by feature with a clear vision:",
+    "bullets": [
+      { "bold": "One hub", "text": " for all your music networks — no more juggling ten tabs." },
+      { "bold": "Your marketing", "text": ", your rules — every interaction starts with you, zero fake engagement." },
+      { "bold": "Built", "text": " with artists — the product is in alpha; your feedback shapes the next feature." }
+    ],
+    "signature": "— Valentin · Solo dev & founder",
+    "profile": {
+      "name": "Valentin",
+      "handle": "@valentin",
+      "tagline": "Founder · Indie artist",
+      "photoAlt": "Valentin, founder of Sonopilot",
+      "statFollowersAria": "followers",
+      "statFollowingAria": "following",
+      "statTracksAria": "tracks"
+    }
+  },
+  "alphaCta": {
+    "kicker": "Alpha",
+    "title": "Join the alpha — 100% free",
+    "body": "We're building Sonopilot with artists, not behind closed doors. Your voice matters; your feedback shapes the product.",
+    "cta": "Create my free account",
+    "note": "No card required · Leave anytime"
+  },
+  "faq": {
+    "kicker": "FAQ",
+    "title": "Frequently asked questions",
+    "items": [
+      {
+        "question": "Do you buy streams or followers?",
+        "answer": "Never. Sonopilot is a discovery tool. Every interaction you make is manual and individual."
+      },
+      {
+        "question": "Who decides on interactions?",
+        "answer": "You do. You browse profiles, you listen, and you choose each interaction. Nothing goes out without your action."
+      },
+      {
+        "question": "Does this replace a community manager or good production?",
+        "answer": "No. Sonopilot is a complement to save time and be a bit more visible. Your music quality and consistency still drive your career."
+      },
+      {
+        "question": "SoundCloud only for now?",
+        "answer": "Yes — it's the first alpha integration. Spotify, YouTube, Bandcamp, Beatport, and TikTok are in development — alpha testers will help pick what's next."
+      },
+      {
+        "question": "Are my data and SoundCloud account safe?",
+        "answer": "Secure OAuth — your credentials are never stored on our side. You can disconnect and delete your account anytime."
+      },
+      {
+        "question": "When will other platforms arrive?",
+        "answer": "We're building with alpha testers. Join us to influence the roadmap and get notified when your platform goes live."
+      },
+      {
+        "question": "Is it really free?",
+        "answer": "Yes, for the entire alpha. No card required, no commitment."
+      }
+    ]
+  }
+}
