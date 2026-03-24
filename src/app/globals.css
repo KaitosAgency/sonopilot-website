@@ -12,6 +12,161 @@ html {
   transform: translateY(0) !important;
 }
 
+/* Section Problème — colonne « Sans » : apparition échelonnée au scroll */
+@keyframes problem-sans-stagger {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-problem-sans-stagger {
+  animation: problem-sans-stagger 0.88s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Section Produit — en-tête en cascade */
+@keyframes pillar-hd-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pillar-hd-fade-up {
+  animation: pillar-hd-fade-up 0.78s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Produit — bloc texte pilier */
+@keyframes pillar-text-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pillar-text-reveal {
+  animation: pillar-text-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Produit — capture : mobile = léger lift ; md+ = entrée latérale selon zigzag */
+@keyframes pillar-img-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pillar-img-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(32px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes pillar-img-from-left {
+  from {
+    opacity: 0;
+    transform: translateX(-32px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+.pillar-img-anim {
+  animation-duration: 0.88s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.4, 1);
+  animation-fill-mode: both;
+  animation-name: pillar-img-rise;
+}
+
+@media (min-width: 768px) {
+  .pillar-img-anim.pillar-img-anim--ltr {
+    animation-name: pillar-img-from-right;
+  }
+
+  .pillar-img-anim.pillar-img-anim--rtl {
+    animation-name: pillar-img-from-left;
+  }
+}
+
+/* Section Plateformes — en-tête (réutilise pillar-hd-fade-up) */
+.animate-platform-hd-fade-up {
+  animation: pillar-hd-fade-up 0.78s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Grille : entrée en vague gauche → droite */
+@keyframes platform-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes platform-card-in-active {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.91);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-platform-card-in {
+  animation: platform-card-in 0.68s cubic-bezier(0.22, 1, 0.38, 1) both;
+}
+
+.animate-platform-card-in-active {
+  animation: platform-card-in-active 0.76s cubic-bezier(0.26, 1, 0.42, 1) both;
+}
+
+/* Badge Actif : léger pop après la carte */
+@keyframes platform-badge-settle {
+  0% {
+    opacity: 0;
+    transform: scale(0.62);
+  }
+  58% {
+    opacity: 1;
+    transform: scale(1.09);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-platform-badge-settle {
+  animation: platform-badge-settle 0.52s cubic-bezier(0.34, 1.25, 0.55, 1) both;
+}
+
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -262,7 +417,15 @@ html {
   .animate-demo-badge-pop,
   .problem-live-particle,
   .animate-problem-zero-1,
-  .animate-problem-zero-2 {
+  .animate-problem-zero-2,
+  .animate-problem-sans-stagger,
+  .animate-pillar-hd-fade-up,
+  .animate-pillar-text-reveal,
+  .pillar-img-anim,
+  .animate-platform-hd-fade-up,
+  .animate-platform-card-in,
+  .animate-platform-card-in-active,
+  .animate-platform-badge-settle {
     animation: none !important;
   }
 }

@@ -34,18 +34,16 @@ function cursorCenterOnEl(
   return { left: `${cx}px`, top: `${cy}px`, opacity: 1 as const }
 }
 
-/** Icônes alignées sur `GeneralTab.tsx` (app) : Users, Music2, Disc3 */
 const switchRows = [
-  { id: "fanbase", label: "Fanbase", Icon: Users },
-  { id: "similar", label: "Artistes similaires", Icon: Music2 },
-  { id: "trends", label: "Tendances", Icon: Disc3 },
+  { id: "fanbase", label: "Mes genres", Icon: Users },
+  { id: "similar", label: "Artistes proches", Icon: Music2 },
+  { id: "trends", label: "Nouveautés", Icon: Disc3 },
 ] as const
 
 const INITIAL_STYLES = ["Techno", "House"] as const
-/** 3 commentaires max, EN, ≤5 caractères (emojis OK). */
-const INITIAL_COMMENTS = ["🔥", "Nice!", "Thx!"] as const
+const INITIAL_COMMENTS = ["\u{1F525}", "Nice!", "Thx!"] as const
 const STYLE_ADD = "Organic"
-const COMMENT_ADD_1 = "🔥🔥"
+const COMMENT_ADD_1 = "\u{1F525}\u{1F525}"
 
 function scheduleChain(
   steps: Array<{ delay: number; fn: () => void }>
@@ -89,7 +87,6 @@ export function GeneralTabDemo() {
   const [commentInput, setCommentInput] = useState("")
   const timelineIds = useRef<number[]>([])
 
-  /** Interrupteurs : cycle existant */
   useEffect(() => {
     if (!inView || reduced) {
       setCursorExtra(null)
@@ -123,7 +120,6 @@ export function GeneralTabDemo() {
     return () => clearInterval(id)
   }, [play, inView, reduced])
 
-  /** États badges / inputs hors lecture de la timeline */
   useEffect(() => {
     if (!inView) {
       setStyles([...INITIAL_STYLES])
@@ -147,7 +143,6 @@ export function GeneralTabDemo() {
     }
   }, [inView, reduced, play])
 
-  /** Timeline : retirer un commentaire → saisie style → un commentaire (reste 3 max) */
   useEffect(() => {
     timelineIds.current.forEach(clearTimeout)
     timelineIds.current = []
@@ -241,7 +236,6 @@ export function GeneralTabDemo() {
           : 2
       : -1
 
-  /** Interrupteurs : ticks 0–5 ; styles / commentaires : `cursorExtra` prioritaire */
   const cursorSwitchIndex =
     play && !cursorExtra && tick >= 0 && tick < 6
       ? Math.floor(tick / 2)
@@ -306,7 +300,7 @@ export function GeneralTabDemo() {
           }}
         />
       ) : null}
-      <ul className="space-y-2.5" aria-label="Pilotage">
+      <ul className="space-y-2.5" aria-label="Préférences">
         {switchRows.map((row, i) => (
           <li
             key={row.id}
@@ -383,7 +377,7 @@ export function GeneralTabDemo() {
 
       <div className="mt-5 space-y-3 border-t border-border/40 pt-5">
         <p className="text-xs font-medium text-muted-foreground">
-          Commentaires rapides
+          Réponses favorites
         </p>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch sm:gap-2">
           <Input
@@ -412,7 +406,7 @@ export function GeneralTabDemo() {
         <div>
           {comments.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              Aucun commentaire défini.
+              Aucune réponse définie.
             </p>
           ) : (
             <div className="flex max-h-40 flex-wrap gap-2 overflow-y-auto">

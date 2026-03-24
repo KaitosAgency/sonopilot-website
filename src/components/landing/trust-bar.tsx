@@ -26,12 +26,11 @@ function TrustBadgeCheck({ className }: { className?: string }) {
 
 /**
  * Bandeau confiance — entre le marquee (preuve produit) et les chiffres (Stats).
- * Messages courts : détection, pilotage, transparence (alignés hero / problem).
  */
 const items = [
-  "Détection d’audience & de styles",
-  "File d’actions — tout depuis un hub",
-  "Pas de botting — actions humaines",
+  "Découverte d'audience par genre",
+  "Un hub pour tous tes réseaux",
+  "Connexion OAuth sécurisée",
 ] as const
 
 export function TrustBar() {

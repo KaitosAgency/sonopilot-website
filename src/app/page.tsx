@@ -1,3 +1,4 @@
+import { ComingSoonProvider } from "@/components/landing/coming-soon"
 import { Header } from "@/components/landing/header"
 import { Hero } from "@/components/landing/hero"
 import { Marquee } from "@/components/landing/marquee"
@@ -15,7 +16,7 @@ import { Footer } from "@/components/landing/footer"
 
 export default function HomePage() {
   return (
-    <>
+    <ComingSoonProvider>
       <Header />
       <main>
         <Hero />
@@ -32,6 +33,6 @@ export default function HomePage() {
         <FAQ />
       </main>
       <Footer />
-    </>
+    </ComingSoonProvider>
   )
 }

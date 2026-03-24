@@ -47,6 +47,7 @@ function parseLandingPayload(raw: unknown): PublicLandingStats | null {
   const similarArtists = q("similar_artists")
   const trendingTracks = q("trending_tracks")
   const queuePending = q("queue_pending")
+  const registeredUsers = q("registered_users")
   if (
     qualifiedListeners === null ||
     similarArtists === null ||
@@ -60,6 +61,7 @@ function parseLandingPayload(raw: unknown): PublicLandingStats | null {
     similarArtists,
     trendingTracks,
     queuePending,
+    registeredUsers,
   }
 }
 

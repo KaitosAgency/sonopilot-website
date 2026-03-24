@@ -4,4 +4,6 @@ export type PublicLandingStats = {
   similarArtists: number
   trendingTracks: number
   queuePending: number
+  /** Comptes inscrits (auth.users), exposé via la même RPC sécurisée */
+  registeredUsers: number | null
 }

@@ -31,11 +31,11 @@ const TOAST_OVERLAP_OFFSET = 6
 const CYCLE_MS = 7200
 
 const INITIAL_QUEUE = {
-  follow: 75,
-  unfollow: 1,
-  like: 241,
-  repost: 11,
-  comment: 236,
+  follow: 2,
+  unfollow: 0,
+  like: 3,
+  repost: 1,
+  comment: 2,
 } as const
 
 const QUEUE_META = [
@@ -227,9 +227,9 @@ export function QueueDemo() {
       })
       setRow0({ like: true, msg: true, user: true })
       setDemoToasts([
-        { id: "r1", message: "J'aime ajouté à la file d'attente." },
-        { id: "r2", message: "Commentaire ajouté à la file d'attente." },
-        { id: "r3", message: "Suivi ajouté à la file d'attente." },
+        { id: "r1", message: "J'aime enregistré." },
+        { id: "r2", message: "Commentaire enregistré." },
+        { id: "r3", message: "Suivi enregistré." },
       ])
       setPulseKey(null)
       setCursor((c) => ({ ...c, opacity: 0 }))
@@ -256,7 +256,7 @@ export function QueueDemo() {
       push(() => {
         setRow0((r) => ({ ...r, like: true }))
         setQueue((q) => ({ ...q, like: q.like + 1 }))
-        addToast("J'aime ajouté à la file d'attente.")
+        addToast("J'aime enregistré.")
         setPulseKey(null)
       }, 850)
 
@@ -264,7 +264,7 @@ export function QueueDemo() {
       push(() => {
         setRow0((r) => ({ ...r, msg: true }))
         setQueue((q) => ({ ...q, comment: q.comment + 1 }))
-        addToast("Commentaire ajouté à la file d'attente.")
+        addToast("Commentaire enregistré.")
         setPulseKey(null)
       }, 1800)
 
@@ -272,7 +272,7 @@ export function QueueDemo() {
       push(() => {
         setRow0((r) => ({ ...r, user: true }))
         setQueue((q) => ({ ...q, follow: q.follow + 1 }))
-        addToast("Suivi ajouté à la file d'attente.")
+        addToast("Suivi enregistré.")
         setPulseKey(null)
         setCursor((c) => ({ ...c, opacity: 0 }))
       }, 2750)
@@ -302,7 +302,7 @@ export function QueueDemo() {
     >
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <span className="text-sm font-medium text-muted-foreground">
-          File d&apos;attente :
+          Ma liste :
         </span>
         <div className="flex flex-wrap items-center gap-2">
           {QUEUE_META.map(({ id, Icon, label, key }) => (
@@ -469,13 +469,13 @@ export function QueueDemo() {
             return (
               <div
                 key={t.id}
-                className="absolute right-0 w-full"
+                className="absolute inset-x-0 w-full max-w-full"
                 style={{ bottom: `${bottom}px`, zIndex: index }}
               >
                 <div
                   className={cn(
-                    "flex items-center gap-3 rounded-lg border px-3 py-2.5 text-left shadow-lg",
-                    "min-w-0 border-emerald-600/35 bg-emerald-50 text-emerald-900",
+                    "box-border flex min-h-[3.25rem] w-full max-w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left shadow-lg",
+                    "border-emerald-600/35 bg-emerald-50 text-emerald-900",
                     "dark:border-emerald-500/40 dark:bg-emerald-950/95 dark:text-emerald-50"
                   )}
                 >
@@ -484,14 +484,14 @@ export function QueueDemo() {
                     strokeWidth={2.5}
                     aria-hidden
                   />
-                  <p className="min-w-0 flex-1 text-sm font-medium leading-normal">
+                  <p className="min-w-0 flex-1 text-sm font-medium leading-snug">
                     {t.message}{" "}
                     <span className="tabular-nums text-emerald-800/90 dark:text-emerald-200/90">
                       ({pendingTotal} au total)
                     </span>
                   </p>
                   <span
-                    className="flex shrink-0 items-center justify-center rounded-md p-1 text-emerald-600 dark:text-emerald-400"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-emerald-600 dark:text-emerald-400"
                     aria-hidden
                   >
                     <X className="h-4 w-4" strokeWidth={2} />

@@ -149,9 +149,9 @@ export function Marquee() {
   const doubled2 = [...row2, ...row2]
 
   return (
-    <section className="py-12" aria-label="Activité en temps réel">
+    <section className="py-12" aria-label="Activité récente de la communauté">
       <p className="text-center text-xs font-medium uppercase tracking-widest text-muted-foreground/50 mb-6">
-        Activité détectée par Sonopilot
+        Activité récente de la communauté
       </p>
 
       <div className="space-y-4 marquee-fade overflow-x-clip py-1">

@@ -1,3 +1,5 @@
+"use client"
+
 import type { ReactNode } from "react"
 import { Flame, Heart, MessageCircle } from "lucide-react"
 

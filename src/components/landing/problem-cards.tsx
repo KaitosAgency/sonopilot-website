@@ -37,7 +37,7 @@ export function ProblemMutedShell({
   return (
     <div
       className={cn(
-        "rounded-sm bg-muted/35 p-4 sm:p-5 md:p-6",
+        "overflow-visible rounded-xl bg-muted/35 p-4 sm:p-5 md:p-6",
         className
       )}
     >
@@ -85,7 +85,7 @@ export function ComparisonColumnCard({
   return (
     <div
       className={cn(
-        "rounded-sm h-full bg-card shadow-sm p-6 sm:p-8 min-h-0",
+        "rounded-xl h-full bg-card shadow-sm p-6 sm:p-8 min-h-0",
         className
       )}
     >
@@ -98,23 +98,37 @@ export function BenefitStackItem({
   title,
   body,
   index,
+  fallMotion,
 }: {
   title: string
   body: string
   index: number
+  /** Animation entrée : fade + léger lift (sans scale — évite le flou texte après anim GPU) */
+  fallMotion?: { active: boolean; reduced: boolean }
 }) {
+  const fm = fallMotion
+  const animates = Boolean(fm && !fm.reduced)
+  const deckVisible = !fm || fm.reduced || fm.active
   return (
     <div
       className={cn(
-        "relative rounded-sm border border-border/50 bg-card p-4 shadow-sm transition-shadow duration-300 hover:z-30 hover:shadow-md",
+        "relative rounded-lg border border-border/50 bg-card p-4 shadow-sm transition-shadow duration-300 hover:z-30 hover:shadow-md",
         index > 0 && "-mt-3 sm:-mt-4",
-        index % 2 === 1 && "ml-0 sm:ml-5 rotate-[1.5deg]",
-        index % 2 === 0 && "mr-0 sm:mr-4 -rotate-[0.5deg]"
+        index % 2 === 1 && "ml-0 sm:ml-5",
+        index % 2 === 0 && "mr-0 sm:mr-4",
+        deckVisible && index % 2 === 1 && "rotate-[1.5deg]",
+        deckVisible && index % 2 === 0 && "-rotate-[0.5deg]",
+        fm && !fm.reduced && !fm.active && "opacity-0",
+        animates && fm?.active && "animate-problem-sans-stagger"
       )}
-      style={{ zIndex: index + 1 }}
+      style={{
+        zIndex: index + 1,
+        animationDelay:
+          animates && fm?.active ? `${index * 132}ms` : undefined,
+      }}
     >
       <div className="flex gap-3">
-        <span className="mt-0.5 shrink-0 drop-shadow-sm">
+        <span className="mt-0.5 shrink-0">
           <VerifiedBadgeIcon />
         </span>
         <div>
@@ -140,7 +154,7 @@ export function ProblemScreenshotFrame({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-sm border border-primary/30 bg-background shadow-sm",
+        "overflow-hidden rounded-xl border border-primary/30 bg-background shadow-sm",
         className
       )}
     >

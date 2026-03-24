@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Users, Disc3, TrendingUp, ListOrdered } from "lucide-react"
+import { Users, Disc3, TrendingUp, CircleUser } from "lucide-react"
 import type { PublicLandingStats } from "@/lib/public-stats"
 
 const POLL_MS = 30_000
@@ -11,7 +11,9 @@ type StatDef = {
   label: string
   sublabel?: string
   suffix?: string
-  pick: (s: PublicLandingStats) => number
+  pick: (s: PublicLandingStats) => number | null
+  /** Affichage du chiffre (ex. séparateurs milliers) */
+  format?: (n: number) => string
 }
 
 const statDefs: StatDef[] = [
@@ -27,13 +29,14 @@ const statDefs: StatDef[] = [
   },
   {
     icon: TrendingUp,
-    label: "Tracks tendances identifiées",
+    label: "Tracks tendances",
     pick: (s) => s.trendingTracks,
   },
   {
-    icon: ListOrdered,
-    label: "Actions en file",
-    pick: (s) => s.queuePending,
+    icon: CircleUser,
+    label: "Utilisateurs inscrits",
+    pick: (s) => s.registeredUsers,
+    format: (n) => n.toLocaleString("fr-FR"),
   },
 ]
 
@@ -42,6 +45,7 @@ function StatCard({
   label,
   sublabel,
   suffix,
+  format,
   value,
   active,
   delay,
@@ -65,7 +69,7 @@ function StatCard({
           <span className="text-muted-foreground font-light text-2xl">…</span>
         ) : (
           <>
-            {value}
+            {format ? format(value) : value}
             {suffix ?? ""}
           </>
         )}
@@ -140,16 +144,17 @@ export function Stats() {
 
   return (
     <section ref={ref} className="py-14 bg-card border-y border-border/60">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        <div className="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
           {statDefs.map((def, i) => (
-            <StatCard
-              key={def.label}
-              {...def}
-              value={live ? def.pick(live) : null}
-              active={visible}
-              delay={i * 120}
-            />
+            <div key={def.label}>
+              <StatCard
+                {...def}
+                value={live ? def.pick(live) : null}
+                active={visible}
+                delay={i * 120}
+              />
+            </div>
           ))}
         </div>
       </div>

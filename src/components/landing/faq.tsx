@@ -3,17 +3,26 @@
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { SectionKicker } from "./section-kicker"
+import { PillarsAnimatedHeader } from "./pillar-motion"
+import {
+  useInViewOnce,
+  useReducedMotion,
+} from "./how-it-works/demos/use-demo-animation"
+
+const FAQ_ITEM_STAGGER_MS = 68
+const FAQ_LIST_BASE_DELAY_MS = 160
 
 const items = [
   {
     question: "Est-ce que vous achetez des streams ou des followers ?",
     answer:
-      "Non. Aucun trafic artificiel. Chaque action (follow, like, commentaire, repost) est mise en file par toi et exécutée dans le respect des quotas SoundCloud. Rien n'est gonflé.",
+      "Non, jamais. Sonopilot est un outil de découverte. Chaque interaction que tu fais est manuelle et individuelle.",
   },
   {
-    question: "Qui décide des actions ?",
+    question: "Qui décide des interactions ?",
     answer:
-      "Toi. Tu actives les modes de pilotage (fanbase, artistes similaires, tendances) et tu choisis chaque action. Rien ne part à ton insu.",
+      "Toi. Tu navigues dans les profils, tu écoutes et tu décides de chaque interaction. Rien ne part sans ton action.",
   },
   {
     question: "Ça remplace un community manager ou une bonne prod ?",
@@ -88,25 +97,43 @@ function FAQItem({
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const reduced = useReducedMotion()
+  const { ref: listRef, inView: listInView } = useInViewOnce(0.12)
+  const listActive = reduced || listInView
 
   return (
     <section id="faq" className="bg-card py-20 md:py-28">
       <div className="mx-auto max-w-2xl px-4 sm:px-6">
-        <div className="text-center mb-12">
+        <PillarsAnimatedHeader className="mb-12 max-w-2xl">
+          <SectionKicker>FAQ</SectionKicker>
           <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
             Questions fréquentes
           </h2>
-        </div>
+        </PillarsAnimatedHeader>
 
-        <div className="border-t border-border/60">
+        <div ref={listRef} className="border-t border-border/60">
           {items.map((item, i) => (
-            <FAQItem
-              key={i}
-              question={item.question}
-              answer={item.answer}
-              open={openIndex === i}
-              onToggle={() => setOpenIndex(openIndex === i ? null : i)}
-            />
+            <div
+              key={item.question}
+              className={cn(
+                !reduced && !listActive && "opacity-0",
+                listActive && !reduced && "animate-pillar-text-reveal"
+              )}
+              style={
+                listActive && !reduced
+                  ? {
+                      animationDelay: `${FAQ_LIST_BASE_DELAY_MS + i * FAQ_ITEM_STAGGER_MS}ms`,
+                    }
+                  : undefined
+              }
+            >
+              <FAQItem
+                question={item.question}
+                answer={item.answer}
+                open={openIndex === i}
+                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+              />
+            </div>
           ))}
         </div>
       </div>

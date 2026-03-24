@@ -10,9 +10,10 @@ import {
   UserPlus,
   Repeat2,
 } from "lucide-react"
-import { siteConfig } from "@/lib/site"
 import { notifications, type FakeNotification } from "@/lib/fake-data"
+import { ComingSoonTrigger } from "./coming-soon"
 import { cn } from "@/lib/utils"
+import { sectionEyebrowClasses } from "./section-kicker"
 
 /** Emplacements irréguliers (hauteur + côté) — une entrée par notification */
 const HERO_NOTIF_SLOTS: { notifIndex: number; side: "left" | "right"; top: string }[] = [
@@ -29,7 +30,7 @@ const HERO_NOTIF_SLOTS: { notifIndex: number; side: "left" | "right"; top: strin
   { notifIndex: 8, side: "right", top: "82%" },
 ]
 
-/** Ordre d’apparition entrelacé gauche/droite (pas 0,1,2,3…) */
+/** Ordre d'apparition entrelacé gauche/droite (pas 0,1,2,3…) */
 const NOTIF_SHOW_ORDER = [4, 0, 9, 2, 7, 1, 10, 3, 6, 5, 8] as const
 
 const typeConfig = {
@@ -223,7 +224,7 @@ export function Hero() {
     <section className="relative pt-28 pb-8 md:pt-36 md:pb-12 overflow-x-clip">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 relative">
         <div className="relative z-10 flex flex-col items-center text-center">
-          <span className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-xs font-medium text-primary mb-8">
+          <span className={cn(sectionEyebrowClasses, "mb-8")}>
             Alpha gratuite · Accès anticipé
           </span>
 
@@ -236,17 +237,14 @@ export function Hero() {
           <p className="mt-6 max-w-2xl text-base sm:text-lg text-muted-foreground font-light leading-relaxed">
             Sonopilot connecte les artistes émergents avec les bonnes personnes
             — premiers retours, engagement qualifié, un seul hub pour tout
-            piloter. Pas de botting, chaque action est la tienne.
+            suivre et développer ta communauté musicale.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
-            <a
-              href={siteConfig.appUrl + "/auth/signup"}
-              className="inline-flex h-12 px-8 items-center justify-center rounded-lg bg-primary text-base font-medium text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5"
-            >
+            <ComingSoonTrigger className="inline-flex h-12 px-8 items-center justify-center rounded-lg bg-primary text-base font-medium text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5">
               Rejoindre l&apos;alpha gratuit
               <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
+            </ComingSoonTrigger>
             <a
               href="#comment-ca-marche"
               className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
@@ -257,11 +255,11 @@ export function Hero() {
           </div>
 
           <p className="mt-6 text-xs text-muted-foreground/60 tracking-wide">
-            Sans carte bancaire · Pas de faux trafic · 100 % gratuit
+            Sans carte bancaire · 100 % gratuit
           </p>
         </div>
 
-        {/* Sonare — derrière le texte ; plus bas sur mobile pour souligner l’aperçu produit */}
+        {/* Sonare — derrière le texte ; plus bas sur mobile pour souligner l'aperçu produit */}
         <div
           aria-hidden
           className="pointer-events-none absolute left-1/2 z-0 -translate-x-1/2 top-[62%] translate-y-4 md:top-[56%] md:translate-y-0 lg:top-[55%]"
@@ -303,8 +301,8 @@ export function Hero() {
             <div className="rounded-xl border border-border/60 bg-card shadow-2xl shadow-black/8">
               <div className="relative overflow-hidden rounded-xl">
                 <Image
-                  src="/images/screenshots/sonopilot_sc_artists.jpg"
-                  alt="Sonopilot — artistes similaires détectés avec actions like, comment, follow"
+                  src="/images/screenshots/sonopilot_sc_artists.jpg?v=2"
+                  alt="Sonopilot — vue artistes avec découverte de profils"
                   width={2880}
                   height={1800}
                   quality={92}

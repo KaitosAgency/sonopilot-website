@@ -11,16 +11,16 @@ export const howItWorksSteps = [
   },
   {
     number: "2",
-    title: "Configure ton pilotage",
+    title: "Personnalise ton expérience",
     description:
-      "Onglet Général : modes (fanbase, similaires, tendances), styles, commentaires rapides — paramètres du compte connecté.",
+      "Définis tes genres, tes centres d'intérêt et tes préférences de découverte — le tout depuis un seul onglet.",
     demo: "general" as const,
   },
   {
     number: "3",
-    title: "Ajoute des actions en file",
+    title: "Interagis avec ta communauté",
     description:
-      "Like, follow, commentaire depuis les tableaux. File unique, plafonds journaliers. SoundCloud pour l’instant.",
+      "Découvre des profils pertinents, écoute et interagis — chaque geste est le tien. SoundCloud pour l'instant.",
     demo: "queue" as const,
   },
 ] as const
