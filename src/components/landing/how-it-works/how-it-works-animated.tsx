@@ -91,22 +91,21 @@ function HowItWorksClosingBlock() {
       key="h3"
       className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
     >
-      Plus de musique, moins de bruit.
+      Moins de bruit, plus de connexions utiles.
     </h3>,
     <p
       key="p1"
       className="mx-auto mt-4 max-w-xl font-light leading-relaxed text-muted-foreground"
     >
-      L&apos;objectif, c&apos;est de toucher les artistes et auditeurs
-      qui comptent vraiment — et de faire grandir une communauté autour
-      de ta musique, avec des interactions que tu choisis toi-même.
+      Touche les artistes et auditeurs qui comptent — fais
+      grandir une communauté autour de ta musique, à ton rythme.
     </p>,
     <p
       key="p2"
       className="mx-auto mt-3 max-w-xl text-sm font-light leading-relaxed text-muted-foreground/85"
     >
-      Sonopilot te libère du temps pour te concentrer sur ce qui fait
-      la différence : créer, échanger, collaborer.
+      Sonopilot te dégage du temps pour l&apos;essentiel :
+      créer, échanger, collaborer.
     </p>,
   ]
 
@@ -146,9 +145,8 @@ export function HowItWorksAnimatedBody() {
           Comment ça marche
         </h2>
         <p className="mt-4 font-light text-muted-foreground">
-          Un seul tableau de bord pour plusieurs réseaux — connexion,
-          personnalisation, découverte. SoundCloud disponible aujourd&apos;hui,
-          extension prévue. Démos sans compte.
+          Connecte tes plateformes, configure tes préférences, explore ta
+          scène — en trois étapes. Tout se passe dans un seul tableau de bord.
         </p>
       </PillarsAnimatedHeader>
 

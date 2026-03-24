@@ -4,23 +4,23 @@ export const howItWorksDemoStageClassName = "mx-auto w-full min-w-0"
 export const howItWorksSteps = [
   {
     number: "1",
-    title: "Connecte SoundCloud",
+    title: "Connecte tes réseaux",
     description:
-      "OAuth : liaison en un clic, pas de stockage en clair, déconnexion à tout moment. Premier réseau disponible : SoundCloud.",
+      "Liaison sécurisée en un clic, déconnexion à tout moment. SoundCloud disponible dès maintenant — d'autres plateformes arrivent.",
     demo: "connect" as const,
   },
   {
     number: "2",
-    title: "Personnalise ton expérience",
+    title: "Définis ton univers",
     description:
-      "Définis tes genres, tes centres d'intérêt et tes préférences de découverte — le tout depuis un seul onglet.",
+      "Choisis tes genres, tes préférences de découverte et ce qui t'intéresse — tout se règle depuis un seul onglet.",
     demo: "general" as const,
   },
   {
     number: "3",
-    title: "Interagis avec ta communauté",
+    title: "Explore et interagis",
     description:
-      "Découvre des profils pertinents, écoute et interagis — chaque geste est le tien. SoundCloud pour l'instant.",
+      "Parcours les profils et morceaux qui matchent ton son. Écoute, follow, like, commente — chaque interaction reste la tienne.",
     demo: "queue" as const,
   },
 ] as const
