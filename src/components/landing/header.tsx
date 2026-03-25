@@ -32,13 +32,31 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  useEffect(() => {
+    if (!menuOpen) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [menuOpen])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false)
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [menuOpen])
+
   return (
+    <>
     <header
       className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300",
-        scrolled
-          ? "bg-background/80 backdrop-blur-lg border-b border-border shadow-sm"
-          : "bg-transparent"
+        "fixed top-0 w-full border-b border-border bg-background transition-shadow duration-300",
+        menuOpen ? "z-[101] shadow-sm" : "z-50",
+        scrolled && !menuOpen && "shadow-sm"
       )}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -91,16 +109,18 @@ export function Header() {
           </button>
         </div>
       </div>
+    </header>
 
+    {menuOpen ? (
       <div
-        className={cn(
-          "md:hidden overflow-hidden transition-all duration-300 border-t border-border bg-background/95 backdrop-blur-lg",
-          menuOpen ? "max-h-80" : "max-h-0 border-t-transparent"
-        )}
+        className="fixed inset-x-0 top-16 bottom-0 z-[100] flex min-h-0 flex-col overflow-y-auto overscroll-contain bg-background md:hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-label={messages.header.menuDialog}
       >
-        <nav className="flex flex-col px-4 py-4 gap-1">
+        <nav className="flex min-h-0 flex-1 flex-col gap-1 px-4 py-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
           <div className="mb-2 flex justify-center sm:hidden">
-            <LanguageSwitcher />
+            <LanguageSwitcher onNavigate={() => setMenuOpen(false)} />
           </div>
           {navLinks.map((link) => (
             <a
@@ -117,12 +137,13 @@ export function Header() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setMenuOpen(false)}
-            className="inline-flex h-10 items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors mt-3 w-full"
+            className="mt-3 inline-flex h-10 w-full items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             {messages.header.joinAlphaMobile}
           </a>
         </nav>
       </div>
-    </header>
+    ) : null}
+    </>
   )
 }

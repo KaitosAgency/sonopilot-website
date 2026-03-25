@@ -15,6 +15,7 @@ import { notifications, type FakeNotification } from "@/lib/fake-data"
 import { interpolate } from "@/lib/i18n/interpolate"
 import { cn } from "@/lib/utils"
 import { siteConfig } from "@/lib/site"
+import { LandingClickableImage } from "./landing-clickable-image"
 import { sectionEyebrowClasses } from "./section-kicker"
 
 /** Emplacements irréguliers (hauteur + côté) — une entrée par notification */
@@ -333,7 +334,7 @@ export function Hero() {
 
             <div className="rounded-xl border border-border/60 bg-card shadow-2xl shadow-black/8">
               <div className="relative overflow-hidden rounded-xl">
-                <Image
+                <LandingClickableImage
                   src="/images/screenshots/sonopilot_sc_artists.jpg?v=2"
                   alt={hero.screenshotAlt}
                   width={2880}

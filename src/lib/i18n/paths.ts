@@ -1,5 +1,12 @@
 import { defaultLocale, type Locale } from "./config"
 
+/** Locale déduite de l’URL (préfixe `/fr`). Alignée sur le middleware. */
+export function localeFromPathname(pathname: string): Locale {
+  const p = pathname.startsWith("/") ? pathname : `/${pathname}`
+  if (p === "/fr" || p.startsWith("/fr/")) return "fr"
+  return defaultLocale
+}
+
 /** Accueil canonique pour une locale. */
 export function homePath(locale: Locale): string {
   return locale === defaultLocale ? "/" : "/fr"

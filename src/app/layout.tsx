@@ -4,9 +4,8 @@ import Script from "next/script";
 import "./globals.css";
 
 import { ComingSoonProvider } from "@/components/landing/coming-soon";
-import { I18nProvider } from "@/components/providers/i18n-provider";
+import { I18nSyncProvider } from "@/components/providers/i18n-sync-provider";
 import { getRequestLocale } from "@/lib/i18n/request-locale";
-import { getTranslations } from "@/lib/i18n/translations";
 import { siteConfig } from "@/lib/site";
 
 const outfit = Outfit({
@@ -104,7 +103,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getRequestLocale();
-  const messages = getTranslations(locale);
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -127,9 +125,9 @@ export default async function RootLayout({
             </Script>
           </>
         ) : null}
-        <I18nProvider locale={locale} messages={messages}>
+        <I18nSyncProvider>
           <ComingSoonProvider>{children}</ComingSoonProvider>
-        </I18nProvider>
+        </I18nSyncProvider>
       </body>
     </html>
   );

@@ -1,7 +1,9 @@
 {
   "common": {
     "timeAgo": "il y a {{mins}} min",
-    "planPrefix": "Plan :"
+    "planPrefix": "Plan :",
+    "expandImage": "Voir l'image en grand",
+    "closeImageLightbox": "Fermer la vue agrandie"
   },
   "hero": {
     "eyebrow": "Alpha gratuite · Accès anticipé",

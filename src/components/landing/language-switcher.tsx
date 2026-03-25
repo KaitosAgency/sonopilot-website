@@ -21,16 +21,27 @@ function routeKeyFromPathname(pathname: string): string {
   return pathname.replace(/^\//, "").replace(/\/$/, "")
 }
 
-export function LanguageSwitcher({ className }: { className?: string }) {
+export function LanguageSwitcher({
+  className,
+  onNavigate,
+}: {
+  className?: string
+  /** Appelé après navigation (ex. fermer le menu mobile). */
+  onNavigate?: () => void
+}) {
   const pathname = usePathname() ?? "/"
   const router = useRouter()
   const { locale, messages, t } = useI18n()
 
   const switchTo = (target: Locale) => {
     if (target === locale) return
-    const key = routeKeyFromPathname(pathname)
+    // URL réelle du navigateur (fiable avec rewrites middleware) — évite les incohérences usePathname.
+    const path =
+      typeof window !== "undefined" ? window.location.pathname : pathname
+    const key = routeKeyFromPathname(path)
     const next = key ? sitePath(target, key) : homePath(target)
     router.push(next)
+    onNavigate?.()
   }
 
   return (

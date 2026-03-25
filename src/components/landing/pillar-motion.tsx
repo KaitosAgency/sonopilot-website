@@ -1,7 +1,7 @@
 "use client"
 
-import Image from "next/image"
 import { Disc3, LayoutDashboard, Users } from "lucide-react"
+import { LandingClickableImage } from "./landing-clickable-image"
 import { Children, type ReactNode } from "react"
 import { cn } from "@/lib/utils"
 import {
@@ -144,7 +144,7 @@ export function PillarAnimatedRow({
               : undefined
           }
         >
-          <Image
+          <LandingClickableImage
             src={pillar.image}
             alt={pillar.imageAlt}
             width={1440}

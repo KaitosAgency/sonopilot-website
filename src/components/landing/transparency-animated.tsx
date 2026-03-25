@@ -1,8 +1,8 @@
 "use client"
 
 import { Check } from "lucide-react"
-import Image from "next/image"
 import { useI18n } from "@/components/providers/i18n-provider"
+import { LandingClickableImage } from "./landing-clickable-image"
 import { cn } from "@/lib/utils"
 import { SectionKicker } from "./section-kicker"
 import { LiveReactionsBackdrop } from "./live-reactions-backdrop"
@@ -137,7 +137,7 @@ export function TransparencyAnimatedInner() {
               : undefined
           }
         >
-          <Image
+          <LandingClickableImage
             src="/images/screenshots/sonopilot_sc_tracks.jpg?v=2"
             alt={tr.imageAlt}
             width={1440}

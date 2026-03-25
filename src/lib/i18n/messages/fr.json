@@ -14,7 +14,8 @@
     "joinAlpha": "Rejoindre l'alpha",
     "joinAlphaMobile": "Rejoindre l'alpha gratuit",
     "menuOpen": "Ouvrir le menu",
-    "menuClose": "Fermer le menu"
+    "menuClose": "Fermer le menu",
+    "menuDialog": "Navigation du site"
   },
   "footer": {
     "alphaAccess": "Accès alpha",

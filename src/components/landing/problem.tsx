@@ -1,7 +1,7 @@
 "use client"
 
-import Image from "next/image"
 import { useI18n } from "@/components/providers/i18n-provider"
+import { LandingClickableImage } from "./landing-clickable-image"
 import { AnimateOnScroll } from "./animate-on-scroll"
 import { ProblemComparisonAnimatedGrid } from "./problem-comparison-animate"
 import { ProblemMutedShell, ProblemScreenshotFrame } from "./problem-cards"
@@ -72,7 +72,7 @@ export function Problem() {
                 />
                 <div className="mt-8 md:mt-10">
                   <ProblemScreenshotFrame>
-                    <Image
+                    <LandingClickableImage
                       src="/images/screenshots/sc-dashboard-notifications.jpg?v=3"
                       alt={p.screenshotAlt}
                       width={1600}
