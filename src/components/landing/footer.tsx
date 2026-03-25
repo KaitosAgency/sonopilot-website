@@ -6,8 +6,6 @@ import { useI18n } from "@/components/providers/i18n-provider"
 import { sitePath } from "@/lib/i18n/paths"
 import { publisherConfig, siteConfig } from "@/lib/site"
 
-import { ComingSoonTrigger } from "./coming-soon"
-
 export function Footer() {
   const { locale, messages } = useI18n()
   const f = messages.footer
@@ -31,12 +29,22 @@ export function Footer() {
           </div>
 
           <div className="flex items-center gap-6 text-sm">
-            <ComingSoonTrigger className="text-gray-400 hover:text-white transition-colors cursor-pointer bg-transparent border-0 p-0 font-[inherit] text-sm">
+            <a
+              href={siteConfig.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors text-sm"
+            >
               {f.alphaAccess}
-            </ComingSoonTrigger>
-            <ComingSoonTrigger className="text-gray-400 hover:text-white transition-colors cursor-pointer bg-transparent border-0 p-0 font-[inherit] text-sm">
+            </a>
+            <a
+              href={siteConfig.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors text-sm"
+            >
               {f.login}
-            </ComingSoonTrigger>
+            </a>
           </div>
         </div>
 
@@ -69,6 +77,19 @@ export function Footer() {
             {f.terms}
           </Link>
         </nav>
+
+        <p className="border-t border-white/10 pt-6 text-center text-xs text-gray-500 sm:text-left">
+          {f.creditBefore}
+          <a
+            href="https://kaitos.agency/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 underline-offset-2 transition-colors hover:text-white hover:underline"
+          >
+            Kaitos AI Agency
+          </a>
+          {f.creditAfter}
+        </p>
       </div>
     </footer>
   )

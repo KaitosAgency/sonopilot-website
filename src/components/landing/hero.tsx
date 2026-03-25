@@ -13,8 +13,8 @@ import {
 import { useI18n } from "@/components/providers/i18n-provider"
 import { notifications, type FakeNotification } from "@/lib/fake-data"
 import { interpolate } from "@/lib/i18n/interpolate"
-import { ComingSoonTrigger } from "./coming-soon"
 import { cn } from "@/lib/utils"
+import { siteConfig } from "@/lib/site"
 import { sectionEyebrowClasses } from "./section-kicker"
 
 /** Emplacements irréguliers (hauteur + côté) — une entrée par notification */
@@ -267,10 +267,15 @@ export function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
-            <ComingSoonTrigger className="inline-flex h-12 px-8 items-center justify-center rounded-lg bg-primary text-base font-medium text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5">
+            <a
+              href={siteConfig.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-12 px-8 items-center justify-center rounded-lg bg-primary text-base font-medium text-primary-foreground hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5"
+            >
               {hero.ctaAlpha}
               <ArrowRight className="ml-2 h-4 w-4" />
-            </ComingSoonTrigger>
+            </a>
             <a
               href="#comment-ca-marche"
               className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"

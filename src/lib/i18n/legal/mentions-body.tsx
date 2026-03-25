@@ -6,8 +6,16 @@ export function MentionsLegalesBody({ lang }: { lang: Locale }) {
 }
 
 function MentionsFr() {
-  const { tradeName, representativeName, street, postalCode, city, country, email, siret } =
-    publisherConfig
+  const {
+    tradeName,
+    registrationNumber,
+    incorporationDateFr,
+    street,
+    postalCode,
+    city,
+    country,
+    email,
+  } = publisherConfig
   const host = siteConfig.url.replace(/^https?:\/\//, "")
 
   return (
@@ -20,8 +28,6 @@ function MentionsFr() {
         <p>
           <strong className="text-foreground">{tradeName}</strong>
           <br />
-          {representativeName}
-          <br />
           {street}
           <br />
           {postalCode} {city}, {country}
@@ -31,13 +37,15 @@ function MentionsFr() {
             {email}
           </a>
           <br />
-          SIRET : {siret}
+          Numéro d&apos;enregistrement (UEN) : {registrationNumber}
+          <br />
+          Date de constitution : {incorporationDateFr}
         </p>
       </section>
 
       <section>
         <h2>Directeur de la publication</h2>
-        <p>{representativeName}</p>
+        <p>La société {tradeName}</p>
       </section>
 
       <section>
@@ -76,7 +84,7 @@ function MentionsFr() {
 }
 
 function MentionsEn() {
-  const { tradeName, representativeName, street, postalCode, city, country, email, siret } =
+  const { tradeName, registrationNumber, incorporationDate, street, postalCode, city, country, email } =
     publisherConfig
   const host = siteConfig.url.replace(/^https?:\/\//, "")
 
@@ -90,8 +98,6 @@ function MentionsEn() {
         <p>
           <strong className="text-foreground">{tradeName}</strong>
           <br />
-          {representativeName}
-          <br />
           {street}
           <br />
           {postalCode} {city}, {country}
@@ -101,13 +107,15 @@ function MentionsEn() {
             {email}
           </a>
           <br />
-          Company ID (SIRET): {siret}
+          Registration No.: {registrationNumber}
+          <br />
+          Incorporation Date: {incorporationDate}
         </p>
       </section>
 
       <section>
         <h2>Publication director</h2>
-        <p>{representativeName}</p>
+        <p>{tradeName}</p>
       </section>
 
       <section>

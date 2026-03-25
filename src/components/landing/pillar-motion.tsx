@@ -50,7 +50,7 @@ export function PillarsAnimatedHeader({
     <div
       ref={ref}
       className={cn(
-        "mx-auto mb-16 max-w-3xl text-center",
+        "mx-auto mb-16 min-w-0 max-w-3xl text-center",
         className
       )}
     >

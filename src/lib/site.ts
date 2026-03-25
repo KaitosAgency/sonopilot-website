@@ -13,7 +13,7 @@ export const siteConfig = {
   /** URL de l'app (signup, login) */
   appUrl:
     process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ||
-    "https://runroster.kaitos.agency",
+    "https://www.app.sonopilot.com",
   language: "en" as const,
   locale: "en_US" as const,
   /** Partage social (1200×630). Source vectorielle : `/og/sonopilot-og.svg` — régénérer le PNG avec `npm run og:png`. */
@@ -44,14 +44,16 @@ export const siteConfig = {
 
 /** Société éditrice du site vitrine — mentions légales */
 export const publisherConfig = {
-  tradeName: "YellowBird.",
-  representativeName: "Valentin LORIOT",
-  street: "5 avenue Marx Dormoy",
-  postalCode: "18000",
-  city: "Bourges",
-  country: "France",
+  tradeName: "KAITOS TECH PTE. LTD.",
+  /** UEN (Singapore) */
+  registrationNumber: "202608641K",
+  incorporationDate: "26 February 2026",
+  incorporationDateFr: "26 février 2026",
+  street: "160 Robinson Road, #14-04 Singapore Business Federation Center",
+  postalCode: "068914",
+  city: "Singapore",
+  country: "Singapore",
   email: "contact@sonopilot.com",
-  siret: "848 793 253 00016",
 } as const;
 
 /** Hébergeur du site (Next.js / déploiement courant) */

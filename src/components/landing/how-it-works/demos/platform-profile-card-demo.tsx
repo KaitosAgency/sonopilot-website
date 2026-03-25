@@ -53,9 +53,9 @@ export function PlatformCardProfileSkeleton() {
       <div className="flex min-h-[24px] items-center justify-center">
         <div className={cn("h-5 w-20 rounded-full", bar)} />
       </div>
-      <div className="grid min-h-[56px] grid-cols-4 gap-1.5 border-y border-border py-3">
+      <div className="grid min-h-[56px] grid-cols-4 gap-1.5 border-y border-border py-3 [grid-template-columns:repeat(4,minmax(0,1fr))]">
         {Array.from({ length: SKELETON_STAT_SLOTS }, (_, i) => (
-          <div key={i} className="text-center">
+          <div key={i} className="min-w-0 text-center">
             <div className={cn("mx-auto mb-0.5 h-4 w-8", bar)} />
             <div className={cn("mx-auto h-2.5 w-10", bar)} />
           </div>
@@ -99,7 +99,7 @@ export function PlatformProfileCardDemo({
   return (
     <Card
       className={cn(
-        "relative mx-auto flex w-full min-w-0 flex-col overflow-hidden rounded-xl border border-border/60 bg-card shadow-lg shadow-black/5",
+        "relative mx-auto flex w-full min-w-0 max-w-full flex-col overflow-hidden rounded-xl border border-border/60 bg-card shadow-lg shadow-black/5",
         className
       )}
     >
@@ -203,7 +203,7 @@ export function PlatformProfileCardDemo({
         </div>
       </div>
 
-      <CardContent className="flex flex-1 flex-col px-3 pb-3 pt-12 text-center">
+      <CardContent className="flex min-w-0 flex-1 flex-col px-3 pb-3 pt-12 text-center">
         <div
           className={cn(
             "mb-3 flex shrink-0 flex-col overflow-hidden text-center",
@@ -230,13 +230,13 @@ export function PlatformProfileCardDemo({
                 </span>
               </div>
 
-              <div className="mb-2 grid min-h-0 shrink-0 grid-cols-4 gap-1 border-y border-border py-2.5">
+              <div className="mb-2 grid min-h-0 w-full min-w-0 shrink-0 grid-cols-4 gap-1 border-y border-border py-2.5 [grid-template-columns:repeat(4,minmax(0,1fr))]">
                 {stats.map((stat) => (
-                  <div key={stat.label} className="text-center">
-                    <div className="text-sm font-bold leading-none text-foreground">
+                  <div key={stat.label} className="min-w-0 px-0.5 text-center">
+                    <div className="text-sm font-bold leading-none text-foreground tabular-nums">
                       {stat.value.toLocaleString(localeTag)}
                     </div>
-                    <div className="mt-0.5 text-[9px] leading-tight text-muted-foreground">
+                    <div className="mt-0.5 break-words text-[8px] leading-tight text-muted-foreground sm:text-[9px]">
                       {stat.label}
                     </div>
                   </div>

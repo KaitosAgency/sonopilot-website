@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react"
 import { useI18n } from "@/components/providers/i18n-provider"
 import { cn } from "@/lib/utils"
-import { ComingSoonTrigger } from "./coming-soon"
+import { siteConfig } from "@/lib/site"
 import { SectionKicker } from "./section-kicker"
 import {
   useInViewOnce,
@@ -83,10 +83,15 @@ export function AlphaCtaAnimatedInner() {
             : undefined
         }
       >
-        <ComingSoonTrigger className="inline-flex h-12 items-center justify-center rounded-lg bg-white px-8 text-base font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-xl">
+        <a
+          href={siteConfig.appUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-12 items-center justify-center rounded-lg bg-white px-8 text-base font-semibold text-primary shadow-lg transition-all hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-xl"
+        >
           {a.cta}
           <ArrowRight className="ml-2 h-4 w-4" />
-        </ComingSoonTrigger>
+        </a>
       </div>
 
       <p

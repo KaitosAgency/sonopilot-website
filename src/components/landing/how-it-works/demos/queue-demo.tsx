@@ -83,6 +83,33 @@ function totalQueue(q: QueueState) {
   return q.follow + q.unfollow + q.like + q.repost + q.comment
 }
 
+/** Anneaux décoratifs au-dessus du toast — étroits, centrés, sans élargir le layout */
+function QueueToastSonarDecor() {
+  return (
+    <svg
+      className="pointer-events-none absolute bottom-full left-1/2 z-0 mb-1 h-9 w-[min(9.5rem,calc(100%-6px))] max-w-[calc(100%-6px)] -translate-x-1/2 text-emerald-500/45 sm:h-10 sm:w-[min(11rem,calc(100%-8px))] dark:text-emerald-400/35"
+      viewBox="0 0 100 44"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      {[0, 1, 2, 3].map((i) => (
+        <ellipse
+          key={i}
+          cx="50"
+          cy="40"
+          rx={36 - i * 7.2}
+          ry={15 - i * 3}
+          stroke="currentColor"
+          strokeWidth="0.55"
+          vectorEffect="non-scaling-stroke"
+          opacity={0.48 - i * 0.1}
+        />
+      ))}
+    </svg>
+  )
+}
+
 function cursorAtButton(
   wrap: HTMLElement,
   button: HTMLElement,
@@ -271,7 +298,7 @@ export function QueueDemo() {
     <div
       ref={assignContainer}
       className={cn(
-        "demo-queue-wrap relative mx-auto w-full max-w-2xl overflow-visible rounded-xl border border-border/60 bg-card p-4 shadow-lg shadow-black/5 sm:p-5 md:max-w-3xl"
+        "demo-queue-wrap relative mx-auto w-full min-w-0 max-w-2xl overflow-visible rounded-xl border border-border/60 bg-card p-4 shadow-lg shadow-black/5 sm:p-5 md:max-w-3xl"
       )}
     >
       <div className="mb-3 flex flex-wrap items-center gap-2">
@@ -422,7 +449,7 @@ export function QueueDemo() {
       ) : null}
 
       <div
-        className="pointer-events-none absolute -bottom-1 -right-3 z-20 w-[min(100vw-1.5rem,20rem)] sm:-bottom-1 sm:-right-10 sm:w-80"
+        className="pointer-events-none absolute inset-x-0 -bottom-1 z-20 mx-auto w-full max-w-[20rem] sm:inset-x-auto sm:right-3 sm:mx-0 sm:ml-auto sm:w-80 md:-right-10"
         aria-live="polite"
       >
         <div
@@ -439,36 +466,40 @@ export function QueueDemo() {
           {demoToasts.map((t, index) => {
             const stackIndex = demoToasts.length - 1 - index
             const bottom = 12 + stackIndex * TOAST_OVERLAP_OFFSET
+            const isTopToast = index === demoToasts.length - 1
             return (
               <div
                 key={t.id}
                 className="absolute inset-x-0 w-full max-w-full"
                 style={{ bottom: `${bottom}px`, zIndex: index }}
               >
-                <div
-                  className={cn(
-                    "box-border flex min-h-[3.25rem] w-full max-w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left shadow-lg",
-                    "border-emerald-600/35 bg-emerald-50 text-emerald-900",
-                    "dark:border-emerald-500/40 dark:bg-emerald-950/95 dark:text-emerald-50"
-                  )}
-                >
-                  <Check
-                    className="h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-400"
-                    strokeWidth={2.5}
-                    aria-hidden
-                  />
-                  <p className="min-w-0 flex-1 text-sm font-medium leading-snug">
-                    {t.message}{" "}
-                    <span className="tabular-nums text-emerald-800/90 dark:text-emerald-200/90">
-                      {interpolate(d.pendingTotal, { count: pendingTotal })}
-                    </span>
-                  </p>
-                  <span
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-emerald-600 dark:text-emerald-400"
-                    aria-hidden
+                <div className="relative w-full">
+                  {isTopToast ? <QueueToastSonarDecor /> : null}
+                  <div
+                    className={cn(
+                      "relative z-10 box-border flex min-h-[3.25rem] w-full max-w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left shadow-lg",
+                      "border-emerald-600/35 bg-emerald-50 text-emerald-900",
+                      "dark:border-emerald-500/40 dark:bg-emerald-950/95 dark:text-emerald-50"
+                    )}
                   >
-                    <X className="h-4 w-4" strokeWidth={2} />
-                  </span>
+                    <Check
+                      className="h-5 w-5 shrink-0 text-emerald-600 dark:text-emerald-400"
+                      strokeWidth={2.5}
+                      aria-hidden
+                    />
+                    <p className="min-w-0 flex-1 text-sm font-medium leading-snug">
+                      {t.message}{" "}
+                      <span className="tabular-nums text-emerald-800/90 dark:text-emerald-200/90">
+                        {interpolate(d.pendingTotal, { count: pendingTotal })}
+                      </span>
+                    </p>
+                    <span
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-emerald-600 dark:text-emerald-400"
+                      aria-hidden
+                    >
+                      <X className="h-4 w-4" strokeWidth={2} />
+                    </span>
+                  </div>
                 </div>
               </div>
             )

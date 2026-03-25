@@ -304,7 +304,7 @@ export function GeneralTabDemo() {
     <div
       ref={ref}
       className={cn(
-        "demo-general-wrap relative mx-auto w-full max-w-2xl rounded-xl border border-border/60 bg-card p-4 shadow-lg shadow-black/5 sm:p-5 md:p-6"
+        "demo-general-wrap relative mx-auto w-full min-w-0 max-w-2xl rounded-xl border border-border/60 bg-card p-4 shadow-lg shadow-black/5 sm:p-5 md:p-6"
       )}
     >
       {play ? (

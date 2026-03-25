@@ -21,7 +21,9 @@
     "legalNav": "Legal information",
     "legalNotice": "Legal notice",
     "privacy": "Privacy",
-    "terms": "Terms"
+    "terms": "Terms",
+    "creditBefore": "Designed by ",
+    "creditAfter": ", with ♥"
   },
   "comingSoon": {
     "closeDialog": "Close dialog",

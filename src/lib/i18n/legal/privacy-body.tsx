@@ -6,7 +6,7 @@ export function PrivacyPolicyBody({ lang }: { lang: Locale }) {
 }
 
 function PrivacyFr() {
-  const { tradeName, representativeName, street, postalCode, city, country, email } = publisherConfig
+  const { tradeName, street, postalCode, city, country, email } = publisherConfig
 
   return (
     <>
@@ -17,7 +17,7 @@ function PrivacyFr() {
           <strong className="text-foreground">{siteConfig.name}</strong> ({siteConfig.url}) est :
         </p>
         <p>
-          <strong className="text-foreground">{tradeName}</strong> — {representativeName}
+          <strong className="text-foreground">{tradeName}</strong>
           <br />
           {street}, {postalCode} {city}, {country}
           <br />
@@ -118,7 +118,7 @@ function PrivacyFr() {
 }
 
 function PrivacyEn() {
-  const { tradeName, representativeName, street, postalCode, city, country, email } = publisherConfig
+  const { tradeName, street, postalCode, city, country, email } = publisherConfig
 
   return (
     <>
@@ -129,7 +129,7 @@ function PrivacyEn() {
           <strong className="text-foreground">{siteConfig.name}</strong> ({siteConfig.url}) is:
         </p>
         <p>
-          <strong className="text-foreground">{tradeName}</strong> — {representativeName}
+          <strong className="text-foreground">{tradeName}</strong>
           <br />
           {street}, {postalCode} {city}, {country}
           <br />

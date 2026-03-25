@@ -7,8 +7,8 @@ import { Menu, X, ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useI18n } from "@/components/providers/i18n-provider"
 import { homePath } from "@/lib/i18n/paths"
+import { siteConfig } from "@/lib/site"
 
-import { ComingSoonTrigger } from "./coming-soon"
 import { LanguageSwitcher } from "./language-switcher"
 
 export function Header() {
@@ -69,10 +69,15 @@ export function Header() {
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher className="hidden sm:inline-flex" />
-          <ComingSoonTrigger className="hidden sm:inline-flex h-9 px-4 items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+          <a
+            href={siteConfig.appUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex h-9 px-4 items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
             {messages.header.joinAlpha}
             <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-          </ComingSoonTrigger>
+          </a>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -107,12 +112,15 @@ export function Header() {
               {link.label}
             </a>
           ))}
-          <ComingSoonTrigger
+          <a
+            href={siteConfig.appUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => setMenuOpen(false)}
             className="inline-flex h-10 items-center justify-center rounded-lg bg-primary text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors mt-3 w-full"
           >
             {messages.header.joinAlphaMobile}
-          </ComingSoonTrigger>
+          </a>
         </nav>
       </div>
     </header>

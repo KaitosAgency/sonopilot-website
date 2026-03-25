@@ -21,7 +21,9 @@
     "legalNav": "Informations légales",
     "legalNotice": "Mentions légales",
     "privacy": "Confidentialité",
-    "terms": "CGU"
+    "terms": "CGU",
+    "creditBefore": "Conçu par ",
+    "creditAfter": ", with ♥"
   },
   "comingSoon": {
     "closeDialog": "Fermer la fenêtre",
