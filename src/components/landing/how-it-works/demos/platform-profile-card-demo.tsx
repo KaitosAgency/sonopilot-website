@@ -99,7 +99,7 @@ export function PlatformProfileCardDemo({
   return (
     <Card
       className={cn(
-        "relative mx-auto flex w-full min-w-0 max-w-full flex-col overflow-hidden rounded-xl border border-border/60 bg-card shadow-lg shadow-black/5",
+        "relative mx-auto flex h-full min-h-0 w-full min-w-0 max-w-full flex-col overflow-hidden rounded-xl border border-border/60 bg-card shadow-lg shadow-black/5",
         className
       )}
     >
@@ -203,7 +203,7 @@ export function PlatformProfileCardDemo({
         </div>
       </div>
 
-      <CardContent className="flex min-w-0 flex-1 flex-col px-3 pb-3 pt-12 text-center">
+      <CardContent className="flex min-h-0 min-w-0 flex-1 flex-col px-3 pb-3 pt-12 text-center">
         <div
           className={cn(
             "mb-3 flex shrink-0 flex-col overflow-hidden text-center",
@@ -257,7 +257,7 @@ export function PlatformProfileCardDemo({
           <div
             className={cn(
               CARD_FOOTER_CLASS,
-              "flex-row items-center justify-between gap-2"
+              "mt-auto shrink-0 flex-row items-center justify-between gap-2"
             )}
           >
             <div className="flex min-w-0 flex-1 items-center gap-1.5 text-left">
@@ -273,7 +273,7 @@ export function PlatformProfileCardDemo({
             />
           </div>
         ) : loading ? (
-          <div className={cn(CARD_FOOTER_CLASS, "gap-0.5")}>
+          <div className={cn(CARD_FOOTER_CLASS, "mt-auto shrink-0 gap-0.5")}>
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <Loader2 className="size-3.5 shrink-0 animate-spin text-primary" />
               <span className="line-clamp-1 animate-pulse font-medium text-foreground/80">
@@ -285,7 +285,7 @@ export function PlatformProfileCardDemo({
             </p>
           </div>
         ) : (
-          <div className={CARD_FOOTER_CLASS}>
+          <div className={cn(CARD_FOOTER_CLASS, "mt-auto shrink-0")}>
             <Button
               type="button"
               variant="default"

@@ -27,7 +27,7 @@ import { cn } from "@/lib/utils"
 import { FakeCursor } from "./fake-cursor"
 import { useInViewOnce, useReducedMotion } from "./use-demo-animation"
 
-/** Comme `app/src/components/ui/toast.tsx` — léger chevauchement vertical */
+/** Léger chevauchement entre toasts empilés (zone sous le tableau uniquement) */
 const TOAST_OVERLAP_OFFSET = 6
 
 const CYCLE_MS = 7200
@@ -83,7 +83,7 @@ function totalQueue(q: QueueState) {
   return q.follow + q.unfollow + q.like + q.repost + q.comment
 }
 
-/** Anneaux décoratifs au-dessus du toast — étroits, centrés, sans élargir le layout */
+/** Anneaux décoratifs au-dessus du toast — au-dessus de la barre, dans la pile absolute */
 function QueueToastSonarDecor() {
   return (
     <svg
@@ -298,10 +298,10 @@ export function QueueDemo() {
     <div
       ref={assignContainer}
       className={cn(
-        "demo-queue-wrap relative mx-auto w-full min-w-0 max-w-2xl overflow-visible rounded-xl border border-border/60 bg-card p-4 shadow-lg shadow-black/5 sm:p-5 md:max-w-3xl"
+        "demo-queue-wrap relative mx-auto flex h-full min-h-0 w-full min-w-0 max-w-2xl flex-col overflow-visible rounded-xl border border-border/60 bg-card p-4 shadow-lg shadow-black/5 sm:p-5 md:h-full md:max-w-3xl"
       )}
     >
-      <div className="mb-3 flex flex-wrap items-center gap-2">
+      <div className="mb-3 flex shrink-0 flex-wrap items-center gap-2">
         <span className="text-sm font-medium text-muted-foreground">
           {d.myList}
         </span>
@@ -320,7 +320,7 @@ export function QueueDemo() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-gray-200/80 bg-card dark:border-border">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-lg border border-gray-200/80 bg-card dark:border-border">
         <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-2 py-3.5">
           <span
             className="flex h-4 w-4 shrink-0 rounded border border-input bg-background"
@@ -341,6 +341,7 @@ export function QueueDemo() {
           />
         </div>
 
+        <div className="flex min-h-0 flex-1 flex-col">
         {TABLE_ROWS.map((row) => {
           const isDemo = row.demoRow
           const heart = isDemo
@@ -434,6 +435,8 @@ export function QueueDemo() {
             </div>
           )
         })}
+        <div className="min-h-0 flex-1 shrink-0" aria-hidden />
+        </div>
       </div>
 
       {play ? (
@@ -448,8 +451,9 @@ export function QueueDemo() {
         />
       ) : null}
 
+      {/* Toasts en overlay en bas de la carte — hauteur du bloc inchangée, au-dessus du tableau (z-index) */}
       <div
-        className="pointer-events-none absolute inset-x-0 -bottom-1 z-20 mx-auto w-full max-w-[20rem] sm:inset-x-auto sm:right-3 sm:mx-0 sm:ml-auto sm:w-80 md:-right-10"
+        className="pointer-events-none absolute inset-x-0 -bottom-1 z-20 mx-auto w-full max-w-[20rem] sm:inset-x-auto sm:right-3 sm:mx-0 sm:ml-auto sm:w-80 md:w-72 md:-right-10"
         aria-live="polite"
       >
         <div

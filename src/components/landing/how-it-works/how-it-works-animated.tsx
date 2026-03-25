@@ -43,7 +43,7 @@ function HowItWorksStepsGrid() {
   return (
     <div
       ref={ref}
-      className="grid w-full min-w-0 gap-8 md:grid-cols-3 md:gap-6 lg:gap-8"
+      className="grid w-full min-w-0 items-stretch gap-8 md:grid-cols-3 md:gap-6 lg:gap-8"
     >
       {howItWorksStepDemos.map((stepMeta, i) => {
         const copy = steps[i]
@@ -52,7 +52,7 @@ function HowItWorksStepsGrid() {
         <article
           key={copy.number}
           className={cn(
-            "flex h-full min-w-0 max-w-full flex-col items-center rounded-xl border border-border/60 bg-card/40 p-6 text-center shadow-sm shadow-black/[0.03] backdrop-blur-sm dark:bg-card/30 dark:shadow-black/20 md:p-7",
+            "flex h-full min-h-0 min-w-0 max-w-full flex-col items-center rounded-xl border border-border/60 bg-card/40 p-6 text-center shadow-sm shadow-black/[0.03] backdrop-blur-sm dark:bg-card/30 dark:shadow-black/20 md:p-7",
             !reduced && !active && "opacity-0",
             active && !reduced && "animate-pillar-text-reveal"
           )}
@@ -62,17 +62,17 @@ function HowItWorksStepsGrid() {
               : undefined
           }
         >
-          <div className="mb-6 flex min-h-[14rem] w-full min-w-0 max-w-full flex-1 flex-col items-center justify-center overflow-x-hidden overflow-y-visible">
+          <div className="mb-6 flex min-h-[14rem] w-full min-w-0 max-w-full flex-col items-stretch overflow-visible md:h-[32rem] md:min-h-[32rem]">
             <StepDemo id={stepMeta.demo} />
           </div>
 
           <span className="mb-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold tabular-nums text-primary-foreground">
             {copy.number}
           </span>
-          <h3 className="text-lg font-semibold tracking-tight text-foreground">
+          <h3 className="shrink-0 text-lg font-semibold tracking-tight text-foreground">
             {copy.title}
           </h3>
-          <p className="mt-2 text-sm font-light leading-relaxed text-muted-foreground">
+          <p className="mt-2 shrink-0 text-sm font-light leading-relaxed text-muted-foreground md:min-h-[3.5rem]">
             {copy.description}
           </p>
         </article>

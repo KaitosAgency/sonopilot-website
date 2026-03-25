@@ -76,9 +76,10 @@ export function ConnectSoundCloudDemo() {
   return (
     <div
       ref={ref}
-      className="demo-cursor-connect-wrap relative mx-auto w-full min-w-0"
+      className="demo-cursor-connect-wrap relative mx-auto flex h-full min-h-0 w-full min-w-0 max-w-full flex-col"
     >
       <PlatformProfileCardDemo
+        className="h-full min-h-0"
         phase={phase}
         connectButtonClassName={cn(
           phase === "disconnected" &&
