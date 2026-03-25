@@ -1,7 +1,8 @@
 {
   "seo": {
-    "homeTitle": "Sonopilot",
-    "homeDescription": "Sonopilot aide les artistes émergents à sortir de l'anonymat — premiers retours, engagement qualifié, un seul hub pour piloter ta carrière musicale."
+    "homeTitle": "Sonopilot — Pilote ta carrière musicale",
+    "homeDescription": "Sonopilot aide les artistes émergents à sortir de l'anonymat — premiers retours, engagement qualifié, un seul hub pour piloter ta carrière musicale.",
+    "ogImageAlt": "Sonopilot — hub carrière musicale : SoundCloud, découverte d'artistes, communauté."
   },
   "nav": {
     "product": "Produit",

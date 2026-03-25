@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint . --max-warnings 0",
-    "og:png": "node scripts/rasterize-og.cjs"
+    "og:png": "node scripts/generate-og.cjs",
+    "og:generate": "node scripts/generate-og.cjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",

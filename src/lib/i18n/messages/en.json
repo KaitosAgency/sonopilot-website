@@ -1,7 +1,8 @@
 {
   "seo": {
-    "homeTitle": "Sonopilot",
-    "homeDescription": "Sonopilot helps emerging artists break through the noise — real feedback, meaningful engagement, one hub to steer your music career."
+    "homeTitle": "Sonopilot — Music Career Manager for Emerging Artists",
+    "homeDescription": "Sonopilot helps emerging artists break through the noise — real feedback, meaningful engagement, one hub to steer your music career.",
+    "ogImageAlt": "Sonopilot — music career manager: connect SoundCloud, discover artists, grow your community."
   },
   "nav": {
     "product": "Product",

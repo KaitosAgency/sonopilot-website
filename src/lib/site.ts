@@ -5,7 +5,7 @@
 export const siteConfig = {
   name: "Sonopilot",
   description:
-    "Sonopilot aide les artistes émergents à sortir de l'anonymat — premiers retours, engagement qualifié, un seul hub pour piloter ta carrière musicale.",
+    "Sonopilot helps emerging artists break through the noise — real feedback, meaningful engagement, one hub to steer your music career.",
   /** ex. https://www.sonopilot.com */
   url:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
@@ -16,10 +16,10 @@ export const siteConfig = {
     "https://www.app.sonopilot.com",
   language: "en" as const,
   locale: "en_US" as const,
-  /** Partage social (1200×630). Source vectorielle : `/og/sonopilot-og.svg` — régénérer le PNG avec `npm run og:png`. */
+  /** Partage social (1200×630). Générer avec `npm run og:generate`. */
   ogImage: "/og/sonopilot-og.png",
   ogImageAlt:
-    "Sonopilot — de l'anonymat à l'engagement, un hub pour piloter ta carrière musicale.",
+    "Sonopilot — music career manager: connect SoundCloud, discover artists, grow your community.",
   ogImageWidth: 1200,
   ogImageHeight: 630,
   keywords: [

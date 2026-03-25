@@ -77,8 +77,19 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/images/Logo/logo-sonopilot-only-icon-01.svg",
-    apple: "/images/Logo/logo-sonopilot-only-icon-01.svg",
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      {
+        url: "/favicon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/images/Logo/logo-sonopilot-only-icon-01.svg",
+        type: "image/svg+xml",
+      },
+    ],
+    apple: "/favicon-192.png",
   },
   ...(googleSiteVerification
     ? { verification: { google: googleSiteVerification } }

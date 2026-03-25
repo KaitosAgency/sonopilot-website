@@ -18,6 +18,7 @@ import { homeAlternates } from "@/lib/i18n/alternates"
 import { defaultLocale } from "@/lib/i18n/config"
 import { getRequestLocale } from "@/lib/i18n/request-locale"
 import { getTranslations } from "@/lib/i18n/translations"
+import { HomeJsonLd } from "@/components/seo/home-json-ld"
 import { siteConfig } from "@/lib/site"
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -43,7 +44,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: siteConfig.ogImage,
           width: siteConfig.ogImageWidth,
           height: siteConfig.ogImageHeight,
-          alt: siteConfig.ogImageAlt,
+          alt: m.seo.ogImageAlt,
           type: "image/png",
         },
       ],
@@ -56,9 +57,10 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function HomePage() {
+export default async function HomePage() {
   return (
     <>
+      <HomeJsonLd />
       <Header />
       <main>
         <Hero />
